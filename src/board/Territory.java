@@ -64,11 +64,7 @@ public interface Territory {
      * set territory
      * color
      * @param color
-     * color
-     * to use
-     * NON SO SE SERVE...MA COMUNQUE
-     * CE LA METTO AL MASSIMO SI  TOLGONO
-     * SIA LA SET CHE LA GET
+     * color to use
      */
     void setColor(Color color);
 
@@ -77,7 +73,7 @@ public interface Territory {
      * @return
      * color
      */
-     Color getColor();
+    Color getColor();
 
 
     /**
