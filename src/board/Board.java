@@ -1,7 +1,15 @@
 package board;
 
+import game.GameMaster;
+
 /**
- * Created by DarkLinux on 09/11/15.
+ * Created by nikko31 on 11/11/15.
  */
-public interface Board {
+public class Board {
+    public static Board generate_empty_board() {
+    }
+
+    public void dev_random_assign_owners(GameMaster game_master) {
+
+    }
 }
