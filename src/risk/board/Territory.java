@@ -1,5 +1,7 @@
 package risk.board;
 
+import risk.player.AbstractRiskPlayer;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class Territory {
     private String name;
-    //private Player owner;
+    private int owner_id;
     private int armies;
     private ArrayList<Territory> neighbours;
     private Color color_ground;
@@ -42,14 +44,18 @@ public class Territory {
      * NON ESSENDO IMPLEMTNETATO IL PLAYER
      *
      */
-    //void setOwner(Player owner);
+    public void setOwner(int ownerid){
+        this.owner_id=ownerid;
+    }
 
     /**
      * territory owner
      * @return
      * owner of territory
      */
-    //Player getOwner();
+    public int getOwner(){
+        return this.owner_id;
+    }
 
     /**
      * set the troops
