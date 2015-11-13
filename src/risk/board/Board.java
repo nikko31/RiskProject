@@ -19,6 +19,14 @@ public class Board {
 
     }
 
+    public int getNumContinents(){
+        return continents.size();
+    }
+
+    public int getNumTerritories(){
+        return territories.size();
+    }
+
     public int calcualte_player_territory_armies(int uid){
         int territory_count=0;
         for(Territory t: territories){
