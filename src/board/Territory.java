@@ -1,27 +1,43 @@
 package board;
 
+/**
+ * Created by Federico on 13/11/2015.
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
+
+
+
+
 
 /**
  * Created by DarkLinux on 09/11/15.
  */
-public interface Territory {
+public class Territory {
+    private String name;
+    //private Player owner;
+    private int numb_troops;
+    private ArrayList<Territory> border;
+    private Color color_ground;
 
     /**
      * set territory name
      * @param name
      * name of territory
      */
-    void setName(String name);
-
+    void setName(String name){
+        this.name=name;
+    }
 
     /**
      * get territory name
      * @return
      * name of territory
      */
-    String getName();
+    String getName(){
+        return this.name;
+    }
 
 
     /**
@@ -50,7 +66,9 @@ public interface Territory {
      * @param troops
      * number of troops
      */
-    void setTroopsOn (int troops);
+    void setTroopsOn (int troops){
+        this.numb_troops=troops;
+    }
 
     /**
      * number of troops
@@ -58,7 +76,9 @@ public interface Territory {
      * @return
      * number of troops
      */
-    int getTroopsOn ();
+    int getTroopsOn (){
+        return this.numb_troops;
+    }
 
     /**
      * set territory
@@ -66,14 +86,18 @@ public interface Territory {
      * @param color
      * color to use
      */
-    void setColor(Color color);
+    void setColor(Color color){
+        this.color_ground=color;
+    }
 
     /**
      * get terrytory color
      * @return
      * color
      */
-    Color getColor();
+    Color getColor(){
+        return this.color_ground;
+    }
 
 
     /**
@@ -82,7 +106,9 @@ public interface Territory {
      * @return
      * list of border territories
      */
-    ArrayList<Territory> getBorder();
+    ArrayList<Territory> getBorder(){
+        return this.border;
+    }
 
     /**
      * add a border territory
@@ -90,7 +116,9 @@ public interface Territory {
      * territory to add at
      * the border list
      */
-    void addBorder(Territory territory);
+    void addBorder(Territory territory){
+        border.add(territory);
+    }
 
 
     /**
@@ -100,6 +128,15 @@ public interface Territory {
      * true in positive case
      * otherwise false
      */
-    boolean isBorder();
+    boolean isBorder(Territory near_territory){
+        for(Territory index_territory: border){
+
+            if(near_territory.equals(index_territory)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
