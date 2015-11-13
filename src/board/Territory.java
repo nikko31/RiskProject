@@ -26,7 +26,7 @@ public class Territory {
      * @param name
      * name of territory
      */
-    void setName(String name){
+    public void setName(String name){
         this.name=name;
     }
 
@@ -35,7 +35,7 @@ public class Territory {
      * @return
      * name of territory
      */
-    String getName(){
+    public String getName(){
         return this.name;
     }
 
@@ -66,7 +66,7 @@ public class Territory {
      * @param troops
      * number of troops
      */
-    void setTroopsOn (int troops){
+    public void setTroopsOn (int troops){
         this.numb_troops=troops;
     }
 
@@ -76,7 +76,7 @@ public class Territory {
      * @return
      * number of troops
      */
-    int getTroopsOn (){
+    public int getTroopsOn (){
         return this.numb_troops;
     }
 
@@ -86,7 +86,7 @@ public class Territory {
      * @param color
      * color to use
      */
-    void setColor(Color color){
+    public void setColor(Color color){
         this.color_ground=color;
     }
 
@@ -95,7 +95,7 @@ public class Territory {
      * @return
      * color
      */
-    Color getColor(){
+    public Color getColor(){
         return this.color_ground;
     }
 
@@ -106,7 +106,7 @@ public class Territory {
      * @return
      * list of border territories
      */
-    ArrayList<Territory> getBorder(){
+    public ArrayList<Territory> getBorder(){
         return this.border;
     }
 
@@ -116,7 +116,7 @@ public class Territory {
      * territory to add at
      * the border list
      */
-    void addBorder(Territory territory){
+    public void addBorder(Territory territory){
         border.add(territory);
     }
 
@@ -128,7 +128,7 @@ public class Territory {
      * true in positive case
      * otherwise false
      */
-    boolean isBorder(Territory near_territory){
+    public boolean isBorder(Territory near_territory){
         for(Territory index_territory: border){
 
             if(near_territory.equals(index_territory)){
