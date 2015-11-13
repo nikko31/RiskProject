@@ -1,0 +1,56 @@
+{
+  "North-America": [
+    "alaska",
+    "northwest-territory",
+    "alberta",
+    "ontario",
+    "quebec",
+    "greenland",
+    "western-united-states",
+    "eastern-united-states",
+    "central-america"
+  ],
+  "South-America": [
+    "venezuela",
+    "brazil",
+    "peru",
+    "argentina"
+  ],
+  "Europe": [
+    "iceland",
+    "great-britain",
+    "scandinavia",
+    "ukraine",
+    "northern-europe",
+    "southern-europe",
+    "western-europe"
+  ],
+  "Africa": [
+    "north-africa",
+    "egypt",
+    "east-africa",
+    "congo",
+    "south-africa",
+    "madagascar"
+  ],
+  "Asia": [
+    "ural",
+    "siberia",
+    "yakutsk",
+    "kamchatka",
+    "irkutsk",
+    "mongolia",
+    "japan",
+    "afganistan",
+    "china",
+    "middle-east",
+    "india",
+    "siam"
+  ],
+  "Australia": [
+    "indonesia",
+    "new-guinea",
+    "western-australia",
+    "eastern-australia"
+  ]
+}

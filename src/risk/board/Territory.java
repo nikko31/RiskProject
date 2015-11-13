@@ -16,24 +16,17 @@ public class Territory {
     private Color color_ground;
 
 
-    public Territory(String name){
-        this.name=name;
-    }
-    /**
-     * set territory name
-     * @param name
-     * name of territory
-     */
-    public void setName(String name){
-        this.name=name;
+    public Territory(String name) {
+        this.name = name;
+        this.neighbours = new ArrayList<Territory>(0);
     }
 
     /**
      * get territory name
-     * @return
-     * name of territory
+     *
+     * @return name of territory
      */
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -61,39 +54,39 @@ public class Territory {
     /**
      * set the troops
      * on this territory
-     * @param armies
-     * number of troops
+     *
+     * @param armies number of troops
      */
-    public void setArmies (int armies){
-        this.armies=armies;
+    public void setArmies(int armies) {
+        this.armies = armies;
     }
 
     /**
      * number of troops
      * on this territory
-     * @return
-     * number of troops
+     *
+     * @return number of troops
      */
-    public int getArmies (){
+    public int getArmies() {
         return this.armies;
     }
 
     /**
      * set territory
      * color
-     * @param color
-     * color to use
+     *
+     * @param color color to use
      */
-    public void setColor(Color color){
-        this.color_ground=color;
+    public void setColor(Color color) {
+        this.color_ground = color;
     }
 
     /**
      * get terrytory color
-     * @return
-     * color
+     *
+     * @return color
      */
-    public Color getColor(){
+    public Color getColor() {
         return this.color_ground;
     }
 
@@ -101,20 +94,20 @@ public class Territory {
     /**
      * all the border
      * territories
-     * @return
-     * list of border territories
+     *
+     * @return list of border territories
      */
-    public ArrayList<Territory> getNeighbours(){
+    public ArrayList<Territory> getNeighbours() {
         return this.neighbours;
     }
 
     /**
      * add a border territory
-     * @param territory
-     * territory to add at
-     * the border list
+     *
+     * @param territory territory to add at
+     *                  the border list
      */
-    public void addNeighbours(Territory territory){
+    public void addNeighbour(Territory territory) {
         neighbours.add(territory);
     }
 
@@ -122,18 +115,16 @@ public class Territory {
     /**
      * check if the territory
      * is neighboring
-     * @return
-     * true in positive case
+     *
+     * @return true in positive case
      * otherwise false
      */
-    public boolean isNeighbours (Territory near_territory){
-        for(Territory index_territory: neighbours){
-
-            if(near_territory.equals(index_territory)){
+    public boolean isNeighbour(Territory territory) {
+        for (Territory neighbour : this.neighbours) {
+            if (territory.equals(neighbour)) {
                 return true;
             }
         }
-
         return false;
     }
 
