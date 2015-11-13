@@ -1,5 +1,6 @@
-import board.Board;
-import game.GameMaster;
+package risk;
+
+import risk.board.Board;
 
 /**
  * Created by nikko31 on 11/11/15.
