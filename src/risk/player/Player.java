@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by DarkLinux on 19/11/15.
- */
 public class Player {
     private int playerID;
     private String playerName;

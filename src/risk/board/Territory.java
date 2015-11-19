@@ -6,29 +6,26 @@ import risk.player.AbstractRiskPlayer;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * Created by DarkLinux on 12/11/15.
- */
-
 public class Territory {
     private String territoryName;
     private String player;
     private int currentUnits;
     private int territoryID;
 
-    public Territory(int id,String territoryId, String player, int currentUnits) {
+    public Territory(int id, String territoryId, String player, int currentUnits) {
         this.territoryName = territoryId;
         this.player = player;
         this.currentUnits = currentUnits;
-        this.territoryID=id;
+        this.territoryID = id;
     }
 
     public Territory(Territory territory) {
         this.territoryName = territory.territoryName;
         this.player = territory.player;
         this.currentUnits = territory.currentUnits;
-        this.territoryID=territory.territoryID;
+        this.territoryID = territory.territoryID;
     }
+
     public static int getContinentId(int territoryId) {
         if (territoryId >= 0 && territoryId <= 8) {
             return 0;
@@ -46,10 +43,11 @@ public class Territory {
             throw new IllegalArgumentException("Invalide territory Id");
         }
     }
-    public static int getContinentId(String territory)
-    {
+
+    public static int getContinentId(String territory) {
         return getContinentId(GameResources.SVG_ID_MAP.get(territory));
     }
+
     public static boolean isAttackPossible(int fromTerritory, int toTerritory) {
         return GameResources.CONNECTIONS.get(fromTerritory).contains(toTerritory);
     }
@@ -77,4 +75,5 @@ public class Territory {
     public int getTerritoryID() {
         return territoryID;
     }
+
 }
