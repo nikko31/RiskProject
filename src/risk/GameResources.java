@@ -1,7 +1,6 @@
 package risk;
 
 import java.util.*;
-
 public class GameResources {
     public enum COLOR {RED, YELLOW, GREEN, BLUE, VIOLET, BROWN}
 
