@@ -1,5 +1,6 @@
 package risk.board;
 
+import risk.GameResources;
 import risk.player.AbstractRiskPlayer;
 
 import java.awt.*;
@@ -9,129 +10,48 @@ import java.util.ArrayList;
  * Created by DarkLinux on 12/11/15.
  */
 
-
 public class Territory {
-    private String name;
-    private int owner_id;
-    private int armies;
-    private ArrayList<Territory> neighbours;
-    private Color color_ground;
+    private String territoryName;
+    private String player;
+    private int currentUnits;
+    private int territoryID;
 
-
-    public Territory(String name) {
-        this.name = name;
-        this.neighbours = new ArrayList<Territory>(0);
+    public Territory(int id,String territoryId, String player, int currentUnits) {
+        this.territoryName = territoryId;
+        this.player = player;
+        this.currentUnits = currentUnits;
+        this.territoryID=id;
     }
 
-    /**
-     * get territory name
-     *
-     * @return name of territory
-     */
-    public String getName() {
-        return this.name;
+    public Territory(Territory territory) {
+        this.territoryName = territory.territoryName;
+        this.player = territory.player;
+        this.currentUnits = territory.currentUnits;
+        this.territoryID=territory.territoryID;
     }
-
-
-    /**
-     * set the owner
-     * @param owner
-     * player owner
-     *
-     * PER ADESSO HO MESSO COSI
-     * POI NON SO SE FAREMO CON UN SEMPLICE ID NUMERICO
-     * O SE LO TOGLIEREMO !!!!!!NB LE COMMENTO PERCHE DANNO ERRORE
-     * NON ESSENDO IMPLEMTNETATO IL PLAYER
-     *
-     */
-    public void setOwner(int ownerid){
-        this.owner_id=ownerid;
-    }
-
-    /**
-     * territory owner
-     * @return
-     * owner of territory
-     */
-    public int getOwner(){
-        return this.owner_id;
-    }
-
-    /**
-     * set the troops
-     * on this territory
-     *
-     * @param armies number of troops
-     */
-    public void setArmies(int armies) {
-        this.armies = armies;
-    }
-
-    /**
-     * number of troops
-     * on this territory
-     *
-     * @return number of troops
-     */
-    public int getArmies() {
-        return this.armies;
-    }
-
-    /**
-     * set territory
-     * color
-     *
-     * @param color color to use
-     */
-    public void setColor(Color color) {
-        this.color_ground = color;
-    }
-
-    /**
-     * get terrytory color
-     *
-     * @return color
-     */
-    public Color getColor() {
-        return this.color_ground;
-    }
-
-
-    /**
-     * all the border
-     * territories
-     *
-     * @return list of border territories
-     */
-    public ArrayList<Territory> getNeighbours() {
-        return this.neighbours;
-    }
-
-    /**
-     * add a border territory
-     *
-     * @param territory territory to add at
-     *                  the border list
-     */
-    public void addNeighbour(Territory territory) {
-        neighbours.add(territory);
-    }
-
-
-    /**
-     * check if the territory
-     * is neighboring
-     *
-     * @return true in positive case
-     * otherwise false
-     */
-    public boolean isNeighbour(Territory territory) {
-        for (Territory neighbour : this.neighbours) {
-            if (territory.equals(neighbour)) {
-                return true;
-            }
+    public static int getContinentId(int territoryId) {
+        if (territoryId >= 0 && territoryId <= 8) {
+            return 0;
+        } else if (territoryId >= 9 && territoryId <= 12) {
+            return 1;
+        } else if (territoryId >= 13 && territoryId <= 19) {
+            return 2;
+        } else if (territoryId >= 20 && territoryId <= 25) {
+            return 3;
+        } else if (territoryId >= 26 && territoryId <= 37) {
+            return 4;
+        } else if (territoryId >= 38 && territoryId <= 41) {
+            return 5;
+        } else {
+            throw new IllegalArgumentException("Invalide territory Id");
         }
-        return false;
+    }
+    public static int getContinentId(String territory)
+    {
+        return getContinentId(GameResources.SVG_ID_MAP.get(territory));
+    }
+    public static boolean isAttackPossible(int fromTerritory, int toTerritory) {
+        return GameResources.CONNECTIONS.get(fromTerritory).contains(toTerritory);
     }
 
 }
