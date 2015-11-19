@@ -54,4 +54,27 @@ public class Territory {
         return GameResources.CONNECTIONS.get(fromTerritory).contains(toTerritory);
     }
 
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public void setCurrentUnits(int currentUnits) {
+        this.currentUnits = currentUnits;
+    }
+
+    public String getTerritoryName() {
+        return territoryName;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public int getCurrentUnits() {
+        return currentUnits;
+    }
+
+    public int getTerritoryID() {
+        return territoryID;
+    }
 }
