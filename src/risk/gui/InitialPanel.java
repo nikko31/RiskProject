@@ -29,7 +29,7 @@ public class InitialPanel extends JPanel implements MouseListener,ActionListener
     private Image backgroundImage;
 
 
-    public InitialPanel (String fileName) throws IOException {
+    public InitialPanel(String board, String fileName) throws IOException {
         Bot_number=0;
         Human_number=0;
 
@@ -126,7 +126,7 @@ public class InitialPanel extends JPanel implements MouseListener,ActionListener
 
     }
 
-    /*dovevo usare la classe astratta,ma è inutile perchè
+    /*dovevo usare la classe astratta,ma ï¿½ inutile perchï¿½
      *non posso estendere due classi contemporaneamente;
      *
      *

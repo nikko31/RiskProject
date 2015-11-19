@@ -13,14 +13,12 @@ public class Window extends JFrame implements InitOptionListener  {
 
     public Window() throws IOException {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        InitialPanel panel=new InitialPanel("risk_menu.jpg");
+        InitialPanel panel=new InitialPanel("Risk_bg.jpg","Risk_board.svg");
         panel.addListener(this);
         this.add(panel);
 
         this.setSize(1000, 600);
         this.setVisible(true);
-        this.setResizable(false);
-
 
 
 
@@ -34,7 +32,7 @@ public class Window extends JFrame implements InitOptionListener  {
         if(a==0 && b==0){
             JOptionPane.showMessageDialog(this,
                     "Error number players selected",
-                    "warning",
+                    "error",
                     JOptionPane.WARNING_MESSAGE);
         }
         else{
@@ -56,12 +54,12 @@ public class Window extends JFrame implements InitOptionListener  {
 
 
     }
-    /*
+
     public static void main(String []args)throws IOException{
-        Main_window risk_window=new Main_window();
+        Window risk_window=new Window();
 
     }
-    */
+
 
 
 

@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Created by Federico on 17/11/2015.
- * questo pannello è la parte inferiore della schermata di
+ * questo pannello ï¿½ la parte inferiore della schermata di
  * gioco con su cui sono indicati:giocatore corrente,truppe dispolnibili,
  * fasi e bottone per mandare avanti le fasi
  */
