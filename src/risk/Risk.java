@@ -13,18 +13,32 @@ public class Risk {
         run_game(master);
     }
 
+    /**
+     * Start the game logic
+     *
+     * @param master
+     */
     private void run_game(GameMaster master) {
+        //while game not ended
         while (!master.ended) {
             run_turn(master);
         }
     }
 
+    /**
+     *
+     * @param master
+     */
     private void run_turn(GameMaster master) {
         master.player_take_turn();
         master.end_turn();
     }
 
-
+    /**
+     * Setup the game
+     * @param number_human_players
+     * @return
+     */
     public GameMaster game_setup(char number_human_players) {
         int _DEV_HUMAN_PLAYERS = number_human_players;
         Board game_board = Board.generate_empty_board();

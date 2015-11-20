@@ -12,7 +12,6 @@ public class Player {
     private String playerName;
     private int freeUnits;
     private COLOR playerColor;
-    private Map<String, Integer> territoryUnitMap;
     private List<String> continentList;
 
     public Player(int playerID, String playerName, int freeUnits, COLOR color, Map<String, Integer> territoryUnitMap) {
@@ -20,7 +19,6 @@ public class Player {
         this.playerName = playerName;
         this.playerColor = color;
         this.freeUnits = freeUnits;
-        this.territoryUnitMap = new HashMap<>(territoryUnitMap);
         this.continentList = new ArrayList<>();
     }
 
@@ -42,13 +40,6 @@ public class Player {
         this.freeUnits = freeUnits;
     }
 
-    public Map<String, Integer> getTerritoryUnitMap() {
-        return territoryUnitMap;
-    }
-
-    public void setTerritoryUnitMap(Map<String, Integer> territoryUnitMap) {
-        this.territoryUnitMap = territoryUnitMap;
-    }
 
     public COLOR getPlayerColor() {
         return playerColor;
