@@ -12,9 +12,10 @@ public class Player {
     private String playerName;
     private int freeUnits;
     private COLOR playerColor;
+
     private List<String> continentList;
 
-    public Player(int playerID, String playerName, int freeUnits, COLOR color, Map<String, Integer> territoryUnitMap) {
+    public Player(int playerID, String playerName, int freeUnits, COLOR color) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.playerColor = color;
@@ -39,7 +40,6 @@ public class Player {
     public void setFreeUnits(int freeUnits) {
         this.freeUnits = freeUnits;
     }
-
 
     public COLOR getPlayerColor() {
         return playerColor;

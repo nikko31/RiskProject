@@ -8,20 +8,17 @@ import java.util.ArrayList;
 
 public class Territory {
     private String territoryName;
-    private String player;
     private int currentUnits;
     private int territoryID;
 
-    public Territory(int id, String territoryId, String player, int currentUnits) {
+    public Territory(int id, String territoryId, int currentUnits) {
         this.territoryName = territoryId;
-        this.player = player;
         this.currentUnits = currentUnits;
         this.territoryID = id;
     }
 
     public Territory(Territory territory) {
         this.territoryName = territory.territoryName;
-        this.player = territory.player;
         this.currentUnits = territory.currentUnits;
         this.territoryID = territory.territoryID;
     }
@@ -52,20 +49,12 @@ public class Territory {
         return GameResources.CONNECTIONS.get(fromTerritory).contains(toTerritory);
     }
 
-    public void setPlayer(String player) {
-        this.player = player;
-    }
-
     public void setCurrentUnits(int currentUnits) {
         this.currentUnits = currentUnits;
     }
 
     public String getTerritoryName() {
         return territoryName;
-    }
-
-    public String getPlayer() {
-        return player;
     }
 
     public int getCurrentUnits() {
@@ -77,3 +66,4 @@ public class Territory {
     }
 
 }
+
