@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="batickLibs">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/batickLibs" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/batickLibs" recursive="false" />
+  </library>
+</component>

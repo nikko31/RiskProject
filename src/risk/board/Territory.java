@@ -1,26 +1,28 @@
 package risk.board;
 
 import risk.GameResources;
-import risk.player.AbstractRiskPlayer;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Territory {
     private String territoryName;
     private int currentUnits;
     private int territoryID;
+    private List<Integer> neighbours;
 
-    public Territory(int id, String territoryId, int currentUnits) {
+    public Territory(int id, String territoryId, int currentUnits, List<Integer> neighbours) {
         this.territoryName = territoryId;
         this.currentUnits = currentUnits;
         this.territoryID = id;
+        this.neighbours = new ArrayList<>(neighbours);
     }
 
     public Territory(Territory territory) {
         this.territoryName = territory.territoryName;
         this.currentUnits = territory.currentUnits;
         this.territoryID = territory.territoryID;
+        this.neighbours = territory.neighbours;
     }
 
     public static int getContinentId(int territoryId) {
@@ -41,12 +43,20 @@ public class Territory {
         }
     }
 
-    public static int getContinentId(String territory) {
+    public int getContinentId(String territory) {
         return getContinentId(GameResources.SVG_ID_MAP.get(territory));
     }
 
-    public static boolean isAttackPossible(int fromTerritory, int toTerritory) {
-        return GameResources.CONNECTIONS.get(fromTerritory).contains(toTerritory);
+    public boolean isAttackPossible(int toTerritory) {
+        for (int territoryId : this.neighbours) {
+            if (territoryId == toTerritory)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isAttackPossible(Territory toTerritory) {
+        return isAttackPossible(toTerritory.getTerritoryID());
     }
 
     public void setCurrentUnits(int currentUnits) {
@@ -63,6 +73,10 @@ public class Territory {
 
     public int getTerritoryID() {
         return territoryID;
+    }
+
+    public List<Integer> getNeighbours() {
+        return this.neighbours;
     }
 
 }

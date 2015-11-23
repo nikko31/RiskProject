@@ -1,11 +1,8 @@
 package risk.gui;
 
 /**
- * Created by Federico on 17/11/2015.
- * questaè quella ispirata dal prof
+ * Created by DarkLinux on 18/11/15.
  */
 public interface InitOptionListener {
-    public void playerNumber (int a,int b);
-
-
+    public void playersNumber(int a, int b);
 }
