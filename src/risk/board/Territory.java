@@ -79,5 +79,17 @@ public class Territory {
         return this.neighbours;
     }
 
+    //mi dice se è vicino
+    public boolean isNeighbour(int territoryID){
+        Integer h=new Integer(territoryID);
+        for(Integer i: neighbours){
+            if(h==i){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
 
