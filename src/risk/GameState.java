@@ -57,12 +57,13 @@ public class GameState {
         currentPlayerTurn = players.get(0);
     }
 
-    public Player getPlayerTer(Territory territory){
+    public Player getPlayerTer(Territory territory) {
         return territoriesPlayersMap.get(territory);
     }
+
     //dato un territorio mi cambia il proprietario
-    public void setPlayerTer(Territory territory,Player player){
-        territoriesPlayersMap.replace(territory,player);
+    public void setPlayerTer(Territory territory, Player player) {
+        territoriesPlayersMap.replace(territory, player);
     }
 
 

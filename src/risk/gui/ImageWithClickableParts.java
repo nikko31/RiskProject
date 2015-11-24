@@ -17,6 +17,7 @@ import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.TreeWalker;
 import risk.GameResources;
 import risk.board.Territory;
+import risk.player.Player;
 
 import java.awt.*;
 import java.io.File;
@@ -82,6 +83,24 @@ public class ImageWithClickableParts implements EventListener {
             System.out.println("Error loading svg file " + e);
         }
 
+    }
+
+    protected void addListenersToSensitiveZones() {
+        List<Node> allSensitiveZones = getAllSensitiveZones();
+        for (Node sensitiveZone : allSensitiveZones) {
+            Element elt = (Element) sensitiveZone;
+            EventTarget t = (EventTarget) elt;
+            t.addEventListener("click", this, false);
+        }
+
+    }
+
+    private void initializeTerritoriesColor(Map<String, GameResources.COLOR> mapTerritorynamePlayercolor) {
+        List<Node> allSensitiveZones = getAllSensitiveZones();
+        for (Node sensitiveZone : allSensitiveZones) {
+            Element elt = (Element) sensitiveZone;
+
+        }
     }
 
     private void toggleHighlight(Element sensitiveZone) {
@@ -150,17 +169,6 @@ public class ImageWithClickableParts implements EventListener {
 
     }
 
-    protected void addListenersToSensitiveZones() {
-        List<Node> allSensitiveZones = getAllSensitiveZones();
-        for (Node sensitiveZone : allSensitiveZones) {
-            Element elt = (Element) sensitiveZone;
-            EventTarget t = (EventTarget) elt;
-            t.addEventListener("click", this, false);
-            t.addEventListener("mouseover", this, false);
-        }
-
-    }
-
     private List<Node> getAllSensitiveZones() {
         List<Node> oleaNodes = new ArrayList<Node>();
         SVGDocument svgDocument = svgCanvas.getSVGDocument();
@@ -206,10 +214,10 @@ public class ImageWithClickableParts implements EventListener {
         id = sensitiveZone.getAttribute("id");
 
         System.out.println("Click on " + sensitiveZone.getAttribute("id"));
-            if (GameResources.SVG_NAME_MAP.containsValue(sensitiveZone.getAttribute("id")) && !this.clicked.contains(sensitiveZone.getAttribute("id"))) {
-                this.clicked.add(sensitiveZone.getAttribute("id"));
-                    toggleHighlight(sensitiveZone);
-            }
+        if (GameResources.SVG_NAME_MAP.containsValue(sensitiveZone.getAttribute("id")) && !this.clicked.contains(sensitiveZone.getAttribute("id"))) {
+            this.clicked.add(sensitiveZone.getAttribute("id"));
+            toggleHighlight(sensitiveZone);
+        }
 
 
     }

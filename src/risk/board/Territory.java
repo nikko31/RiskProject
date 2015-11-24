@@ -43,9 +43,6 @@ public class Territory {
         }
     }
 
-    public int getContinentId(String territory) {
-        return getContinentId(GameResources.SVG_ID_MAP.get(territory));
-    }
 
     public boolean isAttackPossible(int toTerritory) {
         for (int territoryId : this.neighbours) {
@@ -79,11 +76,9 @@ public class Territory {
         return this.neighbours;
     }
 
-    //mi dice se è vicino
-    public boolean isNeighbour(int territoryID){
-        Integer h=new Integer(territoryID);
-        for(Integer i: neighbours){
-            if(h==i){
+    public boolean isNeighbour(int territoryID) {
+        for (int i : neighbours) {
+            if (territoryID == i) {
                 return true;
             }
         }

@@ -11,7 +11,7 @@ import java.util.*;
         public final static String END_TURN_PHASE = "End Turn";
         public final static String START_GAME_PHASE="Start Game";
 
-        public enum COLOR {RED, YELLOW, GREEN, BLUE, VIOLET, BROWN}
+        public enum COLOR {YELLOW, GREEN, VIOLET, BROWN}
 
         public static final Map<Integer, String> TERRITORY_NAME = new HashMap<Integer, String>();
 

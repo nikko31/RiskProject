@@ -12,13 +12,13 @@ import java.util.Random;
 /**
  * Created by Federico on 22/11/2015.
  */
-//è la mia macchiana a stati finiti
+//ï¿½ la mia macchiana a stati finiti
 public class RiskLogic {
 
     GameState gamestate;
 
-    RiskLogic(){
-        gamestate=new GameState();//va inizializzato
+    RiskLogic(GameState gamestate) {
+        this.gamestate = gamestate;
     }
     public void fortify(Player current_player, Territory territory) {
         //checkfortify() da implementare
@@ -91,7 +91,7 @@ public class RiskLogic {
     }
 
 
-    //controlla se il territorio è occupato o meno
+    //controlla se il territorio ï¿½ occupato o meno
     public boolean checkIsConquered(Territory territory,int units){
         if(territory.getCurrentUnits()<=units){
             return true;
@@ -120,7 +120,7 @@ public class RiskLogic {
         //controllo se i territori appartengono al player poi controllo che sul primo territorio ci sia piu di una armata
         if(current_player.getPlayerID()==gamestate.getPlayerTer(from).getPlayerID()
                 && current_player.getPlayerID()==gamestate.getPlayerTer(to).getPlayerID()){
-            //controllo che le unità nel territorio corrente siano piu di una
+            //controllo che le unitï¿½ nel territorio corrente siano piu di una
             if(from.getCurrentUnits()>1){
                 return true;
             }
@@ -133,7 +133,7 @@ public class RiskLogic {
         //controllo che il territorio di partenza sia mio e quello di arrivo non lo sia
         if(attacker.getPlayerID()==gamestate.getPlayerTer(from).getPlayerID()
                 && attacker.getPlayerID()!=gamestate.getPlayerTer(to).getPlayerID() ){
-            //controllo che il territorio di arrivo sia un mio vicino e che nel territorio di partenza ci siano almeno 2 unità
+            //controllo che il territorio di arrivo sia un mio vicino e che nel territorio di partenza ci siano almeno 2 unitï¿½
             if(from.isNeighbour(to.getTerritoryID()) && from.getCurrentUnits()>1){
                 return true;
             }
