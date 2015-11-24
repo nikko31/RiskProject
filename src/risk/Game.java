@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class Game extends JFrame implements InitOptionListener, SelectedPartListener {
     private final static String RESOURCES = "src/resources/";
@@ -29,7 +31,12 @@ public class Game extends JFrame implements InitOptionListener, SelectedPartList
         this.setLayout(new BorderLayout());
         GamePanel gamePnl =new GamePanel();
         File svgFile = new File(default_map);
-        ImageWithClickableParts app = new ImageWithClickableParts(svgFile);
+        //lista prova stati
+        List<String >terr=new ArrayList<>();
+        terr.add("alaska");
+        terr.add("venezuela");
+        //
+        ImageWithClickableParts app = new ImageWithClickableParts(svgFile,terr);
         app.registerSelectedPartListener(this);
         Component svgImage = app.getAsComponent();
         this.add(gamePnl, BorderLayout.SOUTH);

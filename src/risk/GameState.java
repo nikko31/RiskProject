@@ -63,7 +63,7 @@ public class GameState {
 
     //dato un territorio mi cambia il proprietario
     public void setPlayerTer(Territory territory, Player player) {
-        territoriesPlayersMap.replace(territory, player);
+        //territoriesPlayersMap.replace(territory, player);
     }
 
 

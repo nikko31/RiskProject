@@ -47,14 +47,16 @@ public class ImageWithClickableParts implements EventListener {
     private static final String STYLE_PROPERTY = "style";
     private static final String FILL_PROPERTY = "fill";
     private static final String FILL_PROPERTY_HIGHLIGHTED = "rgb(0,0,255)";//blu
-
-
+    private static final String DEFAULT_UNITS_FOOTER = "_units";
+    private static final String DEFAULT_TEXT_FOOTER = "_text";
+    private List<String> territories;
     private List<String> clicked = new ArrayList<>();
     private JSVGCanvas svgCanvas = new JSVGCanvas();
     private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<ObjectAndProperty<Element>, String>();
     private List<SelectedPartListener> listeners = new ArrayList<SelectedPartListener>();
 
-    public ImageWithClickableParts(File svgFile) {
+    public ImageWithClickableParts(File svgFile, List territories) {
+        this.territories = new ArrayList<>(territories);
         createComponents(svgFile);
     }
 
@@ -89,8 +91,10 @@ public class ImageWithClickableParts implements EventListener {
         List<Node> allSensitiveZones = getAllSensitiveZones();
         for (Node sensitiveZone : allSensitiveZones) {
             Element elt = (Element) sensitiveZone;
-            EventTarget t = (EventTarget) elt;
-            t.addEventListener("click", this, false);
+            if (this.territories.contains(elt.getAttribute("id"))) {
+                EventTarget t = (EventTarget) elt;
+                t.addEventListener("click", this, false);
+            }
         }
 
     }
