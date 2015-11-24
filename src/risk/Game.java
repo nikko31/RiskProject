@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Game extends JFrame implements InitOptionListener, SelectedPartListener {
-    private final static String RESOURCES = "src/Resources/";
+    private final static String RESOURCES = "src/resources/";
     private String default_map;
 
     public Game(String default_map, String default_bg) throws IOException {

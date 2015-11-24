@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Federico on 17/11/2015.
  *
- * questa non è utilizzata perchè initialPanel estende Jpanel
+ * questa non ï¿½ utilizzata perchï¿½ initialPanel estende Jpanel
 
  */
 public abstract class Observable {
@@ -22,7 +22,7 @@ public abstract class Observable {
 
     public void notifyListeners(int a,int b) {
         for (InitOptionListener sl : listeners)
-            sl.playerNumber(a,b);
+            sl.playersNumber(a,b);
     }
 
 }

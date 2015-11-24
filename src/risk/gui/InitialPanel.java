@@ -138,7 +138,7 @@ public class InitialPanel extends JPanel implements MouseListener,ActionListener
 
     public void notifyListeners(int a,int b) {
         for (InitOptionListener sl : listeners)
-            sl.playerNumber(a,b);
+            sl.playersNumber(a,b);
     }
 
 

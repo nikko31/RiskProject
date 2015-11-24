@@ -1,7 +1,6 @@
 package risk.gui;
 
-import Logic.GameResources;
-import Logic.Territory;
+
 import org.apache.batik.dom.AbstractDocument;
 import org.apache.batik.dom.traversal.TraversalSupport;
 import org.apache.batik.swing.JSVGCanvas;
@@ -33,23 +32,26 @@ import java.util.List;
 
 public class ImageWithClickableParts implements EventListener {
 
+    private static final String SENSITIVE_ZONE_IDENTIFIER = "id";
+    /*---------default colors----------*/
     private static final String DEFAULT_FILL_PROPERTY_VALUE_RED = "red";
     private static final String DEFAULT_FILL_PROPERTY_VALUE_GREEN = "green";
     private static final String DEFAULT_FILL_PROPERTY_VALUE_BLUE = "blue";
+    private static final String DEFAULT_FILL_PROPERTY_VALUE_YELLOW = "yellow";
+    private static final String DEFAULT_FILL_PROPERTY_VALUE_VIOLET = "violet";
+    private static final String DEFAULT_FILL_PROPERTY_VALUE_BROWN = "brown";
+    private static final String DEFAULT_FILL_PROPERTY_VALUE_WHITE = "white";
+    /*<------------------------------->*/
     private static final String DEFAULT_STYLE_PROPERTY_VALUE = "";
     private static final String STYLE_PROPERTY = "style";
     private static final String FILL_PROPERTY = "fill";
     private static final String FILL_PROPERTY_HIGHLIGHTED = "rgb(0,0,255)";//blu
-    private static final String SENSITIVE_ZONE_IDENTIFIER = "id";
-    private List<String> id = new ArrayList<>();
+
+
     private List<String> clicked = new ArrayList<>();
     private JSVGCanvas svgCanvas = new JSVGCanvas();
-    /**
-     * Keep the original properties of modified nodes
-     */
     private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<ObjectAndProperty<Element>, String>();
     private List<SelectedPartListener> listeners = new ArrayList<SelectedPartListener>();
-    private Boolean selected = false;
 
     public ImageWithClickableParts(File svgFile) {
         createComponents(svgFile);
@@ -62,9 +64,8 @@ public class ImageWithClickableParts implements EventListener {
     public void createComponents(File svgFile) {
         try {
             svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
-            svgCanvas.setURI(svgFile.toURL().toString());
+            svgCanvas.setURI(svgFile.toURI().toURL().toString());
             svgCanvas.enableInputMethods(true);
-
             svgCanvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
 
                 @Override
@@ -73,6 +74,7 @@ public class ImageWithClickableParts implements EventListener {
 
                 @Override
                 public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+
                     addListenersToSensitiveZones();
                 }
             });
@@ -202,21 +204,13 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-        if (type.equals("click")) {
-            System.out.println("Click on " + sensitiveZone.getAttribute("id"));
+
+        System.out.println("Click on " + sensitiveZone.getAttribute("id"));
             if (GameResources.SVG_NAME_MAP.containsValue(sensitiveZone.getAttribute("id")) && !this.clicked.contains(sensitiveZone.getAttribute("id"))) {
                 this.clicked.add(sensitiveZone.getAttribute("id"));
-                System.out.println("ho cliccato su "+sensitiveZone.getAttribute("id"));
-                if (this.clicked.size() == 1)//nessun territorio selezionato
                     toggleHighlight(sensitiveZone);
-                if (this.clicked.size() == 2) {
-                    if(Territory.isAttackPossible(GameResources.SVG_ID_MAP.get(this.clicked.get(0)), GameResources.SVG_ID_MAP.get(this.clicked.get(1))))
-                        toggleHighlight(sensitiveZone,clicked.get(1));
-                    else
-                        this.clicked.remove(1);
-                }
             }
-        }
+
 
     }
 
