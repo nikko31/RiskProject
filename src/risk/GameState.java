@@ -57,7 +57,6 @@ public class GameState {
         currentPlayerTurn = players.get(0);
     }
 
-    //dato un territorio mi dice il player
     public Player getPlayerTer(Territory territory){
         return territoriesPlayersMap.get(territory);
     }
