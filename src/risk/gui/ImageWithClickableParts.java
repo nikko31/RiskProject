@@ -49,6 +49,7 @@ public class ImageWithClickableParts implements EventListener {
     private static final String FILL_PROPERTY_HIGHLIGHTED = "rgb(0,0,255)";//blu
     private static final String DEFAULT_UNITS_FOOTER = "_units";
     private static final String DEFAULT_TEXT_FOOTER = "_text";
+    private List<Element> territoriesUnitsNodes;
     private List<String> territories;
     private List<String> clicked = new ArrayList<>();
     private JSVGCanvas svgCanvas = new JSVGCanvas();
@@ -89,8 +90,14 @@ public class ImageWithClickableParts implements EventListener {
 
     protected void addListenersToSensitiveZones() {
         List<Node> allSensitiveZones = getAllSensitiveZones();
+        this.territoriesUnitsNodes=new ArrayList<>();
         for (Node sensitiveZone : allSensitiveZones) {
             Element elt = (Element) sensitiveZone;
+
+            if (elt.getAttribute("id").contains("_units")) {
+                elt.getFirstChild().getFirstChild().setNodeValue("0");
+                this.territoriesUnitsNodes.add(elt);
+            }
             if (this.territories.contains(elt.getAttribute("id"))) {
                 EventTarget t = (EventTarget) elt;
                 t.addEventListener("click", this, false);
@@ -113,7 +120,12 @@ public class ImageWithClickableParts implements EventListener {
         String savedFillPropertyValue = nodeAndProperty2Value.get(objAndPropertyFill);
         NamedNodeMap zoneAttributes = sensitiveZone.getAttributes();
         Node fillProperty = zoneAttributes.getNamedItem(FILL_PROPERTY);
+        for (Element element : this.territoriesUnitsNodes) {
 
+            int units = Integer.parseInt(element.getFirstChild().getFirstChild().getNodeValue());
+            units++;
+            element.getFirstChild().getFirstChild().setNodeValue(Integer.toString(units));
+        }
         if (savedFillPropertyValue == null) {
             // backupOriginalPropertyAndApplyNewProperty(fillProperty, objAndPropertyFill, FILL_PROPERTY_HIGHLIGHTED);
         } else {
