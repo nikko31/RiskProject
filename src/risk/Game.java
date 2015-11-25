@@ -64,7 +64,6 @@ public class Game extends JFrame implements InitOptionListener, SelectedPartList
         String default_map = RESOURCES + "Risk_board.svg";
         String default_bg = RESOURCES + "Risk_bg.jpg";
         Game game = new Game(default_map, default_bg);
-
     }
 
     @Override
