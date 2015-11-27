@@ -8,7 +8,7 @@ import java.util.*;
 public class GameState {
     List<Player> players;
     Player currentPlayerTurn;
-    String phase;
+    Phases phase;
     Map<Territory, Player> territoriesPlayersMap;
 
 
