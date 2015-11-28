@@ -48,20 +48,20 @@ public class StartGame extends JFrame {
         JCheckBox bot6 = new JCheckBox();
 
         BufferedImage myImage = ImageIO.read(new File(RESOURCES + "Risk_bg.jpg"));
-        super.setBackground(Color.blue);
+        menuPnl.setOpaque(false);
         setContentPane(new ImagePanel(myImage));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        playerName2.setForeground(Color.blue);
+        playerName2.setBackground(Color.blue);
 
         bot2.setText("AI");
 
-        playerName1.setForeground(Color.red);
+        playerName1.setBackground(Color.red);
         playerName1.setToolTipText("");
 
         bot1.setText("AI");
 
-        playerName3.setForeground(Color.green);
+        playerName3.setBackground(Color.green);
 
         bot3.setText("AI");
 
@@ -75,76 +75,85 @@ public class StartGame extends JFrame {
         namesLbl.setForeground(new Color(201, 1, 1));
         namesLbl.setText("Players Names");
 
-        playerName4.setForeground(Color.yellow);
+        playerName4.setBackground(Color.yellow);
         playerName4.setToolTipText("");
 
         bot4.setText("AI");
 
-        playerName5.setForeground(Color.magenta);
+        playerName5.setBackground(Color.magenta);
 
         bot5.setText("AI");
 
-        playerName6.setForeground(Color.cyan);
+        playerName6.setBackground(Color.cyan);
 
         bot6.setText("AI");
 
+        bot1.setForeground(Color.black);
+        bot2.setForeground(Color.black);
+        bot3.setForeground(Color.black);
+        bot4.setForeground(Color.black);
+        bot5.setForeground(Color.black);
+        bot6.setForeground(Color.black);
+
+        menuPnl.setBackground(Color.darkGray);
         GroupLayout menuPnlLayout = new GroupLayout(menuPnl);
         menuPnl.setLayout(menuPnlLayout);
         menuPnlLayout.setHorizontalGroup(
                 menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(menuPnlLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(startBtn)
-                                .addContainerGap())
-                        .addGroup(menuPnlLayout.createSequentialGroup()
                                 .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, menuPnlLayout.createSequentialGroup()
+                                        .addGroup(menuPnlLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(startBtn))
+                                        .addGroup(menuPnlLayout.createSequentialGroup()
+                                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addGroup(GroupLayout.Alignment.TRAILING, menuPnlLayout.createSequentialGroup()
+                                                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(playerName1)
+                                                                        .addComponent(playerName2)
+                                                                        .addComponent(playerName3, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(bot1)
+                                                                        .addComponent(bot2)
+                                                                        .addComponent(bot3)))
+                                                        .addGroup(menuPnlLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addComponent(namesLbl)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 57, GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(18, 18, 18)
                                                 .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(playerName1)
-                                                        .addComponent(playerName2)
-                                                        .addComponent(playerName3, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(playerName4)
+                                                        .addComponent(playerName5)
+                                                        .addComponent(playerName6, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(bot1)
-                                                        .addComponent(bot2)
-                                                        .addComponent(bot3)))
-                                        .addGroup(menuPnlLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(namesLbl)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 57, GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(playerName4)
-                                        .addComponent(playerName5)
-                                        .addComponent(playerName6, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(bot4)
-                                        .addComponent(bot5)
-                                        .addComponent(bot6))
-                                .addGap(59, 59, 59))
+                                                        .addComponent(bot4)
+                                                        .addComponent(bot5)
+                                                        .addComponent(bot6))
+                                                .addGap(0, 145, Short.MAX_VALUE)))
+                                .addContainerGap())
         );
         menuPnlLayout.setVerticalGroup(
                 menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, menuPnlLayout.createSequentialGroup()
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addGroup(menuPnlLayout.createSequentialGroup()
-                                                .addComponent(namesLbl)
-                                                .addGap(18, 18, 18)
-                                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addGroup(menuPnlLayout.createSequentialGroup()
-                                                                .addComponent(bot1)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(bot2)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(bot3))
-                                                        .addGroup(GroupLayout.Alignment.TRAILING, menuPnlLayout.createSequentialGroup()
-                                                                .addComponent(playerName1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(playerName2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(playerName3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(namesLbl)
+                                .addGap(18, 18, 18)
+                                .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(menuPnlLayout.createSequentialGroup()
+                                                        .addComponent(bot1)
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(bot2)
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(bot3))
+                                                .addGroup(GroupLayout.Alignment.TRAILING, menuPnlLayout.createSequentialGroup()
+                                                        .addComponent(playerName1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(playerName2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(playerName3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(menuPnlLayout.createSequentialGroup()
                                                 .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(bot4)
@@ -156,8 +165,7 @@ public class StartGame extends JFrame {
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(menuPnlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(bot6)
-                                                        .addComponent(playerName6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                .addGap(6, 6, 6)))
+                                                        .addComponent(playerName6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
                                 .addGap(20, 20, 20)
                                 .addComponent(startBtn)
                                 .addContainerGap())
@@ -194,7 +202,6 @@ public class StartGame extends JFrame {
     }
 
     private void startBtnMouseClicked(MouseEvent evt) {
-        int number_of_humans = 0, number_of_bots = 0;
         GameState gameState;
         List<String> bot_names = new LinkedList<>();
         List<String> human_names = new LinkedList<>();
@@ -206,7 +213,7 @@ public class StartGame extends JFrame {
                     bot_names.add(name.getText());
                 else
                     human_names.add(name.getText());
-                colors.add(name.getForeground());
+                colors.add(name.getBackground());
             }
             counter++;
         }
@@ -215,6 +222,9 @@ public class StartGame extends JFrame {
                     "Error number players selected",
                     "warning",
                     JOptionPane.ERROR_MESSAGE);
+        else {
+            System.out.println("HUMAN PLAYERS NAMES: " + human_names.toString() + " BOT PLAYERS NAMES: " + bot_names.toString());
+        }
 
     }
 
@@ -252,7 +262,7 @@ public class StartGame extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight() - 116, null);
+            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
 }
