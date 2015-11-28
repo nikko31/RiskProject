@@ -1,15 +1,14 @@
 package risk.operations;
-
 import risk.board.Territory;
 
 /**
- * Created by DarkLinux on 27/11/15.
+ * Created by Federico on 28/11/2015.
  */
-public class Attack implements Operation {
+public class Move implements Operation {
     private Territory from;
     private Territory to;
 
-    public Attack(Territory from, Territory to) {
+    public Move(Territory from, Territory to) {
         this.from = from;
         this.to = to;
     }
@@ -24,6 +23,6 @@ public class Attack implements Operation {
 
     @Override
     public String operationString() {
-        return "ATTACK: " + this.from.getTerritoryName() + " to " + this.to.getTerritoryName();
+        return "MOVE: " + this.from.getTerritoryName() + " to " + this.to.getTerritoryName();
     }
 }

@@ -11,6 +11,11 @@ public class GameState {
     Phases phase;
     Map<Territory, Player> territoriesPlayersMap;
 
+    private Territory attackFrom;
+    private Territory attackTo;
+    private Territory moveFrom;
+    private Territory moveTo;
+    private Territory fortify;
 
     public GameState(LinkedList<GameResources.COLOR> playerColors, LinkedList<String> humanPlayerNames, LinkedList<String> aiPlayerNames) {
         this.players = new ArrayList<>();
@@ -55,6 +60,12 @@ public class GameState {
             );
         }
         currentPlayerTurn = players.get(0);
+
+        attackFrom = null;
+        attackTo = null;
+        moveFrom = null;
+        moveTo = null;
+        fortify = null;
     }
 
     public Player getPlayerTer(Territory territory) {
@@ -66,5 +77,59 @@ public class GameState {
         //territoriesPlayersMap.replace(territory, player);
     }
 
+    public Player getCurrentPlayerTurn() {
+        return currentPlayerTurn;
+    }
 
+    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
+        this.currentPlayerTurn = currentPlayerTurn;
+    }
+
+    public Territory getAttackFrom() {
+        return attackFrom;
+    }
+
+    public void setAttackFrom(Territory attackFrom) {
+        this.attackFrom = attackFrom;
+    }
+
+    public Territory getAttackTo() {
+        return attackTo;
+    }
+
+    public void setAttackTo(Territory attackTo) {
+        this.attackTo = attackTo;
+    }
+
+    public Territory getMoveFrom() {
+        return moveFrom;
+    }
+
+    public void setMoveFrom(Territory moveFrom) {
+        this.moveFrom = moveFrom;
+    }
+
+    public Territory getMoveTo() {
+        return moveTo;
+    }
+
+    public void setMoveTo(Territory moveTo) {
+        this.moveTo = moveTo;
+    }
+
+    public Territory getFortify() {
+        return fortify;
+    }
+
+    public void setFortify(Territory fortify) {
+        this.fortify = fortify;
+    }
+
+    public Phases getPhase() {
+        return phase;
+    }
+
+    public void setPhase(Phases phase) {
+        this.phase = phase;
+    }
 }
