@@ -87,7 +87,12 @@ public class StartGame extends JFrame {
         playerName6.setBackground(Color.cyan);
 
         bot6.setText("AI");
-
+        bot1.setOpaque(false);
+        bot2.setOpaque(false);
+        bot3.setOpaque(false);
+        bot4.setOpaque(false);
+        bot5.setOpaque(false);
+        bot6.setOpaque(false);
         bot1.setForeground(Color.black);
         bot2.setForeground(Color.black);
         bot3.setForeground(Color.black);
@@ -95,7 +100,7 @@ public class StartGame extends JFrame {
         bot5.setForeground(Color.black);
         bot6.setForeground(Color.black);
 
-        menuPnl.setBackground(Color.darkGray);
+        menuPnl.setOpaque(false);
         GroupLayout menuPnlLayout = new GroupLayout(menuPnl);
         menuPnl.setLayout(menuPnlLayout);
         menuPnlLayout.setHorizontalGroup(
