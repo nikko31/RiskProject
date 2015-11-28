@@ -12,6 +12,7 @@ import java.util.List;
 public class Game extends JFrame implements InitOptionListener, SelectedPartListener {
     private final static String RESOURCES = "src/resources/";
     private String default_map;
+    private ImageWithClickableParts app;
 
     public Game(String default_map, String default_bg) throws IOException {
         this.default_map = default_map;
@@ -36,7 +37,7 @@ public class Game extends JFrame implements InitOptionListener, SelectedPartList
         terr.add("alaska");
         terr.add("venezuela");
         //
-        ImageWithClickableParts app = new ImageWithClickableParts(svgFile,terr);
+        this.app = new ImageWithClickableParts(svgFile, terr);
         app.registerSelectedPartListener(this);
         Component svgImage = app.getAsComponent();
         this.add(gamePnl, BorderLayout.SOUTH);
@@ -45,6 +46,7 @@ public class Game extends JFrame implements InitOptionListener, SelectedPartList
         this.add(svgImage, BorderLayout.CENTER);
         gamePnl.requestFocusInWindow();
         this.pack();
+
     }
 
     @Override

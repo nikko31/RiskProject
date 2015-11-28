@@ -55,9 +55,13 @@ public class ImageWithClickableParts implements EventListener {
     private JSVGCanvas svgCanvas = new JSVGCanvas();
     private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<ObjectAndProperty<Element>, String>();
     private List<SelectedPartListener> listeners = new ArrayList<SelectedPartListener>();
+    private Map<String, Element> territoryElementMap;
+    private Map<String, Element> territoryUnitsMap;
 
     public ImageWithClickableParts(File svgFile, List territories) {
         this.territories = new ArrayList<>(territories);
+        this.territoryElementMap = new HashMap<>();
+        this.territoryUnitsMap = new HashMap<>();
         createComponents(svgFile);
     }
 
@@ -90,17 +94,22 @@ public class ImageWithClickableParts implements EventListener {
 
     protected void addListenersToSensitiveZones() {
         List<Node> allSensitiveZones = getAllSensitiveZones();
-        this.territoriesUnitsNodes=new ArrayList<>();
+        this.territoriesUnitsNodes = new ArrayList<>();
         for (Node sensitiveZone : allSensitiveZones) {
             Element elt = (Element) sensitiveZone;
-
-            if (elt.getAttribute("id").contains("_units")) {
-                elt.getFirstChild().getFirstChild().setNodeValue("0");
-                this.territoriesUnitsNodes.add(elt);
-            }
-            if (this.territories.contains(elt.getAttribute("id"))) {
-                EventTarget t = (EventTarget) elt;
-                t.addEventListener("click", this, false);
+            String elementId = elt.getAttribute("id");
+            for (String territory : this.territories) {
+                if (elementId.contains(territory) && (!elementId.contains(DEFAULT_TEXT_FOOTER))) {
+                    if (elementId.contains(DEFAULT_UNITS_FOOTER))
+                        this.territoryUnitsMap.put(territory, elt);
+                    else {
+                        //aggiungo i listener ai territori
+                        this.territoryElementMap.put(territory, elt);
+                        EventTarget t = (EventTarget) elt;
+                        t.addEventListener("click", this, false);
+                    }
+                    break;
+                }
             }
         }
 
@@ -127,13 +136,13 @@ public class ImageWithClickableParts implements EventListener {
             element.getFirstChild().getFirstChild().setNodeValue(Integer.toString(units));
         }
         if (savedFillPropertyValue == null) {
-            // backupOriginalPropertyAndApplyNewProperty(fillProperty, objAndPropertyFill, FILL_PROPERTY_HIGHLIGHTED);
+            backupOriginalPropertyAndApplyNewProperty(fillProperty, objAndPropertyFill, FILL_PROPERTY_HIGHLIGHTED);
         } else {
             restoreOriginalProperty(fillProperty, objAndPropertyFill, savedFillPropertyValue);
         }
 
         String zoneKey = zoneAttributes.getNamedItem(SENSITIVE_ZONE_IDENTIFIER).getNodeValue();
-        notifyListeners(zoneKey, true);
+//        notifyListeners(zoneKey, true);
     }
 
     private void toggleHighlight(Element sensitiveZone, String s) {
@@ -172,15 +181,16 @@ public class ImageWithClickableParts implements EventListener {
         NamedNodeMap zoneAttributes = sensitiveZone.getAttributes();
 
         // remove the style so we are able to override it using full blown attributes instead of concatenated stuffs in the 'style' attribute
-        if (zoneAttributes.getNamedItem(STYLE_PROPERTY) != null) {
+        /*if (zoneAttributes.getNamedItem(STYLE_PROPERTY) != null) {
             System.out.println("Setting default {}" + STYLE_PROPERTY);
             sensitiveZone.setAttribute(STYLE_PROPERTY, DEFAULT_STYLE_PROPERTY_VALUE);
         }
+        */
         // If no FILL_PROPERTY defined, initialize it to a color by default
-        if (zoneAttributes.getNamedItem(FILL_PROPERTY) == null) {
+        //if (zoneAttributes.getNamedItem(FILL_PROPERTY) == null) {
             System.out.println("Setting default {}" + FILL_PROPERTY);
             sensitiveZone.setAttribute(FILL_PROPERTY, DEFAULT_FILL_PROPERTY_VALUE_RED);
-        }
+        //}
 
 
     }
@@ -230,6 +240,7 @@ public class ImageWithClickableParts implements EventListener {
         id = sensitiveZone.getAttribute("id");
 
         System.out.println("Click on " + sensitiveZone.getAttribute("id"));
+        this.selectTerritory(id);
         if (GameResources.SVG_NAME_MAP.containsValue(sensitiveZone.getAttribute("id")) && !this.clicked.contains(sensitiveZone.getAttribute("id"))) {
             this.clicked.add(sensitiveZone.getAttribute("id"));
             toggleHighlight(sensitiveZone);
@@ -264,6 +275,15 @@ public class ImageWithClickableParts implements EventListener {
                 listener.partUnSelected(zoneKey, state);
             }
         }
+    }
+
+    public void selectTerritory(String territory) {
+        Element terr = territoryElementMap.get(territory);
+        String style = terr.getAttribute(STYLE_PROPERTY);
+        style = style.replaceFirst("fill:[^;]+", "fill: red");
+        style = style.replaceFirst("stroke-width:1.20000005", "stroke-width:5");
+        style = style.replaceFirst("stroke:#000000", "stroke:blue");
+        terr.setAttribute(STYLE_PROPERTY, style);
     }
 
     public void registerSelectedPartListener(SelectedPartListener listener) {
