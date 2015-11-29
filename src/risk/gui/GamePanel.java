@@ -1,136 +1,122 @@
 package risk.gui;
 
+import risk.GameState;
+import risk.board.Territory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.util.*;
+
 
 /**
- * Created by Federico on 17/11/2015.
- * questo pannello � la parte inferiore della schermata di
- * gioco con su cui sono indicati:giocatore corrente,truppe dispolnibili,
- * fasi e bottone per mandare avanti le fasi
+ *
+ * @author nikko31
  */
-public class GamePanel extends JPanel implements MouseListener {
-    int count;
-    private JTextField text;
-    private JPanel phase;
-    private JLabel ini;
-    private JLabel position;
-    private JLabel attack;
-    private JLabel move;
-    private JButton nextP;
-    private JLabel troops;
+public class GamePanel extends JPanel {
 
-
-
-    public GamePanel(){
-        System.out.println("inizilizzo pannello di gioco");
-        count=0;
-        this.setLayout(new GridLayout(1, 4));
-
-        text= new JTextField("player number###");
-        text.setEditable(false);
-
-        phase =new JPanel(new GridLayout(4,1));
-        ini=new JLabel("Initialize");
-        position=new JLabel("Position");
-        attack=new JLabel("Attack");
-        move=new JLabel("Move");
-
-        nextP=new JButton("NEXT");
-        nextP.addMouseListener(this);
-        nextP.requestFocus();
-
-        troops=new JLabel("troops:42");
-
-
-        ini.setOpaque(true);
-        position.setOpaque(true);
-        attack.setOpaque(true);
-        move.setOpaque(true);
-        this.add(text);
-        this.add(troops);
-        phase.add(ini);
-        phase.add(position);
-        phase.add(attack);
-        phase.add(move);
-        this.add(phase);
-        this.add(nextP);
-        this.requestFocus();
-        this.setVisible(true);
-
-
-
+    public GamePanel(String default_map, GameState gameState) {
+        this.gameState = gameState;
+        initComponents(default_map);
     }
 
-    public void mousePressed(MouseEvent e) {
+    /**
+     * This method is called from within the constructor to initialize the form.
+     *
+     * @param default_map
+     */
 
+    private void initComponents(String default_map) {
 
-    }
+        gamePnl = new JPanel();
+        nextBtn = new JButton();
+        phaseLbl = new JLabel();
+        playerLbl = new JLabel();
+        jLabel1 = new JLabel();
+        troupsLbl = new JLabel();
 
-    public void mouseReleased(MouseEvent e) {
+        setLayout(new BorderLayout());
 
-    }
-
-    public void mouseEntered(MouseEvent e) {
-        if(e.getSource()==nextP){
-            nextP.setBackground(Color.YELLOW);
-        }
-    }
-
-    public void mouseExited(MouseEvent e) {
-        if(e.getSource()==nextP){
-            nextP.setBackground(Color.WHITE);
-        }
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        System.out.println("ho clicckato");
-        if(e.getSource()==nextP){
-            System.out.println("clicked nextP");
-            count=count%4;
-            if(count==0){
-                System.out.println("ini");
-                move.setBackground(Color.WHITE);
-                ini.setBackground(Color.YELLOW);
-                move.repaint();
-                ini.repaint();
-                printAll(getGraphics());
+        nextBtn.setText("Next Phase");
+        nextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextBtnMouseClicked(evt);
             }
-            else if(count==1){
-                System.out.println("position");
-                ini.setBackground(Color.WHITE);
-                position.setBackground(Color.YELLOW);
-                position.repaint();
-                ini.repaint();
-                printAll(getGraphics());
+        });
+        phaseLbl.setForeground(Color.black);
+        phaseLbl.setText("Start");
 
-            }else if(count==2){
-                System.out.println("attack");
-                position.setBackground(Color.WHITE);
-                attack.setBackground(Color.YELLOW);
-                attack.repaint();
-                position.repaint();
-                printAll(getGraphics());
+        playerLbl.setForeground(new Color(171, 10, 10));
+        playerLbl.setText("Player");
 
-            }else if(count==3){
-                System.out.println("move");
-                attack.setBackground(Color.WHITE);
-                move.setBackground(Color.YELLOW);
-                move.repaint();
-                attack.repaint();
-                printAll(getGraphics());
+        jLabel1.setText("Free Troups: ");
 
-            }
-            count++;
+        troupsLbl.setForeground(Color.black);
+        troupsLbl.setText("45");
 
+        GroupLayout gamePnlLayout = new GroupLayout(gamePnl);
+        gamePnl.setLayout(gamePnlLayout);
+        gamePnlLayout.setHorizontalGroup(
+                gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, gamePnlLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(playerLbl)
+                                        .addGroup(gamePnlLayout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(troupsLbl)))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
+                                .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(phaseLbl)
+                                        .addComponent(nextBtn))
+                                .addContainerGap())
+        );
+        gamePnlLayout.setVerticalGroup(
+                gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, gamePnlLayout.createSequentialGroup()
+                                .addContainerGap(26, Short.MAX_VALUE)
+                                .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(phaseLbl)
+                                        .addComponent(playerLbl))
+                                .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(gamePnlLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(nextBtn))
+                                        .addGroup(gamePnlLayout.createSequentialGroup()
+                                                .addGap(9, 9, 9)
+                                                .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel1)
+                                                        .addComponent(troupsLbl))))
+                                .addContainerGap())
+        );
+        ImageWithClickableParts app;
+        File svgFile = new File(default_map);
+        java.util.List<String> territories = new ArrayList<>();
+        for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
+            territories.add(territory.getTerritoryName());
         }
+        app = new ImageWithClickableParts(svgFile, territories);
+        Component svgImage = app.getAsComponent();
 
+        add(gamePnl, BorderLayout.SOUTH);
+        add(svgImage, BorderLayout.CENTER);
+    }
+
+    private void nextBtnMouseClicked(MouseEvent evt) {
+        System.out.println("CLICKED: Next Button");
     }
 
 
-
-
+    // Variables declaration - do not modify                     
+    private JPanel gamePnl;
+    private JLabel jLabel1;
+    private JButton nextBtn;
+    private JLabel phaseLbl;
+    private JLabel playerLbl;
+    private JLabel troupsLbl;
+    // End of variables declaration
+    private GameState gameState;
 }
-

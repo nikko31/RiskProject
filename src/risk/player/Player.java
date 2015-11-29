@@ -1,7 +1,7 @@
 package risk.player;
 
-import risk.GameResources.COLOR;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +11,11 @@ public class Player {
     private int playerID;
     private String playerName;
     private int freeUnits;
-    private COLOR playerColor;
+    private Color playerColor;
 
     private List<String> continentList;
 
-    public Player(int playerID, String playerName, int freeUnits, COLOR color) {
+    public Player(int playerID, String playerName, int freeUnits, Color color) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.playerColor = color;
@@ -41,7 +41,7 @@ public class Player {
         this.freeUnits = freeUnits;
     }
 
-    public COLOR getPlayerColor() {
+    public Color getPlayerColor() {
         return playerColor;
     }
 

@@ -3,7 +3,9 @@ package risk;
 import risk.board.Territory;
 import risk.player.Player;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class GameState {
     List<Player> players;
@@ -17,12 +19,12 @@ public class GameState {
     private Territory moveTo;
     private Territory fortify;
 
-    public GameState(LinkedList<GameResources.COLOR> playerColors, LinkedList<String> humanPlayerNames, LinkedList<String> aiPlayerNames) {
+    public GameState(List<Color> playerColors, List<String> humanPlayerNames, List<String> aiPlayerNames) {
         this.players = new ArrayList<>();
         territoriesPlayersMap = new HashMap<>();
         int countId = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
-        ListIterator<GameResources.COLOR> playerColorsListIterator = playerColors.listIterator();
+        ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
         //creo humanPlayers id [0,6)
         for (String hPlayername : humanPlayerNames) {
             players.add(new Player(
@@ -131,5 +133,13 @@ public class GameState {
 
     public void setPhase(Phases phase) {
         this.phase = phase;
+    }
+
+    public Map<Territory, Player> getTerritoriesPlayersMap() {
+        return territoriesPlayersMap;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 }
