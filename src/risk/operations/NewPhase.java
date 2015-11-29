@@ -5,10 +5,10 @@ import risk.Phases;
 /**
  * Created by DarkLinux on 27/11/15.
  */
-public class newPhase implements Operation {
+public class NewPhase implements Operation {
     Phases phase;
 
-    public newPhase(Phases phase) {
+    public NewPhase(Phases phase) {
         this.phase = phase;
     }
 
