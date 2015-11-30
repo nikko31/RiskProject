@@ -198,7 +198,7 @@ public class RiskLogic {
 
     }
 
-    public void attack(Player attacker, Territory from, Territory to) {
+    public void attack(Player attacker, Territory from, Territory to,GameState gamesate) {
         //checkattackpossibility() da implementare
         int attackdice, defencedice;
         attackdice = GameResources.getMaxDiceRollsForAttacker(from.getCurrentUnits());
@@ -222,7 +222,13 @@ public class RiskLogic {
 
 
         if(checkIsConquered(to,attackdice)){
+
+            if(isPlayerOut(gamesate,gamesate.getPlayerTer(to))){
+                gamesate.elimiatePlayer(gamesate.getPlayerTer(to));
+            }
             occupyTerritory(attacker,from,to,attackdice);
+
+
         }
         else{
             removeTroops(to,attackdice);
@@ -368,8 +374,15 @@ public class RiskLogic {
     }
 
 
+    public boolean isPlayerOut(GameState gamestate,Player player){
 
-
+        for (Territory territory : gamestate.getTerritoriesPlayersMap().keySet()) {
+            if(gamestate.getPlayerTer(territory)==player){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 

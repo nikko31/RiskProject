@@ -142,4 +142,9 @@ public class GameState {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public void elimiatePlayer(Player player){
+        players.remove(player);
+
+    }
 }
