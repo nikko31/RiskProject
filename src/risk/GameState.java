@@ -1,5 +1,6 @@
 package risk;
 
+import risk.board.Card;
 import risk.board.Territory;
 import risk.player.Player;
 
@@ -11,6 +12,7 @@ public class GameState {
     List<Player> players;
     Player currentPlayerTurn;
     Phases phase;
+    LinkedList<Card> deck;
     Map<Territory, Player> territoriesPlayersMap;
 
     private Territory attackFrom;
@@ -59,8 +61,20 @@ public class GameState {
                             GameResources.CONNECTIONS.get(stateId)
                     ),
                     players.get(countId % numberOfPlayers)
+
             );
+
+            countId++;
         }
+
+        //inizializzo le carte
+        List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
+        Collections.shuffle(cardKeys);
+        for(Integer cardId : cardKeys){
+
+            deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
+        }
+
         currentPlayerTurn = players.get(0);
 
         attackFrom = null;
@@ -147,4 +161,37 @@ public class GameState {
         players.remove(player);
 
     }
+
+    public List<Card> getDeck() {
+        return deck;
+    }
+
+    public void setDeck(LinkedList<Card> deck) {
+        this.deck = deck;
+    }
+
+    public Card fishingCard(){
+        if(deck.size()>0){
+
+            return deck.remove(0);
+
+        }
+
+        else{
+            return null;
+        }
+    }
+
+    public void restoreCards(List<Card> cards){
+
+
+        for(Card cardIter : cards){
+            deck.add(cardIter);
+        }
+        //ricordati di fare un metodo che le mescola
+
+
+    }
+
+
 }

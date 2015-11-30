@@ -10,8 +10,59 @@ import java.util.*;
         public final static String MOVE_PHASE = "Move";
         public final static String END_TURN_PHASE = "End Turn";
         public final static String START_GAME_PHASE="Start Game";
-
+        public enum Type { INFANTRY, CAVALRY, ARTILLERY, WILDCARD };
         public enum COLOR {YELLOW, GREEN, VIOLET, BROWN}
+
+        public static final Map<Integer, String> CARD_ID_STRING = new HashMap<Integer, String>();
+
+        static{
+
+            CARD_ID_STRING.put(0,"");
+            CARD_ID_STRING.put(1,"");
+            CARD_ID_STRING.put(2,"");
+            CARD_ID_STRING.put(3,"");
+            CARD_ID_STRING.put(4,"");
+            CARD_ID_STRING.put(5,"");
+            CARD_ID_STRING.put(6,"");
+            CARD_ID_STRING.put(7,"");
+            CARD_ID_STRING.put(8,"");
+            CARD_ID_STRING.put(9,"");
+            CARD_ID_STRING.put(10,"");
+            CARD_ID_STRING.put(11,"");
+            CARD_ID_STRING.put(12,"I");
+            CARD_ID_STRING.put(13,"");
+            CARD_ID_STRING.put(14,"");
+            CARD_ID_STRING.put(15,"");
+            CARD_ID_STRING.put(16,"");
+            CARD_ID_STRING.put(17,"");
+            CARD_ID_STRING.put(18,"");
+            CARD_ID_STRING.put(19,"");
+            CARD_ID_STRING.put(20,"");
+            CARD_ID_STRING.put(21,"");
+            CARD_ID_STRING.put(22,"");
+            CARD_ID_STRING.put(23,"");
+            CARD_ID_STRING.put(24,"");
+            CARD_ID_STRING.put(25,"");
+            CARD_ID_STRING.put(26,"");
+            CARD_ID_STRING.put(27,"");
+            CARD_ID_STRING.put(28,"");
+            CARD_ID_STRING.put(29,"");
+            CARD_ID_STRING.put(30,"");
+            CARD_ID_STRING.put(31,"");
+            CARD_ID_STRING.put(32,"");
+            CARD_ID_STRING.put(33,"");
+            CARD_ID_STRING.put(34,"");
+            CARD_ID_STRING.put(35,"");
+            CARD_ID_STRING.put(36,"");
+            CARD_ID_STRING.put(37,"");
+            CARD_ID_STRING.put(38,"");
+            CARD_ID_STRING.put(39,"");
+            CARD_ID_STRING.put(40,"");
+            CARD_ID_STRING.put(41,"");
+            CARD_ID_STRING.put(42,"");
+            CARD_ID_STRING.put(43,"W");
+            CARD_ID_STRING.put(44,"W");
+        }
 
         public static final Map<Integer, String> TERRITORY_NAME = new HashMap<Integer, String>();
 
