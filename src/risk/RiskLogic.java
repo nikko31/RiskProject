@@ -50,6 +50,7 @@ public class RiskLogic {
                     if(territory == gamestate.getFortify()){
                         //lo annullo
                         gamestate.setFortify(null);
+                        fortify(gamestate.getCurrentPlayerTurn(),territory);
                         return new Fortify(territory);
                     }
                     else{
@@ -108,6 +109,7 @@ public class RiskLogic {
                                 Territory moveFrom=gamestate.getMoveFrom();
                                 gamestate.setMoveFrom(null);
                                 gamestate.setMoveTo(null);
+                                move(gamestate.getCurrentPlayerTurn(),moveFrom,territory);
                                 return new Move(moveFrom,territory);
                             }
                             else{

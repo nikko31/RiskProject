@@ -24,6 +24,7 @@ public class GameState {
     public GameState(List<Color> playerColors, List<String> humanPlayerNames, List<String> aiPlayerNames) {
         this.players = new ArrayList<>();
         territoriesPlayersMap = new HashMap<>();
+        deck = new LinkedList<>();
         int countId = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
@@ -67,13 +68,14 @@ public class GameState {
             countId++;
         }
 
-        //inizializzo le carte
+        //inizializzo le carte/
         List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
         Collections.shuffle(cardKeys);
         for(Integer cardId : cardKeys){
 
             deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
         }
+
 
         currentPlayerTurn = players.get(0);
 
