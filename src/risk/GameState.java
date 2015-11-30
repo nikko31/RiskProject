@@ -20,12 +20,15 @@ public class GameState {
     private Territory moveFrom;
     private Territory moveTo;
     private Territory fortify;
+    private boolean moveFlag;
+    int count;
 
     public GameState(List<Color> playerColors, List<String> humanPlayerNames, List<String> aiPlayerNames) {
         this.players = new ArrayList<>();
         territoriesPlayersMap = new HashMap<>();
         deck = new LinkedList<>();
         int countId = 0;
+        count = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
         //creo humanPlayers id [0,6)
@@ -78,7 +81,8 @@ public class GameState {
 
 
         currentPlayerTurn = players.get(0);
-
+        count++;
+        moveFlag=true;
         attackFrom = null;
         attackTo = null;
         moveFrom = null;
@@ -147,8 +151,17 @@ public class GameState {
         return phase;
     }
 
+
     public void setPhase(Phases phase) {
         this.phase = phase;
+    }
+
+    public boolean getMoveFlag() {
+        return moveFlag;
+    }
+
+    public void setMoveFlag(boolean moveFlag) {
+        this.moveFlag = moveFlag;
     }
 
     public Map<Territory, Player> getTerritoriesPlayersMap() {
@@ -193,6 +206,15 @@ public class GameState {
         //ricordati di fare un metodo che le mescola
 
 
+    }
+
+
+    public void nextPlayer(){
+        currentPlayerTurn=players.get(count%players.size());
+        count++;
+        if(count==players.size()){
+            count=0;
+        }
     }
 
 
