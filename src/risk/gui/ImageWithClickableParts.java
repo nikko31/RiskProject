@@ -15,7 +15,6 @@ import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.svg.SVGDocument;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.TreeWalker;
-import risk.GameResources;
 
 import java.awt.*;
 import java.io.File;
