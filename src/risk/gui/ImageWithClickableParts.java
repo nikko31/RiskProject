@@ -80,7 +80,6 @@ public class ImageWithClickableParts implements EventListener {
 
                 @Override
                 public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-
                     addListenersToSensitiveZones();
                 }
             });
