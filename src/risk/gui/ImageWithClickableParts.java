@@ -105,6 +105,7 @@ public class ImageWithClickableParts implements EventListener {
                         //aggiungo i listener ai territori
                         this.territoryElementMap.put(territory, elt);
                         EventTarget t = (EventTarget) elt;
+                        //this.setTerritoryColor(territory,Color.green);
                         t.addEventListener("click", this, false);
                     }
                     break;
@@ -114,13 +115,6 @@ public class ImageWithClickableParts implements EventListener {
 
     }
 
-    private void initializeTerritoriesColor(Map<String, GameResources.COLOR> mapTerritorynamePlayercolor) {
-        List<Node> allSensitiveZones = getAllSensitiveZones();
-        for (Node sensitiveZone : allSensitiveZones) {
-            Element elt = (Element) sensitiveZone;
-
-        }
-    }
 
     private void toggleHighlight(Element sensitiveZone) {
         cleanAttributes(sensitiveZone);

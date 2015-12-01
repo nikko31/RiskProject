@@ -4,6 +4,7 @@ import org.w3c.dom.events.*;
 import org.w3c.dom.events.Event;
 import risk.GameState;
 import risk.board.Territory;
+import risk.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,7 @@ public class GamePanel extends JPanel implements SelectedListener {
         this.selectedTerritories = new ArrayList<>();
         this.gameState = gameState;
         initComponents(default_map);
+
 
     }
 
@@ -107,10 +109,14 @@ public class GamePanel extends JPanel implements SelectedListener {
 
         add(gamePnl, BorderLayout.SOUTH);
         add(svgImage, BorderLayout.CENTER);
+
     }
 
     private void nextBtnMouseClicked(MouseEvent evt) {
         /*@TODO System.out.println("CLICKED: Next Button");*/
+        for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
+            app.setTerritoryColor(entry.getKey().getTerritoryName(),entry.getValue().getPlayerColor());
+        }
     }
 
 
