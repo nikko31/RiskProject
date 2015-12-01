@@ -338,9 +338,9 @@ public class RiskLogic {
 
 
     public boolean checkAttackTo(Player attacker,Territory from, Territory to){
-        //controllo che il territorio di partenza sia mio
+        //control not in my territory
         if(attacker.getPlayerID()!=gamestate.getPlayerTer(to).getPlayerID()){
-            //controllo che nel territorio di partenza ci siano almeno 2 unita
+            //control is neighbour
             if(to.isNeighbour(from.getTerritoryID())){
                 return true;
             }
