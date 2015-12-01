@@ -19,19 +19,25 @@ import java.util.Random;
 public class RiskLogic {
 
     int firstTurn;
+    GameState gamestate;
+    List<Territory> territories;
+    Territory territory;
 
-    public RiskLogic(){
-        firstTurn=0;
+    public RiskLogic(GameState gamestate){
+        firstTurn = 0;
+        territory = null;
+        this.gamestate = gamestate;
+        territories = new ArrayList<Territory>(gamestate.getTerritoriesPlayersMap().keySet());
     }
 
 
-    public Operation makeMove(Territory  territory, GameState gamestate){
-
+    public Operation makeMove(String string, GameState gamestate){
+        territory = stringToTerritory(string);
         //Fortify phase
-        if(gamestate.getPhase() == Phases.FORTIFY){
+        if(gamestate.getPhase() == Phases.FORTIFY || gamestate.getPhase() == Phases.INITIAL ){
 
             if(checkFortifyUnits(gamestate.getCurrentPlayerTurn())) {
-                if (checkFortify(gamestate.getCurrentPlayerTurn(), territory,gamestate)) {
+                if (checkFortify(gamestate.getCurrentPlayerTurn(), territory)) {
                     fortify(gamestate.getCurrentPlayerTurn(), territory);
                     return new Fortify(territory);
                 } else {
@@ -53,13 +59,20 @@ public class RiskLogic {
 
             if(gamestate.getAttackFrom() == null){
 
-                if(checkAttackFrom(gamestate.getCurrentPlayerTurn(), territory,gamestate)){
-                    gamestate.setAttackFrom(territory);
-                    return new TerritorySelected(territory);
+                if(checkAttackFrom(gamestate.getCurrentPlayerTurn(), territory)){
+
+                    if(checkAttackFromUnits(gamestate.getCurrentPlayerTurn(), territory)){
+                        gamestate.setAttackFrom(territory);
+                        return new TerritorySelected(territory);
+                    }
+                    else{
+                        return new Error(territory.getTerritoryName() + " not enough units");
+                    }
+
                 }
                 else{
 
-                    return new Error(territory.getTerritoryName() + " not in your territories or not enough units");
+                    return new Error(territory.getTerritoryName() + " not in your territories");
 
                 }
 
@@ -73,10 +86,10 @@ public class RiskLogic {
                 }
                 else{
 
-                    if(checkAttackTo(gamestate.currentPlayerTurn,gamestate.getAttackFrom(),territory,gamestate)){
+                    if(checkAttackTo(gamestate.currentPlayerTurn,gamestate.getAttackFrom(),territory)){
                         Territory attackFrom = gamestate.getAttackFrom();
                         gamestate.setAttackFrom(null);
-                        attack(gamestate.currentPlayerTurn,attackFrom,territory,gamestate);
+                        attack(gamestate.currentPlayerTurn,attackFrom,territory);
                         return new Attack(attackFrom,territory);
                     }
                     else{
@@ -96,7 +109,7 @@ public class RiskLogic {
 
             if (gamestate.getMoveFrom() == null) {
 
-                    if (checkMoveFrom(gamestate.getCurrentPlayerTurn(), territory,gamestate)) {
+                    if (checkMoveFrom(gamestate.getCurrentPlayerTurn(), territory)) {
                         if (checkMoveFromUnits(gamestate.getCurrentPlayerTurn(), territory)) {
                             gamestate.setMoveFrom(territory);
                             return new TerritorySelected(territory);
@@ -112,8 +125,8 @@ public class RiskLogic {
 
                 } else {
 
-                    if (checkMoveTo(gamestate.getCurrentPlayerTurn(), territory,gamestate)) {
-                        //deseleziono
+                    if (checkMoveTo(gamestate.getCurrentPlayerTurn(), territory)) {
+                        //unselect
                         if (territory == gamestate.getMoveFrom()) {
                             gamestate.setMoveFrom(null);
                             return new TerritoryUnselected(territory);
@@ -146,7 +159,7 @@ public class RiskLogic {
     }
 
 
-    public List<Operation> nextPhase(GameState gamestate){
+    public List<Operation> nextPhase(){
         List<Operation> operations = new ArrayList<Operation>();
         if(gamestate.getPhase() == Phases.INITIAL){
             gamestate.nextPhase();
@@ -154,7 +167,10 @@ public class RiskLogic {
             operations.add(new NewPhase(Phases.END_TURN));
         }
         if(gamestate.getPhase() == Phases.BONUS){
+            int units;
+            units = territoriesBonus();
             gamestate.nextPhase();
+            operations.add(new UnitsBonus(units));
             operations.add(new NewPhase(Phases.FORTIFY));
             return operations;
 
@@ -168,12 +184,20 @@ public class RiskLogic {
         }
         else if((gamestate.getPhase() == Phases.ATTACK)){
             gamestate.nextPhase();
+            if(gamestate.getAttackFrom() != null){
+                operations.add(new TerritoryUnselected(gamestate.getAttackFrom()));
+                gamestate.setAttackFrom(null);
+            }
             operations.add(new NewPhase(Phases.MOVE));
             return operations;
 
         }
         else if(gamestate.getPhase() == Phases.MOVE){
             gamestate.nextPhase();
+            if(gamestate.getMoveFrom() != null){
+                operations.add(new TerritoryUnselected(gamestate.getMoveFrom()));
+                gamestate.setMoveFrom(null);
+            }
             operations.add(new NewPhase(Phases.END_TURN));
             return operations;
 
@@ -181,11 +205,11 @@ public class RiskLogic {
         else if(gamestate.getPhase() == Phases.END_TURN){
 
 
-            if(checkVictory(gamestate)){
+            if(checkVictory()){
                 operations.add(new Victory(gamestate.getCurrentPlayerTurn()));
                 return operations;
             }
-            else if(firstTurn == gamestate.getPlayers().size()){
+            else if(firstTurn >= gamestate.getPlayers().size()){
                 gamestate.nextPlayer();
                 gamestate.setPhase(Phases.BONUS);
                 operations.add(new NewPhase(Phases.BONUS));
@@ -226,7 +250,7 @@ public class RiskLogic {
         return false;
     }
 
-    public boolean checkFortify(Player current_player, Territory territory,GameState gamestate){
+    public boolean checkFortify(Player current_player, Territory territory){
         //check if the territory is my
         if(current_player.getPlayerID()==gamestate.getPlayerTer(territory).getPlayerID()){
             return true;
@@ -241,7 +265,7 @@ public class RiskLogic {
     //---------------------------------ATTACK METHOD---------------------------------------
 
 
-    public boolean attack(Player attacker, Territory from, Territory to,GameState gamesate) {
+    public boolean attack(Player attacker, Territory from, Territory to) {
         int attackdice, defencedice;
         attackdice = GameResources.getMaxDiceRollsForAttacker(from.getCurrentUnits());
         defencedice = GameResources.getMaxDiceRollsForDefender(to.getCurrentUnits());
@@ -265,11 +289,13 @@ public class RiskLogic {
 
 
         if(checkIsConquered(to,attackdice)){
+            Player player = null;
+            player = gamestate.getPlayerTer(to);
 
-            if(isPlayerOut(gamesate,gamesate.getPlayerTer(to))){
-                gamesate.elimiatePlayer(gamesate.getPlayerTer(to));
+            if(isPlayerOut(player)){
+                gamestate.elimiatePlayer(player);
             }
-            occupyTerritory(attacker,from,to,attackdice,gamesate);
+            occupyTerritory(attacker,from,to,attackdice);
             return true;
 
 
@@ -298,7 +324,7 @@ public class RiskLogic {
 
     }
 
-    public boolean checkAttackFrom(Player attacker, Territory from,GameState gamestate){
+    public boolean checkAttackFrom(Player attacker, Territory from){
         //che the from territory is mine
         if(attacker.getPlayerID()==gamestate.getPlayerTer(from).getPlayerID()){
 
@@ -311,7 +337,7 @@ public class RiskLogic {
     }
 
 
-    public boolean checkAttackTo(Player attacker,Territory from, Territory to,GameState gamestate){
+    public boolean checkAttackTo(Player attacker,Territory from, Territory to){
         //controllo che il territorio di partenza sia mio
         if(attacker.getPlayerID()!=gamestate.getPlayerTer(to).getPlayerID()){
             //controllo che nel territorio di partenza ci siano almeno 2 unita
@@ -325,7 +351,7 @@ public class RiskLogic {
     }
 
 
-    public boolean isPlayerOut(GameState gamestate,Player player){
+    public boolean isPlayerOut(Player player){
 
         for (Territory territory : gamestate.getTerritoriesPlayersMap().keySet()) {
             if(gamestate.getPlayerTer(territory)==player){
@@ -337,7 +363,7 @@ public class RiskLogic {
 
 
     //reload the map of territories in gamestate
-    public void occupyTerritory(Player current_player,Territory from, Territory to,int units,GameState gamestate){
+    public void occupyTerritory(Player current_player,Territory from, Territory to,int units){
         from.setCurrentUnits(from.getCurrentUnits()-units);
         gamestate.setPlayerTer(to, current_player);
         to.setCurrentUnits(units);
@@ -389,7 +415,7 @@ public class RiskLogic {
     }
 
     //check if the territory is my
-    public boolean checkMoveFrom(Player current_player, Territory from,GameState gamestate){
+    public boolean checkMoveFrom(Player current_player, Territory from){
         if(current_player.getPlayerID()==gamestate.getPlayerTer(from).getPlayerID()){
             return true;
         }
@@ -401,7 +427,7 @@ public class RiskLogic {
     }
 
     //check if the territory is my
-    public boolean checkMoveTo(Player current_player, Territory to,GameState gamestate){
+    public boolean checkMoveTo(Player current_player, Territory to){
         if(current_player.getPlayerID()==gamestate.getPlayerTer(to).getPlayerID()){
             return true;
         }
@@ -413,16 +439,33 @@ public class RiskLogic {
 
     //-----------------------BONUS METHOD----------------------------------------
 
-    public int TerritoriesBonus(GameState gamestate){
-        int bonusUnits=0;
+    public int territoriesBonus(){
+        int territoryCount=0;
+        int count=0;
+        for(Territory territory : territories ){
+            if(gamestate.getPlayerTer(territory)==gamestate.getCurrentPlayerTurn()){
+                territoryCount++;
+            }
+        }
 
+        addBonusUnits(territoryCount/3);
+        return territoryCount/3;
 
-        return 2;
     }
+
+
+    public void addBonusUnits(int units){
+        gamestate.getCurrentPlayerTurn().setFreeUnits(gamestate.getCurrentPlayerTurn().getFreeUnits() + units);
+    }
+
+    public void countryBonus(){
+        //to implement
+    }
+
 
     //-----------------------OTHER METHOD---------------------------------------
 
-    public boolean checkVictory(GameState gamestate){
+    public boolean checkVictory(){
         List<Territory> territories = new ArrayList<>(gamestate.getTerritoriesPlayersMap().keySet());
         int count=0;
         for(Territory territory : territories ){
@@ -436,6 +479,18 @@ public class RiskLogic {
 
         return false;
     }
+
+    public Territory stringToTerritory(String string){
+        for(Territory territory : territories){
+            if(territory.getTerritoryName().equals(string)){
+                return territory;
+            }
+        }
+
+        return null;
+    }
+
+
 
 
 

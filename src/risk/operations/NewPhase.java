@@ -18,6 +18,6 @@ public class NewPhase implements Operation {
 
     @Override
     public String operationString() {
-        return null;
+        return "NEW PHASE: next pahse";
     }
 }

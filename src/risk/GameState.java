@@ -14,7 +14,6 @@ public class GameState {
     Phases phase;
     LinkedList<Card> deck;
     Map<Territory, Player> territoriesPlayersMap;
-
     private Territory attackFrom;
     private Territory moveFrom;
     public boolean initialflag;
@@ -27,7 +26,7 @@ public class GameState {
         territoriesPlayersMap = new HashMap<>();
         deck = new LinkedList<>();
         int countId = 0;
-        count = 0;
+        count = 1;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
         //creo humanPlayers id [0,6)
@@ -80,7 +79,6 @@ public class GameState {
 
 
         currentPlayerTurn = players.get(0);
-        count++;
         initialflag=true;
         attackFrom = null;
         moveFrom = null;
@@ -88,39 +86,8 @@ public class GameState {
 
     }
 
-    public Player getPlayerTer(Territory territory) {
-        return territoriesPlayersMap.get(territory);
-    }
 
-    //dato un territorio mi cambia il proprietario
-    public void setPlayerTer(Territory territory, Player player) {
-        //territoriesPlayersMap.replace(territory, player);
-    }
-
-    public Player getCurrentPlayerTurn() {
-        return currentPlayerTurn;
-    }
-
-    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
-        this.currentPlayerTurn = currentPlayerTurn;
-    }
-
-    public Territory getAttackFrom() {
-        return attackFrom;
-    }
-
-    public void setAttackFrom(Territory attackFrom) {
-        this.attackFrom = attackFrom;
-    }
-
-    public Territory getMoveFrom() {
-        return moveFrom;
-    }
-
-    public void setMoveFrom(Territory moveFrom) {
-        this.moveFrom = moveFrom;
-    }
-
+    //--------------------PHASE METHOD-----------------------------------------------------
     public Phases getPhase() {
         return phase;
     }
@@ -130,6 +97,12 @@ public class GameState {
         this.phase = phase;
     }
 
+
+    public void nextPhase(){
+        phase.next();
+
+    }
+    //----------------------------PLAYER METHOD----------------------------------
 
     public Map<Territory, Player> getTerritoriesPlayersMap() {
         return territoriesPlayersMap;
@@ -143,6 +116,37 @@ public class GameState {
         players.remove(player);
 
     }
+
+
+    public void nextPlayer(){
+        currentPlayerTurn=players.get(count%players.size());
+        count++;
+        if(count==players.size()){
+            count=0;
+        }
+    }
+
+    public Player getPlayerTer(Territory territory) {
+        return territoriesPlayersMap.get(territory);
+    }
+
+    //change the owner of a territory
+    public void setPlayerTer(Territory territory, Player player) {
+        territoriesPlayersMap.replace(territory,player);
+    }
+
+    public Player getCurrentPlayerTurn() {
+        return currentPlayerTurn;
+    }
+
+    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
+        this.currentPlayerTurn = currentPlayerTurn;
+    }
+
+
+
+
+    //--------------------------------DECK------------------------------------------
 
     public List<Card> getDeck() {
         return deck;
@@ -159,6 +163,7 @@ public class GameState {
 
         }
 
+
         else{
             return null;
         }
@@ -166,27 +171,30 @@ public class GameState {
 
     public void restoreCards(List<Card> cards){
 
-
         for(Card cardIter : cards){
             deck.add(cardIter);
         }
-        //ricordati di fare un metodo che le mescola
+        //shuffle method to implement
 
 
     }
 
+    //---------------------OTHER METHOD--------------------------------
 
-    public void nextPlayer(){
-        currentPlayerTurn=players.get(count%players.size());
-        count++;
-        if(count==players.size()){
-            count=0;
-        }
+    public Territory getAttackFrom() {
+        return attackFrom;
     }
 
-    public void nextPhase(){
-        phase.next();
+    public void setAttackFrom(Territory attackFrom) {
+        this.attackFrom = attackFrom;
+    }
 
+    public Territory getMoveFrom() {
+        return moveFrom;
+    }
+
+    public void setMoveFrom(Territory moveFrom) {
+        this.moveFrom = moveFrom;
     }
 
 
