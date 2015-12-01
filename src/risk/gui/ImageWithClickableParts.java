@@ -221,11 +221,13 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-        listeners.get(0).updateUi(id,evt);
+        listeners.get(0).updateUi(id, evt);
     }
 
 
-/*    *//**
+/*    */
+
+    /**
      * @return an object describing the current state of the selected parts
      *//*
     private SelectedPartsState createCurrentSelectedPartsState() {
