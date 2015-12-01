@@ -24,10 +24,10 @@ import java.util.List;
  */
 public class GamePanel extends JPanel implements SelectedListener {
 
-    public GamePanel(String default_map, GameState gameState) {
+    public GamePanel(String default_map, GameState gameState, JFrame gameFrame) {
         this.gameState = gameState;
         initComponents(default_map);
-
+        this.gameFrame = gameFrame;
 
     }
 
@@ -135,6 +135,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     private JLabel phaseLbl;
     private JLabel playerLbl;
     private JLabel troupsLbl;
+    private JFrame gameFrame;
     // End of variables declaration
     private GameState gameState;
     private ImageWithClickableParts app;
@@ -164,7 +165,9 @@ public class GamePanel extends JPanel implements SelectedListener {
                     this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                 }
                 if (operation instanceof Error) {
-                    System.out.println(operation.operationString());
+                    JOptionPane.showMessageDialog(
+                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                    );
                 }
                 break;
             case BONUS:
@@ -178,5 +181,6 @@ public class GamePanel extends JPanel implements SelectedListener {
             case END_TURN:
                 break;
         }
+        System.out.println(operation.operationString());
     }
 }

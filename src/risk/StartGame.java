@@ -82,7 +82,7 @@ public class StartGame extends JFrame {
 
         bot4.setText("AI");
 
-        playerName5.setBackground(Color.magenta);
+        playerName5.setBackground(Color.decode("#FF33FF"));
 
         bot5.setText("AI");
 
@@ -235,7 +235,7 @@ public class StartGame extends JFrame {
             getContentPane().removeAll();
             gameState = new GameState(colors, human_names, bot_names);
             this.setLayout(new BorderLayout());
-            this.getContentPane().add(new GamePanel(RESOURCES + "Risk_board.svg", gameState));
+            this.getContentPane().add(new GamePanel(RESOURCES + "Risk_board.svg", gameState,this));
             this.pack();
         }
 
