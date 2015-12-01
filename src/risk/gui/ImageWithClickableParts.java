@@ -16,8 +16,6 @@ import org.w3c.dom.svg.SVGDocument;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.TreeWalker;
 import risk.GameResources;
-import risk.board.Territory;
-import risk.player.Player;
 
 import java.awt.*;
 import java.io.File;
@@ -36,12 +34,12 @@ public class ImageWithClickableParts implements EventListener {
     private static final String SENSITIVE_ZONE_IDENTIFIER = "id";
     /*---------default colors----------*/
     private static final String DEFAULT_FILL_PROPERTY_VALUE_RED = "red";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_GREEN = "green";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_BLUE = "blue";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_YELLOW = "yellow";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_VIOLET = "violet";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_BROWN = "brown";
-    private static final String DEFAULT_FILL_PROPERTY_VALUE_WHITE = "white";
+
+    private static final String DEFAULT_STROKE = "stroke:#000000";
+    private static final String SELECTED_STROKE = "stroke:blue";
+    private static final String DEFAULT_STROKE_WIDTH = "stroke-width:1.20000005";
+    private static final String SELECTED_STROKE_WIDTH = "stroke-width:5";
+    private static final String DEFAULT_FILL = "fill:#ffffff";
     /*<------------------------------->*/
     private static final String DEFAULT_STYLE_PROPERTY_VALUE = "";
     private static final String STYLE_PROPERTY = "style";
@@ -54,7 +52,7 @@ public class ImageWithClickableParts implements EventListener {
     private List<String> clicked = new ArrayList<>();
     private JSVGCanvas svgCanvas = new JSVGCanvas();
     private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<ObjectAndProperty<Element>, String>();
-    private List<SelectedPartListener> listeners = new ArrayList<SelectedPartListener>();
+    private List<SelectedListener> listeners = new ArrayList<>();
     private Map<String, Element> territoryElementMap;
     private Map<String, Element> territoryUnitsMap;
 
@@ -95,6 +93,7 @@ public class ImageWithClickableParts implements EventListener {
     protected void addListenersToSensitiveZones() {
         List<Node> allSensitiveZones = getAllSensitiveZones();
         this.territoriesUnitsNodes = new ArrayList<>();
+        this.clicked = new ArrayList<>();
         for (Node sensitiveZone : allSensitiveZones) {
             Element elt = (Element) sensitiveZone;
             String elementId = elt.getAttribute("id");
@@ -145,22 +144,6 @@ public class ImageWithClickableParts implements EventListener {
 //        notifyListeners(zoneKey, true);
     }
 
-    private void toggleHighlight(Element sensitiveZone, String s) {
-        cleanAttributes(sensitiveZone);
-        ObjectAndProperty<Element> objAndPropertyFill = new ObjectAndProperty<Element>();
-        String savedFillPropertyValue = nodeAndProperty2Value.get(objAndPropertyFill);
-        NamedNodeMap zoneAttributes = sensitiveZone.getAttributes();
-        Node fillProperty = zoneAttributes.getNamedItem(FILL_PROPERTY);
-
-        if (savedFillPropertyValue == null) {
-            backupOriginalPropertyAndApplyNewProperty(fillProperty, objAndPropertyFill, FILL_PROPERTY_HIGHLIGHTED);
-        } else {
-            restoreOriginalProperty(fillProperty, objAndPropertyFill, savedFillPropertyValue);
-        }
-
-        String zoneKey = zoneAttributes.getNamedItem(SENSITIVE_ZONE_IDENTIFIER).getNodeValue();
-        notifyListeners(zoneKey, true);
-    }
 
     private void restoreOriginalProperty(Node namedItem, ObjectAndProperty<Element> objAndProperty, String savedPropertyValue) {
         namedItem.setNodeValue(savedPropertyValue);
@@ -188,8 +171,8 @@ public class ImageWithClickableParts implements EventListener {
         */
         // If no FILL_PROPERTY defined, initialize it to a color by default
         //if (zoneAttributes.getNamedItem(FILL_PROPERTY) == null) {
-            System.out.println("Setting default {}" + FILL_PROPERTY);
-            sensitiveZone.setAttribute(FILL_PROPERTY, DEFAULT_FILL_PROPERTY_VALUE_RED);
+        System.out.println("Setting default {}" + FILL_PROPERTY);
+        sensitiveZone.setAttribute(FILL_PROPERTY, DEFAULT_FILL_PROPERTY_VALUE_RED);
         //}
 
 
@@ -238,21 +221,13 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-
-        System.out.println("Click on " + sensitiveZone.getAttribute("id"));
-        this.selectTerritory(id);
-        if (GameResources.SVG_NAME_MAP.containsValue(sensitiveZone.getAttribute("id")) && !this.clicked.contains(sensitiveZone.getAttribute("id"))) {
-            this.clicked.add(sensitiveZone.getAttribute("id"));
-            toggleHighlight(sensitiveZone);
-        }
-
-
+        listeners.get(0).updateUi(id,evt);
     }
 
 
-    /**
+/*    *//**
      * @return an object describing the current state of the selected parts
-     */
+     *//*
     private SelectedPartsState createCurrentSelectedPartsState() {
         Set<String> selectedKeys = new HashSet<String>();
         for (ObjectAndProperty<Element> objAndProp : nodeAndProperty2Value.keySet()) {
@@ -275,18 +250,56 @@ public class ImageWithClickableParts implements EventListener {
                 listener.partUnSelected(zoneKey, state);
             }
         }
-    }
+    }*/
 
+    /*--------------------> START Manipulate-Territory Method s<--------------------*/
     public void selectTerritory(String territory) {
         Element terr = territoryElementMap.get(territory);
         String style = terr.getAttribute(STYLE_PROPERTY);
-        style = style.replaceFirst("fill:[^;]+", "fill: red");
-        style = style.replaceFirst("stroke-width:1.20000005", "stroke-width:5");
-        style = style.replaceFirst("stroke:#000000", "stroke:blue");
+        style = style.replaceFirst(DEFAULT_STROKE_WIDTH, SELECTED_STROKE_WIDTH);
+        style = style.replaceFirst(DEFAULT_STROKE, SELECTED_STROKE);
         terr.setAttribute(STYLE_PROPERTY, style);
     }
 
-    public void registerSelectedPartListener(SelectedPartListener listener) {
+    public void deselectTerritory(String territory) {
+        Element terr = territoryElementMap.get(territory);
+        String style = terr.getAttribute(STYLE_PROPERTY);
+        style = style.replaceFirst(SELECTED_STROKE_WIDTH, DEFAULT_STROKE_WIDTH);
+        style = style.replaceFirst(SELECTED_STROKE, DEFAULT_STROKE);
+        terr.setAttribute(STYLE_PROPERTY, style);
+    }
+
+    public void setTerritoryColor(String territory, Color color) {
+        Element terr = territoryElementMap.get(territory);
+        String fill = terr.getAttribute(STYLE_PROPERTY);
+        fill = fill.replaceFirst(DEFAULT_FILL,
+                "fill: " + String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue()));
+        terr.setAttribute(STYLE_PROPERTY, fill);
+    }
+
+    public void resetTerritoryColor(String territory) {
+        Element terr = territoryElementMap.get(territory);
+        String fill = terr.getAttribute(STYLE_PROPERTY);
+        fill = fill.replaceFirst("fill:[^;]+", DEFAULT_FILL);
+        terr.setAttribute(STYLE_PROPERTY, fill);
+    }
+
+    public void setUnits(String territory, int units) {
+        Element territoryUnits = territoryUnitsMap.get(territory);
+
+        territoryUnits.getFirstChild().getFirstChild().setNodeValue(Integer.toString(units));
+
+    }
+
+    public void incrementUnits(String territory) {
+        Element territoryUnits = territoryUnitsMap.get(territory);
+        int units = Integer.parseInt(territoryUnits.getFirstChild().getFirstChild().getNodeValue());
+        setUnits(territory, ++units);
+    }
+
+    /*--------------------> END Manipulate-Territory Method s<--------------------*/
+
+    public void registerEventHeader(SelectedListener listener) {
         listeners.add(listener);
     }
 }

@@ -1,5 +1,7 @@
 package risk.gui;
 
+import org.w3c.dom.events.*;
+import org.w3c.dom.events.Event;
 import risk.GameState;
 import risk.board.Territory;
 
@@ -9,17 +11,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.*;
+import java.util.List;
 
 
 /**
- *
  * @author nikko31
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements SelectedListener {
 
     public GamePanel(String default_map, GameState gameState) {
+        this.selectedTerritories = new ArrayList<>();
         this.gameState = gameState;
         initComponents(default_map);
+
     }
 
     /**
@@ -92,13 +96,13 @@ public class GamePanel extends JPanel {
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
-        ImageWithClickableParts app;
         File svgFile = new File(default_map);
-        java.util.List<String> territories = new ArrayList<>();
+        List<String> territories = new ArrayList<>();
         for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
             territories.add(territory.getTerritoryName());
         }
         app = new ImageWithClickableParts(svgFile, territories);
+        app.registerEventHeader(this);
         Component svgImage = app.getAsComponent();
 
         add(gamePnl, BorderLayout.SOUTH);
@@ -106,7 +110,7 @@ public class GamePanel extends JPanel {
     }
 
     private void nextBtnMouseClicked(MouseEvent evt) {
-        System.out.println("CLICKED: Next Button");
+        /*@TODO System.out.println("CLICKED: Next Button");*/
     }
 
 
@@ -119,4 +123,21 @@ public class GamePanel extends JPanel {
     private JLabel troupsLbl;
     // End of variables declaration
     private GameState gameState;
+    private ImageWithClickableParts app;
+    private List<String> selectedTerritories;
+
+    @Override
+    public void updateUi(String territory, Event event) {
+        System.out.println("Click on " + territory);
+        app.setTerritoryColor(territory, Color.green);
+        app.incrementUnits(territory);
+        if (this.selectedTerritories.contains(territory)) {
+            app.deselectTerritory(territory);
+            this.selectedTerritories.remove(territory);
+            app.resetTerritoryColor(territory);
+        } else {
+            app.selectTerritory(territory);
+            this.selectedTerritories.add(territory);
+        }
+    }
 }
