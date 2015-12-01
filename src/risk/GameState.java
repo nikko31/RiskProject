@@ -16,15 +16,14 @@ public class GameState {
     Map<Territory, Player> territoriesPlayersMap;
 
     private Territory attackFrom;
-    private Territory attackTo;
     private Territory moveFrom;
-    private Territory moveTo;
-    private Territory fortify;
-    private boolean moveFlag;
+    public boolean initialflag;
     int count;
+
 
     public GameState(List<Color> playerColors, List<String> humanPlayerNames, List<String> aiPlayerNames) {
         this.players = new ArrayList<>();
+        phase=Phases.INITIAL;
         territoriesPlayersMap = new HashMap<>();
         deck = new LinkedList<>();
         int countId = 0;
@@ -82,12 +81,11 @@ public class GameState {
 
         currentPlayerTurn = players.get(0);
         count++;
-        moveFlag=true;
+        initialflag=true;
         attackFrom = null;
-        attackTo = null;
         moveFrom = null;
-        moveTo = null;
-        fortify = null;
+
+
     }
 
     public Player getPlayerTer(Territory territory) {
@@ -115,36 +113,12 @@ public class GameState {
         this.attackFrom = attackFrom;
     }
 
-    public Territory getAttackTo() {
-        return attackTo;
-    }
-
-    public void setAttackTo(Territory attackTo) {
-        this.attackTo = attackTo;
-    }
-
     public Territory getMoveFrom() {
         return moveFrom;
     }
 
     public void setMoveFrom(Territory moveFrom) {
         this.moveFrom = moveFrom;
-    }
-
-    public Territory getMoveTo() {
-        return moveTo;
-    }
-
-    public void setMoveTo(Territory moveTo) {
-        this.moveTo = moveTo;
-    }
-
-    public Territory getFortify() {
-        return fortify;
-    }
-
-    public void setFortify(Territory fortify) {
-        this.fortify = fortify;
     }
 
     public Phases getPhase() {
@@ -156,13 +130,6 @@ public class GameState {
         this.phase = phase;
     }
 
-    public boolean getMoveFlag() {
-        return moveFlag;
-    }
-
-    public void setMoveFlag(boolean moveFlag) {
-        this.moveFlag = moveFlag;
-    }
 
     public Map<Territory, Player> getTerritoriesPlayersMap() {
         return territoriesPlayersMap;
@@ -215,6 +182,11 @@ public class GameState {
         if(count==players.size()){
             count=0;
         }
+    }
+
+    public void nextPhase(){
+        phase.next();
+
     }
 
 

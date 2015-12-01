@@ -18,7 +18,11 @@ import java.util.Random;
 
 public class RiskLogic {
 
+    int firstTurn;
 
+    public RiskLogic(){
+        firstTurn=0;
+    }
 
 
     public Operation makeMove(Territory  territory, GameState gamestate){
@@ -45,7 +49,7 @@ public class RiskLogic {
 
 
         //Attack phase
-        else if(gamestate.getPhase() == Phases.ATTACK){
+        if(gamestate.getPhase() == Phases.ATTACK){
 
             if(gamestate.getAttackFrom() == null){
 
@@ -71,8 +75,6 @@ public class RiskLogic {
 
                     if(checkAttackTo(gamestate.currentPlayerTurn,gamestate.getAttackFrom(),territory,gamestate)){
                         Territory attackFrom = gamestate.getAttackFrom();
-                        Territory attackTo = gamestate.getAttackTo();
-                        gamestate.setAttackFrom(null);
                         gamestate.setAttackFrom(null);
                         attack(gamestate.currentPlayerTurn,attackFrom,territory,gamestate);
                         return new Attack(attackFrom,territory);
@@ -90,9 +92,9 @@ public class RiskLogic {
 
 
         //Move phase
-        else if(gamestate.getPhase() == Phases.MOVE){
-            if(gamestate.getMoveFlag()) {
-                if (gamestate.getMoveFrom() == null) {
+        if(gamestate.getPhase() == Phases.MOVE){
+
+            if (gamestate.getMoveFrom() == null) {
 
                     if (checkMoveFrom(gamestate.getCurrentPlayerTurn(), territory,gamestate)) {
                         if (checkMoveFromUnits(gamestate.getCurrentPlayerTurn(), territory)) {
@@ -116,11 +118,10 @@ public class RiskLogic {
                             gamestate.setMoveFrom(null);
                             return new TerritoryUnselected(territory);
                         } else {
-                            gamestate.setMoveFlag(false);
                             Territory moveFrom = gamestate.getMoveFrom();
                             gamestate.setMoveFrom(null);
-                            gamestate.setMoveTo(null);
                             move(gamestate.getCurrentPlayerTurn(), moveFrom, territory);
+                            gamestate.nextPhase();
                             return new Move(moveFrom, territory);
 
                         }
@@ -129,10 +130,10 @@ public class RiskLogic {
                         return new Error(territory.getTerritoryName() + " moveto not in your territories ");
                     }
                 }
-            }
-            else{
-                return new Error(territory.getTerritoryName() + "you can only move one time a turn");
-            }
+
+
+
+
 
 
 
@@ -147,34 +148,54 @@ public class RiskLogic {
 
     public List<Operation> nextPhase(GameState gamestate){
         List<Operation> operations = new ArrayList<Operation>();
+        if(gamestate.getPhase() == Phases.INITIAL){
+            gamestate.nextPhase();
+            firstTurn++;
+            operations.add(new NewPhase(Phases.END_TURN));
+        }
+        if(gamestate.getPhase() == Phases.BONUS){
+            gamestate.nextPhase();
+            operations.add(new NewPhase(Phases.FORTIFY));
+            return operations;
+
+        }
 
         if(gamestate.getPhase() == Phases.FORTIFY){
-            gamestate.setPhase(Phases.ATTACK);
+            gamestate.nextPhase();
             operations.add(new NewPhase(Phases.ATTACK));
             return operations;
 
         }
         else if((gamestate.getPhase() == Phases.ATTACK)){
-            gamestate.setPhase(Phases.MOVE);
+            gamestate.nextPhase();
             operations.add(new NewPhase(Phases.MOVE));
             return operations;
 
         }
         else if(gamestate.getPhase() == Phases.MOVE){
-            gamestate.setPhase(Phases.END_TURN);
+            gamestate.nextPhase();
             operations.add(new NewPhase(Phases.END_TURN));
             return operations;
 
         }
         else if(gamestate.getPhase() == Phases.END_TURN){
+
+
             if(checkVictory(gamestate)){
                 operations.add(new Victory(gamestate.getCurrentPlayerTurn()));
                 return operations;
             }
+            else if(firstTurn == gamestate.getPlayers().size()){
+                gamestate.nextPlayer();
+                gamestate.setPhase(Phases.BONUS);
+                operations.add(new NewPhase(Phases.BONUS));
+                return operations;
+
+            }
             else{
                 gamestate.nextPlayer();
-                //i'll change in newTurn;
-                operations.add(new NewPhase(Phases.FORTIFY));
+                gamestate.nextPhase();
+                operations.add(new NewPhase(Phases.INITIAL));
                 return operations;
 
             }
@@ -388,6 +409,15 @@ public class RiskLogic {
             return false;
         }
 
+    }
+
+    //-----------------------BONUS METHOD----------------------------------------
+
+    public int TerritoriesBonus(GameState gamestate){
+        int bonusUnits=0;
+
+
+        return 2;
     }
 
     //-----------------------OTHER METHOD---------------------------------------
