@@ -3,6 +3,7 @@ package risk.gui;
 import org.w3c.dom.events.*;
 import org.w3c.dom.events.Event;
 import risk.GameState;
+import risk.RiskLogic;
 import risk.board.Territory;
 import risk.player.Player;
 
@@ -98,6 +99,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
+        RiskLogic riskLogic;
         File svgFile = new File(default_map);
         List<String> territories = new ArrayList<>();
         for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
