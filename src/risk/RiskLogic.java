@@ -28,7 +28,7 @@ public class RiskLogic {
     public Operation makeMove(Territory  territory, GameState gamestate){
 
         //Fortify phase
-        if(gamestate.getPhase() == Phases.FORTIFY){
+        if(gamestate.getPhase() == Phases.FORTIFY || gamestate.getPhase() == Phases.INITIAL){
 
             if(checkFortifyUnits(gamestate.getCurrentPlayerTurn())) {
                 if (checkFortify(gamestate.getCurrentPlayerTurn(), territory,gamestate)) {
