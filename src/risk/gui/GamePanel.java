@@ -13,7 +13,6 @@ import risk.player.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.*;
 import java.util.List;
@@ -101,6 +100,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
+
         this.riskLogic = new RiskLogic(gameState);
         File svgFile = new File(default_map);
         List<String> territories = new ArrayList<>();
@@ -114,17 +114,15 @@ public class GamePanel extends JPanel implements SelectedListener {
 
         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
         this.playerLbl.setText(gameState.getCurrentPlayerTurn().getPlayerName());
+        this.phaseLbl.setText(gameState.getPhase().toString());
 
         add(gamePnl, BorderLayout.SOUTH);
         add(svgImage, BorderLayout.CENTER);
-
     }
 
     private void nextBtnMouseClicked(MouseEvent evt) {
-        /*@TODO System.out.println("CLICKED: Next Button");*/
-        for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
-            app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
-        }
+        /*@TODO riskLogic.nextPhase();*/
+
     }
 
 
@@ -140,6 +138,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     private GameState gameState;
     private ImageWithClickableParts app;
     private RiskLogic riskLogic;
+
 
     @Override
     public void updateUi(String territory) {
@@ -182,5 +181,12 @@ public class GamePanel extends JPanel implements SelectedListener {
                 break;
         }
         System.out.println(operation.operationString());
+    }
+
+    @Override
+    public void initializeSVG() {
+        for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
+            app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
+        }
     }
 }

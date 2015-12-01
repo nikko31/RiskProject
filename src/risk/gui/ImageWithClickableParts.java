@@ -80,6 +80,7 @@ public class ImageWithClickableParts implements EventListener {
                 @Override
                 public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
                     addListenersToSensitiveZones();
+                    listeners.get(0).initializeSVG();
                 }
             });
         } catch (MalformedURLException e) {
