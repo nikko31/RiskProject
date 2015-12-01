@@ -54,16 +54,16 @@ public class StartGame extends JFrame {
         setContentPane(new ImagePanel(myImage));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        playerName2.setBackground(Color.blue);
+        playerName2.setBackground(Color.decode("#0000FF"));
 
         bot2.setText("AI");
 
-        playerName1.setBackground(Color.red);
+        playerName1.setBackground(Color.RED);
         playerName1.setToolTipText("");
 
         bot1.setText("AI");
 
-        playerName3.setBackground(Color.green);
+        playerName3.setBackground(Color.decode("#00FF00"));
 
         bot3.setText("AI");
 

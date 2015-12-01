@@ -25,7 +25,6 @@ import java.util.List;
 public class GamePanel extends JPanel implements SelectedListener {
 
     public GamePanel(String default_map, GameState gameState) {
-        this.selectedTerritories = new ArrayList<>();
         this.gameState = gameState;
         initComponents(default_map);
 
@@ -102,7 +101,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
-        this.riskLogic=new RiskLogic();
+        this.riskLogic = new RiskLogic(gameState);
         File svgFile = new File(default_map);
         List<String> territories = new ArrayList<>();
         for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
@@ -111,6 +110,10 @@ public class GamePanel extends JPanel implements SelectedListener {
         app = new ImageWithClickableParts(svgFile, territories);
         app.registerEventHeader(this);
         Component svgImage = app.getAsComponent();
+        svgImage.setBackground(Color.darkGray);
+
+        this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+        this.playerLbl.setText(gameState.getCurrentPlayerTurn().getPlayerName());
 
         add(gamePnl, BorderLayout.SOUTH);
         add(svgImage, BorderLayout.CENTER);
@@ -135,11 +138,11 @@ public class GamePanel extends JPanel implements SelectedListener {
     // End of variables declaration
     private GameState gameState;
     private ImageWithClickableParts app;
-    private List<String> selectedTerritories;
-    RiskLogic riskLogic;
+    private RiskLogic riskLogic;
 
     @Override
-    public void updateUi(String territory, Event event) {
+    public void updateUi(String territory) {
+
         System.out.println("Click on " + territory);
         /*app.setTerritoryColor(territory, Color.green);
         app.incrementUnits(territory);
@@ -151,23 +154,29 @@ public class GamePanel extends JPanel implements SelectedListener {
             app.selectTerritory(territory);
             this.selectedTerritories.add(territory);
         }*/
-        Territory terr=null;
-        List<Territory>territories= new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
-        for(Territory territory1:territories){
-            if(territory1.getTerritoryName().equals(territory))
-                terr=territory1;
-        }
-        Operation operation=riskLogic.makeMove(terr,gameState);
-        if(gameState.getPhase()== Phases.INITIAL){
-            if(operation instanceof Fortify){
+        Operation operation = riskLogic.makeMove(territory, gameState);
+        Phases phase = gameState.getPhase();
+        switch (phase) {
+            case INITIAL:
 
-                app.incrementUnits(((Fortify)operation).getFortify().getTerritoryName());
-            }
-            if(operation instanceof Error){
-
-                System.out.println(operation.operationString());
-            }
-
+                if (operation instanceof Fortify) {
+                    app.incrementUnits(((Fortify) operation).getFortify().getTerritoryName());
+                    this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+                }
+                if (operation instanceof Error) {
+                    System.out.println(operation.operationString());
+                }
+                break;
+            case BONUS:
+                break;
+            case FORTIFY:
+                break;
+            case ATTACK:
+                break;
+            case MOVE:
+                break;
+            case END_TURN:
+                break;
         }
     }
 }

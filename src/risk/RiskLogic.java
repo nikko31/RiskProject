@@ -143,19 +143,8 @@ public class RiskLogic {
                     return new Error(territory.getTerritoryName() + " moveto not in your territories ");
                 }
             }
-
-
-
-
-
-
-
-
         }
-
-
         return new Error("Invalid operation");
-
     }
 
 

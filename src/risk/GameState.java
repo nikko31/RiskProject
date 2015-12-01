@@ -132,7 +132,7 @@ public class GameState {
 
     //change the owner of a territory
     public void setPlayerTer(Territory territory, Player player) {
-        territoriesPlayersMap.replace(territory,player);
+        //territoriesPlayersMap.replace(territory,player);
     }
 
     public Player getCurrentPlayerTurn() {

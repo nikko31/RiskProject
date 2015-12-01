@@ -35,7 +35,7 @@ public class ImageWithClickableParts implements EventListener {
     private static final String DEFAULT_FILL_PROPERTY_VALUE_RED = "red";
 
     private static final String DEFAULT_STROKE = "stroke:#000000";
-    private static final String SELECTED_STROKE = "stroke:blue";
+    private static final String SELECTED_STROKE = "stroke:#000000";
     private static final String DEFAULT_STROKE_WIDTH = "stroke-width:1.20000005";
     private static final String SELECTED_STROKE_WIDTH = "stroke-width:5";
     private static final String DEFAULT_FILL = "fill:#ffffff";
@@ -103,8 +103,9 @@ public class ImageWithClickableParts implements EventListener {
                         //aggiungo i listener ai territori
                         this.territoryElementMap.put(territory, elt);
                         EventTarget t = (EventTarget) elt;
-                        //this.setTerritoryColor(territory,Color.green);
                         t.addEventListener("click", this, false);
+                        t.addEventListener("mouseover", this, false);
+                        t.addEventListener("mouseout", this, false);
                     }
                     break;
                 }
@@ -213,7 +214,13 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-        listeners.get(0).updateUi(id, evt);
+        if (type == "click") {
+            listeners.get(0).updateUi(id);
+        } else if (type == "mouseover") {
+            this.selectTerritory(id);
+        } else if (type == "mouseout") {
+            this.deselectTerritory(id);
+        }
     }
 
 
@@ -251,6 +258,7 @@ public class ImageWithClickableParts implements EventListener {
         String style = terr.getAttribute(STYLE_PROPERTY);
         style = style.replaceFirst(DEFAULT_STROKE_WIDTH, SELECTED_STROKE_WIDTH);
         style = style.replaceFirst(DEFAULT_STROKE, SELECTED_STROKE);
+        style = style.replaceFirst("fill-opacity:1", "fill-opacity:0.5");
         terr.setAttribute(STYLE_PROPERTY, style);
     }
 
@@ -259,6 +267,7 @@ public class ImageWithClickableParts implements EventListener {
         String style = terr.getAttribute(STYLE_PROPERTY);
         style = style.replaceFirst(SELECTED_STROKE_WIDTH, DEFAULT_STROKE_WIDTH);
         style = style.replaceFirst(SELECTED_STROKE, DEFAULT_STROKE);
+        style = style.replaceFirst("fill-opacity:0.5", "fill-opacity:1");
         terr.setAttribute(STYLE_PROPERTY, style);
     }
 
