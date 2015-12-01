@@ -3,8 +3,11 @@ package risk.gui;
 import org.w3c.dom.events.*;
 import org.w3c.dom.events.Event;
 import risk.GameState;
+import risk.Phases;
 import risk.RiskLogic;
 import risk.board.Territory;
+import risk.operations.*;
+import risk.operations.Error;
 import risk.player.Player;
 
 import javax.swing.*;
@@ -99,7 +102,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
-        RiskLogic riskLogic;
+        this.riskLogic=new RiskLogic();
         File svgFile = new File(default_map);
         List<String> territories = new ArrayList<>();
         for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
@@ -117,7 +120,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     private void nextBtnMouseClicked(MouseEvent evt) {
         /*@TODO System.out.println("CLICKED: Next Button");*/
         for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
-            app.setTerritoryColor(entry.getKey().getTerritoryName(),entry.getValue().getPlayerColor());
+            app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
         }
     }
 
@@ -133,11 +136,12 @@ public class GamePanel extends JPanel implements SelectedListener {
     private GameState gameState;
     private ImageWithClickableParts app;
     private List<String> selectedTerritories;
+    RiskLogic riskLogic;
 
     @Override
     public void updateUi(String territory, Event event) {
         System.out.println("Click on " + territory);
-        app.setTerritoryColor(territory, Color.green);
+        /*app.setTerritoryColor(territory, Color.green);
         app.incrementUnits(territory);
         if (this.selectedTerritories.contains(territory)) {
             app.deselectTerritory(territory);
@@ -146,6 +150,24 @@ public class GamePanel extends JPanel implements SelectedListener {
         } else {
             app.selectTerritory(territory);
             this.selectedTerritories.add(territory);
+        }*/
+        Territory terr=null;
+        List<Territory>territories= new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
+        for(Territory territory1:territories){
+            if(territory1.getTerritoryName().equals(territory))
+                terr=territory1;
+        }
+        Operation operation=riskLogic.makeMove(terr,gameState);
+        if(gameState.getPhase()== Phases.INITIAL){
+            if(operation instanceof Fortify){
+
+                app.incrementUnits(((Fortify)operation).getFortify().getTerritoryName());
+            }
+            if(operation instanceof Error){
+
+                System.out.println(operation.operationString());
+            }
+
         }
     }
 }
