@@ -253,7 +253,6 @@ public class ImageWithClickableParts implements EventListener {
             }
         }
     }*/
-
     /*--------------------> START Manipulate-Territory Method s<--------------------*/
     public void selectTerritory(String territory) {
         Element terr = territoryElementMap.get(territory);
