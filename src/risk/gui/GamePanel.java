@@ -124,6 +124,7 @@ public class GamePanel extends JPanel implements SelectedListener {
         /*@TODO System.out.println("CLICKED: Next Button");*/
         for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
             app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
+            app.setUnits(entry.getKey().getTerritoryName(),1);
         }
     }
 

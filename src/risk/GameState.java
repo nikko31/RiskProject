@@ -59,14 +59,16 @@ public class GameState {
                     new Territory(
                             stateId,
                             GameResources.SVG_NAME_MAP.get(stateId),
-                            0,
+                            1,
                             GameResources.CONNECTIONS.get(stateId)
                     ),
                     players.get(countId % numberOfPlayers)
 
+
             );
 
             countId++;
+            players.get(countId % numberOfPlayers).setFreeUnits(players.get(countId % numberOfPlayers).getFreeUnits() - 1);
         }
 
         //inizializzo le carte/
