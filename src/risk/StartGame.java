@@ -33,6 +33,7 @@ public class StartGame extends JFrame {
 
     private void initComponents() throws IOException {
 
+        ImageIcon iconA = new ImageIcon(RESOURCES + "next.png");
         menuPnl = new JPanel();
         JTextField playerName2 = new JTextField();
         JCheckBox bot2 = new JCheckBox();
@@ -40,7 +41,7 @@ public class StartGame extends JFrame {
         JCheckBox bot1 = new JCheckBox();
         JTextField playerName3 = new JTextField();
         JCheckBox bot3 = new JCheckBox();
-        startBtn = new JButton();
+        startBtn = new JButton("Start Game", iconA);
         JLabel namesLbl = new JLabel();
         JTextField playerName4 = new JTextField();
         JCheckBox bot4 = new JCheckBox();
@@ -67,7 +68,6 @@ public class StartGame extends JFrame {
 
         bot3.setText("AI");
 
-        startBtn.setText("Start Game");
         startBtn.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 startBtnMouseClicked(evt);

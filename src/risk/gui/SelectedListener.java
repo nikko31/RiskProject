@@ -7,4 +7,6 @@ import org.w3c.dom.events.Event;
  */
 public interface SelectedListener {
     public void updateUi(String territory);
+
+    public void initializeSVG();
 }
