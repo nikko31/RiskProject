@@ -131,41 +131,52 @@ public class GamePanel extends JPanel implements SelectedListener {
             switch(riskLogic.getGameState().getLastphase()) {
                 case INITIAL: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("END");
+                        this.phaseLbl.setText(operation.operationString());
                     }
                     break;
                 }
                 case BONUS: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("FORTIFY");
+                        this.phaseLbl.setText(operation.operationString());
+                    }
+                    if(operation instanceof UnitsBonus){
+                        System.out.println(operation.operationString());
                     }
 
                     break;
                 }
                 case FORTIFY: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("ATTACK");
+                        this.phaseLbl.setText(operation.operationString());
                     }
 
                     break;
                 }
                 case ATTACK: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("MOVE");
+                        this.phaseLbl.setText(operation.operationString());
+                    }
+                    if(operation instanceof TerritoryUnselected){
+                        app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
                     break;
                 }
                 case MOVE: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("END_TURN");
+                        this.phaseLbl.setText(operation.operationString());
+                    }
+                    if(operation instanceof TerritoryUnselected){
+                        app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
 
                     break;
                 }
                 case END_TURN: {
                     if(operation instanceof NewPhase){
-                        this.phaseLbl.setText("INITIAL o BONUS");
+                        this.phaseLbl.setText(operation.operationString());
                         this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
+                        this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
+                        //this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
 
                     break;

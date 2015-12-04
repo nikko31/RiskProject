@@ -18,6 +18,27 @@ public class NewPhase implements Operation {
 
     @Override
     public String operationString() {
-        return "NEW PHASE: next pahse";
+        switch(getPhase()) {
+            case INITIAL: {
+                return "INITIAL";
+            }
+            case BONUS: {
+                return "BONUS";
+            }
+            case FORTIFY: {
+                return "FORTIFY";
+            }
+            case ATTACK: {
+                return "ATTACK";
+            }
+            case MOVE: {
+                return "MOVE";
+            }
+            case END_TURN: {
+                return "END TURN";
+                }
+
+            default: throw new IllegalArgumentException("Invalid card!");
+        }
     }
 }
