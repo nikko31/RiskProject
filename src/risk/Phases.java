@@ -13,6 +13,7 @@ public enum Phases {
     private static Phases[] phases = values();
 
     public Phases next() {
+        System.out.println("sono nel'enum");
         if(this.ordinal() == 0){
             return phases[phases.length -1];
         }

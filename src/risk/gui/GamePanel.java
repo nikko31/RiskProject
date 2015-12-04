@@ -2,6 +2,7 @@ package risk.gui;
 
 import org.w3c.dom.events.*;
 import org.w3c.dom.events.Event;
+import risk.GameResources;
 import risk.GameState;
 import risk.Phases;
 import risk.RiskLogic;
@@ -123,6 +124,56 @@ public class GamePanel extends JPanel implements SelectedListener {
     private void nextBtnMouseClicked(MouseEvent evt) {
         /*@TODO riskLogic.nextPhase();*/
 
+        List<Operation> operationsPhase = null;
+        operationsPhase = riskLogic.nextPhase();
+        for(Operation operation : operationsPhase){
+
+            switch(riskLogic.getGameState().getLastphase()) {
+                case INITIAL: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("END");
+                    }
+                    break;
+                }
+                case BONUS: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("FORTIFY");
+                    }
+
+                    break;
+                }
+                case FORTIFY: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("ATTACK");
+                    }
+
+                    break;
+                }
+                case ATTACK: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("MOVE");
+                    }
+                    break;
+                }
+                case MOVE: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("END_TURN");
+                    }
+
+                    break;
+                }
+                case END_TURN: {
+                    if(operation instanceof NewPhase){
+                        this.phaseLbl.setText("INITIAL o BONUS");
+                    }
+
+                    break;
+                }
+
+                default: throw new IllegalArgumentException("Invalid card!");
+            }
+        }
+
     }
 
 
@@ -154,8 +205,8 @@ public class GamePanel extends JPanel implements SelectedListener {
             app.selectTerritory(territory);
             this.selectedTerritories.add(territory);
         }*/
-        Operation operation = riskLogic.makeMove(territory, gameState);
-        Phases phase = gameState.getPhase();
+        Operation operation = riskLogic.makeMove(territory);
+        Phases phase = riskLogic.getGameState().getPhase();
         switch (phase) {
             case INITIAL:
 
@@ -172,6 +223,15 @@ public class GamePanel extends JPanel implements SelectedListener {
             case BONUS:
                 break;
             case FORTIFY:
+                if (operation instanceof Fortify) {
+                    app.incrementUnits(((Fortify) operation).getFortify().getTerritoryName());
+                    this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+                }
+                if (operation instanceof Error) {
+                    JOptionPane.showMessageDialog(
+                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                    );
+                }
                 break;
             case ATTACK:
                 break;

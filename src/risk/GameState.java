@@ -2,6 +2,8 @@ package risk;
 
 import risk.board.Card;
 import risk.board.Territory;
+import risk.operations.*;
+import risk.operations.Error;
 import risk.player.Player;
 
 import java.awt.*;
@@ -12,6 +14,7 @@ public class GameState {
     List<Player> players;
     Player currentPlayerTurn;
     Phases phase;
+    Phases lastphase;
     LinkedList<Card> deck;
     Map<Territory, Player> territoriesPlayersMap;
     private Territory attackFrom;
@@ -81,7 +84,8 @@ public class GameState {
 
 
         currentPlayerTurn = players.get(0);
-        initialflag=true;
+        lastphase = Phases.INITIAL;
+        initialflag = true;
         attackFrom = null;
         moveFrom = null;
 
@@ -101,9 +105,40 @@ public class GameState {
 
 
     public void nextPhase(){
-        phase.next();
+        switch (phase) {
+            case INITIAL:
+                this.setPhase(Phases.END_TURN);
+                break;
+            case BONUS:
+                this.setPhase(Phases.FORTIFY);
+                break;
+            case FORTIFY:
+                this.setPhase(Phases.ATTACK);
+                break;
+            case ATTACK:
+                this.setPhase(Phases.MOVE);
+                break;
+            case MOVE:
+                this.setPhase(Phases.END_TURN);
+                break;
+            case END_TURN:
+
+                this.setPhase(Phases.INITIAL);
+                break;
+        }
+        //phase.next();
+        System.out.println("avanza di fase");
 
     }
+
+    public Phases getLastphase() {
+        return lastphase;
+    }
+
+    public void setLastphase(Phases lastphase) {
+        this.lastphase = lastphase;
+    }
+
     //----------------------------PLAYER METHOD----------------------------------
 
     public Map<Territory, Player> getTerritoriesPlayersMap() {
