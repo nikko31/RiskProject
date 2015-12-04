@@ -291,7 +291,7 @@ public class RiskLogic {
             if(isPlayerOut(player)){
                 gameState.elimiatePlayer(player);
             }
-            occupyTerritory(attacker,from,to,attackdice-removedefe);
+            occupyTerritory(attacker,from,to,attackdice-removeatt);
             return true;
 
 
@@ -473,7 +473,7 @@ public class RiskLogic {
             if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
                 count++;
             }
-            if(count>25){
+            if(count>22){
                 return true;
             }
         }

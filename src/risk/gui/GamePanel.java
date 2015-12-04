@@ -113,6 +113,7 @@ public class GamePanel extends JPanel implements SelectedListener {
         Component svgImage = app.getAsComponent();
         svgImage.setBackground(Color.darkGray);
 
+
         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
         this.playerLbl.setText(gameState.getCurrentPlayerTurn().getPlayerName());
         this.phaseLbl.setText(gameState.getPhase().toString());
@@ -177,6 +178,12 @@ public class GamePanel extends JPanel implements SelectedListener {
                         this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
                         //this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+                    }
+                    if(operation instanceof Victory){
+                        JOptionPane.showMessageDialog(
+                                this.gameFrame, (((Victory) operation).getPlayer().getPlayerName()), "WINNER", JOptionPane.WARNING_MESSAGE
+                        );
+
                     }
 
                     break;
@@ -251,7 +258,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 if (operation instanceof TerritoryUnselected) {
                     app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
-        }
+                }
                 if (operation instanceof Attack) {
                     app.selectTerritory(((Attack) operation).getToName());
                     app.setUnits(((Attack) operation).getToName(), ((Attack) operation).getToUnits());
@@ -263,11 +270,12 @@ public class GamePanel extends JPanel implements SelectedListener {
                 if (operation instanceof AttackConquest) {
                     //app.selectTerritory(((AttackConquest) operation).getToName());
                     app.setUnits(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getToUnits());
-                    app.setUnits(((AttackConquest) operation).getFromName(),((AttackConquest) operation).getFromUnits());
+                    app.setUnits(((AttackConquest) operation).getFromName(), ((AttackConquest) operation).getFromUnits());
                     app.deselectTerritory(((AttackConquest) operation).getToName());
                     app.deselectTerritory(((AttackConquest) operation).getFromName());
                     System.out.println("ricolora");
                     app.setTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getColor());
+
 
 
                 }
@@ -278,6 +286,29 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 break;
             case MOVE:
+                if (operation instanceof TerritorySelected) {
+                    app.selectTerritory(((TerritorySelected) operation).getSelectedName());
+                }
+                if (operation instanceof TerritoryUnselected) {
+                    app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
+                }
+
+                if (operation instanceof Move) {
+                    app.selectTerritory(((Move) operation).getToName());
+                    app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
+                    app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
+                    app.deselectTerritory(((Move) operation).getToName());
+                    app.deselectTerritory(((Move) operation).getFromName());
+                    this.phaseLbl.setText("END TURN");
+
+
+                }
+                if (operation instanceof Error) {
+                    JOptionPane.showMessageDialog(
+                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
                 break;
             case END_TURN:
                 break;
