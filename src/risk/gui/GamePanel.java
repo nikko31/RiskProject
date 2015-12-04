@@ -165,6 +165,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 case END_TURN: {
                     if(operation instanceof NewPhase){
                         this.phaseLbl.setText("INITIAL o BONUS");
+                        this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                     }
 
                     break;
