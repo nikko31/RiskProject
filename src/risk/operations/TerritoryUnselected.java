@@ -15,6 +15,9 @@ public class TerritoryUnselected implements Operation {
     public Territory getUnselected() {
         return unselected;
     }
+    public String getUnselectedName(){return unselected.getTerritoryName();}
+
+    public String getUnselectedUnits(){ return new Integer(unselected.getCurrentUnits()).toString();}
 
     @Override
     public String operationString() {

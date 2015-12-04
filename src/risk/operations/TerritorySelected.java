@@ -16,6 +16,10 @@ public class TerritorySelected implements Operation {
         return selected;
     }
 
+    public String getSelectedName(){return selected.getTerritoryName();}
+
+    public String getSelectedUnits(){ return new Integer(selected.getCurrentUnits()).toString();}
+
     @Override
     public String operationString() {
         return "SELECTED: " + this.selected.getTerritoryName();

@@ -21,6 +21,13 @@ public class Attack implements Operation {
     public Territory getFrom() {
         return from;
     }
+    public String getFromName(){return from.getTerritoryName();}
+
+    public int getFromUnits(){ return from.getCurrentUnits();}
+
+    public String getToName(){return to.getTerritoryName();}
+
+    public int getToUnits(){ return to.getCurrentUnits();}
 
     @Override
     public String operationString() {

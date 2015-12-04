@@ -246,6 +246,36 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 break;
             case ATTACK:
+                if (operation instanceof TerritorySelected) {
+                    app.selectTerritory(((TerritorySelected) operation).getSelectedName());
+                }
+                if (operation instanceof TerritoryUnselected) {
+                    app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
+        }
+                if (operation instanceof Attack) {
+                    app.selectTerritory(((Attack) operation).getToName());
+                    app.setUnits(((Attack) operation).getToName(), ((Attack) operation).getToUnits());
+                    app.setUnits(((Attack) operation).getFromName(),((Attack) operation).getFromUnits());
+                    app.deselectTerritory(((Attack) operation).getToName());
+                    app.deselectTerritory(((Attack) operation).getFromName());
+
+                }
+                if (operation instanceof AttackConquest) {
+                    //app.selectTerritory(((AttackConquest) operation).getToName());
+                    app.setUnits(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getToUnits());
+                    app.setUnits(((AttackConquest) operation).getFromName(),((AttackConquest) operation).getFromUnits());
+                    app.deselectTerritory(((AttackConquest) operation).getToName());
+                    app.deselectTerritory(((AttackConquest) operation).getFromName());
+                    System.out.println("ricolora");
+                    app.setTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getColor());
+
+
+                }
+                if (operation instanceof Error) {
+                    JOptionPane.showMessageDialog(
+                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                    );
+                }
                 break;
             case MOVE:
                 break;

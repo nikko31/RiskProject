@@ -7,10 +7,7 @@ import risk.player.Player;
 import risk.GameResources;
 import risk.GameState;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Federico on 22/11/2015.
@@ -91,7 +88,9 @@ public class RiskLogic {
                     if(checkAttackTo(gameState.currentPlayerTurn,gameState.getAttackFrom(),territory)){
                         Territory attackFrom = gameState.getAttackFrom();
                         gameState.setAttackFrom(null);
-                        attack(gameState.currentPlayerTurn,attackFrom,territory);
+                        if(attack(gameState.currentPlayerTurn,attackFrom,territory)){
+                            return new AttackConquest(attackFrom,territory,gameState.getCurrentPlayerTurn().getPlayerColor());
+                        }
                         return new Attack(attackFrom,territory);
                     }
                     else{
@@ -262,26 +261,27 @@ public class RiskLogic {
 
 
     public boolean attack(Player attacker, Territory from, Territory to) {
-        int attackdice, defencedice;
+        int attackdice, defencedice,removeatt,removedefe;
         attackdice = GameResources.getMaxDiceRollsForAttacker(from.getCurrentUnits());
         defencedice = GameResources.getMaxDiceRollsForDefender(to.getCurrentUnits());
         ArrayList<Integer> attackdices = this.rollDice(attackdice);
         ArrayList<Integer> defecedices = this.rollDice(defencedice);
         //use the dices to save the number of victory
-        attackdice =0;
-        defencedice=0;
+        removeatt = 0;
+        removedefe = 0;
 
         for (int i = 0; i < defecedices.size(); i++) {
+            System.out.println(attackdices.get(i) + " " +defecedices.get(i));
             if(attackdices.get(i)>defecedices.get(i)){
-                attackdice++;
+                removedefe++;
             }
             else{
-                defencedice++;
+                removeatt++;
             }
 
         }
         //remove troops in attacker territory
-        removeUnits(from, defencedice);
+        removeUnits(from, removeatt);
 
 
         if(checkIsConquered(to,attackdice)){
@@ -291,13 +291,13 @@ public class RiskLogic {
             if(isPlayerOut(player)){
                 gameState.elimiatePlayer(player);
             }
-            occupyTerritory(attacker,from,to,attackdice);
+            occupyTerritory(attacker,from,to,attackdice-removedefe);
             return true;
 
 
         }
         else{
-            removeUnits(to, attackdice);
+            removeUnits(to, removedefe);
             return false;
 
         }
@@ -363,6 +363,8 @@ public class RiskLogic {
         from.setCurrentUnits(from.getCurrentUnits()-units);
         gameState.setPlayerTer(to, current_player);
         to.setCurrentUnits(units);
+        System.out.println(current_player.getPlayerName() + " "+ to.getTerritoryName() +" " +to.getCurrentUnits());
+
     }
 
     //remove units in a territory
@@ -376,7 +378,10 @@ public class RiskLogic {
         for (int i = 0; i < n; i++) {
             dice.add((new Random().nextInt(5)) + 1);
         }
-        Collections.sort(dice);
+        Collections.sort(dice,Collections.reverseOrder());
+        for(Integer inte : dice){
+            System.out.println(inte+" ");
+        }
         return dice;
     }
 
