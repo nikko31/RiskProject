@@ -137,7 +137,6 @@ public class RiskLogic {
                         Territory moveFrom = gameState.getMoveFrom();
                         gameState.setMoveFrom(null);
                         move(gameState.getCurrentPlayerTurn(), moveFrom, territory);
-                        gameState.nextPhase();
                         return new Move(moveFrom, territory);
 
                     }
