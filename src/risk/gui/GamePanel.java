@@ -281,14 +281,14 @@ public class GamePanel extends JPanel implements SelectedListener {
 
                 }
                 if (operation instanceof AttackConquest) {
-                    //app.selectTerritory(((AttackConquest) operation).getToName());
+                    //app.resetTerritoryColor(((AttackConquest) operation).getToName());
+                    app.selectTerritory(((AttackConquest) operation).getToName());
                     app.setUnits(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getToUnits());
                     app.setUnits(((AttackConquest) operation).getFromName(), ((AttackConquest) operation).getFromUnits());
                     app.deselectTerritory(((AttackConquest) operation).getToName());
                     app.deselectTerritory(((AttackConquest) operation).getFromName());
-                    System.out.println("ricolora");
-                    app.changeTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getBeforeColor(), ((AttackConquest) operation).getColor());
-
+                    app.resetTerritoryColor(((AttackConquest) operation).getToName());
+                    app.setTerritoryColor(((AttackConquest) operation).getToName(),((AttackConquest) operation).getColor());
 
 
                 }

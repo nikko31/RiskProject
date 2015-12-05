@@ -90,9 +90,8 @@ public class RiskLogic {
                     if(checkAttackTo(gameState.currentPlayerTurn,gameState.getAttackFrom(),territory)){
                         Territory attackFrom = gameState.getAttackFrom();
                         gameState.setAttackFrom(null);
-                        Color before = gameState.getPlayerTer(territory).getPlayerColor();
                         if(attack(gameState.currentPlayerTurn,attackFrom,territory)){
-                            return new AttackConquest(attackFrom,territory,gameState.getCurrentPlayerTurn().getPlayerColor(),before);
+                            return new AttackConquest(attackFrom,territory,gameState.getCurrentPlayerTurn().getPlayerColor());
                         }
                         return new Attack(attackFrom,territory);
                     }
