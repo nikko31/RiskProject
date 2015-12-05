@@ -280,6 +280,15 @@ public class ImageWithClickableParts implements EventListener {
         terr.setAttribute(STYLE_PROPERTY, fill);
     }
 
+    public void changeTerritoryColor(String territory, Color before, Color after){
+        Element terr = territoryElementMap.get(territory);
+        String fill = terr.getAttribute(STYLE_PROPERTY);
+        fill = fill.replaceFirst("fill: " + String.format("#%02x%02x%02x", before.getRed(), before.getGreen(), before.getBlue()),
+                "fill: " + String.format("#%02x%02x%02x", after.getRed(), after.getGreen(), after.getBlue()));
+        terr.setAttribute(STYLE_PROPERTY, fill);
+
+    }
+
     public void resetTerritoryColor(String territory) {
         Element terr = territoryElementMap.get(territory);
         String fill = terr.getAttribute(STYLE_PROPERTY);

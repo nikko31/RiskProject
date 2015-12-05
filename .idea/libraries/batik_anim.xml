@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="batik-anim">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-anim.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-awt-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-bridge.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-codec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-dom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-css.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-ext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-ext-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-gui-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-extension.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-gvt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-parser.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-rasterizer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-script.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-slideshow.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-squiggle.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-svg-dom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/js.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/google-collections-0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-xml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-ttf2svg.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-transcoder.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-svgpp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/batickLibs/batik-svggen.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

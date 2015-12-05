@@ -11,11 +11,14 @@ public class AttackConquest implements Operation {
     private Territory from;
     private Territory to;
     private Color color;
+    private Color beforeColor;
 
-    public AttackConquest(Territory from, Territory to, Color color) {
+
+    public AttackConquest(Territory from, Territory to, Color color, Color before) {
         this.from = from;
         this.to = to;
         this.color = color;
+        beforeColor = before;
     }
 
     public Territory getTo() {
@@ -35,6 +38,9 @@ public class AttackConquest implements Operation {
     public int getToUnits(){ return to.getCurrentUnits();}
 
     public Color getColor(){return color;}
+
+    public Color getBeforeColor(){ return beforeColor;
+    }
 
 
     @Override

@@ -134,6 +134,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     if(operation instanceof NewPhase){
                         this.phaseLbl.setText(operation.operationString());
                     }
+                    this.revalidate();
+                    this.repaint();
                     break;
                 }
                 case BONUS: {
@@ -142,7 +144,10 @@ public class GamePanel extends JPanel implements SelectedListener {
                     }
                     if(operation instanceof UnitsBonus){
                         System.out.println(operation.operationString());
+                        this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
+                    this.revalidate();
+                    this.repaint();
 
                     break;
                 }
@@ -150,6 +155,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     if(operation instanceof NewPhase){
                         this.phaseLbl.setText(operation.operationString());
                     }
+                    this.revalidate();
+                    this.repaint();
 
                     break;
                 }
@@ -160,6 +167,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     if(operation instanceof TerritoryUnselected){
                         app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
+                    this.revalidate();
+                    this.repaint();
                     break;
                 }
                 case MOVE: {
@@ -169,6 +178,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     if(operation instanceof TerritoryUnselected){
                         app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
+                    this.revalidate();
+                    this.repaint();
 
                     break;
                 }
@@ -177,7 +188,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                         this.phaseLbl.setText(operation.operationString());
                         this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
-                        //this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+                        this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
                     if(operation instanceof Victory){
                         JOptionPane.showMessageDialog(
@@ -185,6 +196,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                         );
 
                     }
+                    this.revalidate();
+                    this.repaint();
 
                     break;
                 }
@@ -274,7 +287,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((AttackConquest) operation).getToName());
                     app.deselectTerritory(((AttackConquest) operation).getFromName());
                     System.out.println("ricolora");
-                    app.setTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getColor());
+                    app.changeTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getBeforeColor(), ((AttackConquest) operation).getColor());
 
 
 
@@ -300,6 +313,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((Move) operation).getToName());
                     app.deselectTerritory(((Move) operation).getFromName());
                     this.phaseLbl.setText("END TURN");
+
 
 
                 }

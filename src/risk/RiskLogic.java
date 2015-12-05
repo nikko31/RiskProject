@@ -7,7 +7,9 @@ import risk.player.Player;
 import risk.GameResources;
 import risk.GameState;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by Federico on 22/11/2015.
@@ -88,8 +90,9 @@ public class RiskLogic {
                     if(checkAttackTo(gameState.currentPlayerTurn,gameState.getAttackFrom(),territory)){
                         Territory attackFrom = gameState.getAttackFrom();
                         gameState.setAttackFrom(null);
+                        Color before = gameState.getPlayerTer(territory).getPlayerColor();
                         if(attack(gameState.currentPlayerTurn,attackFrom,territory)){
-                            return new AttackConquest(attackFrom,territory,gameState.getCurrentPlayerTurn().getPlayerColor());
+                            return new AttackConquest(attackFrom,territory,gameState.getCurrentPlayerTurn().getPlayerColor(),before);
                         }
                         return new Attack(attackFrom,territory);
                     }

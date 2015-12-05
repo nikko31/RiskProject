@@ -17,5 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="batik" level="project" />
+    <orderEntry type="library" name="batik-anim" level="project" />
   </component>
 </module>
