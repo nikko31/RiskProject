@@ -322,6 +322,15 @@ public class GamePanel extends JPanel implements SelectedListener {
 
                 break;
             case END_TURN:
+                if (operation instanceof Move) {
+                    app.selectTerritory(((Move) operation).getToName());
+                    app.deselectTerritory(((Move) operation).getToName());
+                    app.deselectTerritory(((Move) operation).getFromName());
+                    app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
+                    app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
+                    this.phaseLbl.setText("END TURN");
+
+                }
                 break;
         }
         System.out.println(operation.operationString());

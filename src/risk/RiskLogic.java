@@ -137,6 +137,7 @@ public class RiskLogic {
                         Territory moveFrom = gameState.getMoveFrom();
                         gameState.setMoveFrom(null);
                         move(gameState.getCurrentPlayerTurn(), moveFrom, territory);
+                        gameState.nextPhase();
                         return new Move(moveFrom, territory);
 
                     }
@@ -285,14 +286,14 @@ public class RiskLogic {
         removeUnits(from, removeatt);
 
 
-        if(checkIsConquered(to,attackdice)){
+        if(checkIsConquered(to,removedefe)){
             Player player = null;
             player = gameState.getPlayerTer(to);
 
             if(isPlayerOut(player)){
                 gameState.elimiatePlayer(player);
             }
-            occupyTerritory(attacker,from,to,attackdice-removeatt);
+            occupyTerritory(attacker,from,to,attackdice-removedefe);
             return true;
 
 
