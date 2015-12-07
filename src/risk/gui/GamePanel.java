@@ -241,7 +241,6 @@ public class GamePanel extends JPanel implements SelectedListener {
         Phases phase = riskLogic.getGameState().getPhase();
         switch (phase) {
             case INITIAL:
-
                 if (operation instanceof Fortify) {
                     app.incrementUnits(((Fortify) operation).getFortify().getTerritoryName());
                     this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));

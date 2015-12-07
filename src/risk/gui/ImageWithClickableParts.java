@@ -218,9 +218,9 @@ public class ImageWithClickableParts implements EventListener {
         if (type == "click") {
             listeners.get(0).updateUi(id);
         } else if (type == "mouseover") {
-            this.selectTerritory(id);
+            this.strokeTerritory(id);
         } else if (type == "mouseout") {
-            this.deselectTerritory(id);
+            this.unstrokeTerritory(id);
         }
     }
 
@@ -260,6 +260,22 @@ public class ImageWithClickableParts implements EventListener {
         style = style.replaceFirst(DEFAULT_STROKE_WIDTH, SELECTED_STROKE_WIDTH);
         style = style.replaceFirst(DEFAULT_STROKE, SELECTED_STROKE);
         style = style.replaceFirst("fill-opacity:1", "fill-opacity:0.5");
+        terr.setAttribute(STYLE_PROPERTY, style);
+    }
+
+    public void strokeTerritory(String territory) {
+        Element terr = territoryElementMap.get(territory);
+        String style = terr.getAttribute(STYLE_PROPERTY);
+        style = style.replaceFirst(DEFAULT_STROKE_WIDTH, SELECTED_STROKE_WIDTH);
+        style = style.replaceFirst(DEFAULT_STROKE, SELECTED_STROKE);
+        terr.setAttribute(STYLE_PROPERTY, style);
+    }
+
+    public void unstrokeTerritory(String territory) {
+        Element terr = territoryElementMap.get(territory);
+        String style = terr.getAttribute(STYLE_PROPERTY);
+        style = style.replaceFirst(SELECTED_STROKE_WIDTH, DEFAULT_STROKE_WIDTH);
+        style = style.replaceFirst(SELECTED_STROKE, DEFAULT_STROKE);
         terr.setAttribute(STYLE_PROPERTY, style);
     }
 
