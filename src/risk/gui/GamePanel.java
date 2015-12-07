@@ -127,11 +127,11 @@ public class GamePanel extends JPanel implements SelectedListener {
 
         List<Operation> operationsPhase = null;
         operationsPhase = riskLogic.nextPhase();
-        for(Operation operation : operationsPhase){
+        for (Operation operation : operationsPhase) {
 
-            switch(riskLogic.getGameState().getLastphase()) {
+            switch (riskLogic.getGameState().getLastphase()) {
                 case INITIAL: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
                     this.revalidate();
@@ -139,10 +139,10 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case BONUS: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
-                    if(operation instanceof UnitsBonus){
+                    if (operation instanceof UnitsBonus) {
                         System.out.println(operation.operationString());
                         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
@@ -152,7 +152,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case FORTIFY: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
                     this.revalidate();
@@ -161,10 +161,10 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case ATTACK: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
-                    if(operation instanceof TerritoryUnselected){
+                    if (operation instanceof TerritoryUnselected) {
                         app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
                     this.revalidate();
@@ -172,10 +172,10 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case MOVE: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
-                    if(operation instanceof TerritoryUnselected){
+                    if (operation instanceof TerritoryUnselected) {
                         app.deselectTerritory(((TerritoryUnselected) operation).getUnselected().getTerritoryName());
                     }
                     this.revalidate();
@@ -184,13 +184,13 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case END_TURN: {
-                    if(operation instanceof NewPhase){
+                    if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                         this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
                         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
-                    if(operation instanceof Victory){
+                    if (operation instanceof Victory) {
                         JOptionPane.showMessageDialog(
                                 this.gameFrame, (((Victory) operation).getPlayer().getPlayerName()), "WINNER", JOptionPane.WARNING_MESSAGE
                         );
@@ -202,7 +202,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
 
-                default: throw new IllegalArgumentException("Invalid card!");
+                default:
+                    throw new IllegalArgumentException("Invalid card!");
             }
         }
 
@@ -274,7 +275,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 if (operation instanceof Attack) {
                     app.selectTerritory(((Attack) operation).getToName());
                     app.setUnits(((Attack) operation).getToName(), ((Attack) operation).getToUnits());
-                    app.setUnits(((Attack) operation).getFromName(),((Attack) operation).getFromUnits());
+                    app.setUnits(((Attack) operation).getFromName(), ((Attack) operation).getFromUnits());
                     app.deselectTerritory(((Attack) operation).getToName());
                     app.deselectTerritory(((Attack) operation).getFromName());
 
@@ -287,7 +288,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((AttackConquest) operation).getToName());
                     app.deselectTerritory(((AttackConquest) operation).getFromName());
                     app.resetTerritoryColor(((AttackConquest) operation).getToName());
-                    app.setTerritoryColor(((AttackConquest) operation).getToName(),((AttackConquest) operation).getColor());
+                    app.setTerritoryColor(((AttackConquest) operation).getToName(), ((AttackConquest) operation).getColor());
 
 
                 }
@@ -339,7 +340,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     public void initializeSVG() {
         for (Map.Entry<Territory, Player> entry : gameState.getTerritoriesPlayersMap().entrySet()) {
             app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
-            app.setUnits(entry.getKey().getTerritoryName(),1);
+            app.setUnits(entry.getKey().getTerritoryName(), 1);
         }
     }
 }
