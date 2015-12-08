@@ -2,6 +2,7 @@ package risk;
 
 import risk.board.Card;
 import risk.board.Continent;
+import risk.board.Mission;
 import risk.board.Territory;
 import risk.operations.*;
 import risk.operations.Error;
@@ -12,11 +13,13 @@ import java.util.*;
 import java.util.List;
 
 public class GameState {
-    List<Player> players;
+    ArrayList<Player> players;
+    HashMap<Color,Player> playerEliminated;
     Player currentPlayerTurn;
     Phases phase;
     Phases lastphase;
     LinkedList<Card> deck;
+    ArrayList<Mission> missions;
     Map<Territory, Player> territoriesPlayersMap;
     List<Continent> continents;
     private Territory attackFrom;
@@ -31,17 +34,22 @@ public class GameState {
         territoriesPlayersMap = new HashMap<>();
         deck = new LinkedList<>();
         int countId = 0;
-        count = 1;
+        count = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
+        missions = new ArrayList<Mission>();
+        initMission();
         //creo humanPlayers id [0,6)
         for (String hPlayername : humanPlayerNames) {
             players.add(new Player(
                     countId,
                     hPlayername,
                     GameResources.getStarterUnitsNumber(numberOfPlayers),
+                    missions.get(0),
                     playerColorsListIterator.next()
             ));
+            missions.remove(0);
+            missions.trimToSize();
             countId++;
         }
         //creo aiPlayers id [6,12)
@@ -51,8 +59,11 @@ public class GameState {
                     countId,
                     aiPlayername,
                     GameResources.getStarterUnitsNumber(numberOfPlayers),
+                    missions.get(0),
                     playerColorsListIterator.next()
             ));
+            missions.remove(0);
+            missions.trimToSize();
             countId++;
         }
         List<Integer> shuffleKeys = new ArrayList<>(GameResources.SVG_NAME_MAP.keySet());
@@ -77,19 +88,14 @@ public class GameState {
         }
 
         //inizializzo le carte/
-        List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
-        Collections.shuffle(cardKeys);
-        for(Integer cardId : cardKeys){
-
-            deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
-        }
-
+        initDeck();
         initContinent();
-        currentPlayerTurn = players.get(0);
-        lastphase = Phases.INITIAL;
-        initialflag = true;
-        attackFrom = null;
-        moveFrom = null;
+        this.playerEliminated = new HashMap<>();
+        this.currentPlayerTurn = players.get(0);
+        this.lastphase = Phases.INITIAL;
+        this.initialflag = true;
+        this.attackFrom = null;
+        this.moveFrom = null;
 
 
     }
@@ -128,7 +134,7 @@ public class GameState {
                 this.setPhase(Phases.INITIAL);
                 break;
         }
-        //phase.next();
+
         System.out.println("avanza di fase");
 
     }
@@ -153,16 +159,19 @@ public class GameState {
 
     public void elimiatePlayer(Player player){
         players.remove(player);
+        players.trimToSize();
+        playerEliminated.put(player.getPlayerColor(), currentPlayerTurn);
+        System.out.println(player.getPlayerName() + " is eliminated");
 
     }
 
 
     public void nextPlayer(){
-        currentPlayerTurn=players.get(count%players.size());
         count++;
-        if(count==players.size()){
+        if(count >= players.size()){
             count=0;
         }
+        currentPlayerTurn=players.get(count%players.size());
     }
 
     public Player getPlayerTer(Territory territory) {
@@ -182,10 +191,26 @@ public class GameState {
         this.currentPlayerTurn = currentPlayerTurn;
     }
 
+    public HashMap<Color, Player> getPlayerEliminated() {
+        return playerEliminated;
+    }
 
-
+    public void setPlayerEliminated(HashMap<Color, Player> playerEliminated) {
+        this.playerEliminated = playerEliminated;
+    }
 
     //--------------------------------DECK------------------------------------------
+
+    public void initDeck(){
+        List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
+        for(Integer cardId : cardKeys){
+
+            deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
+        }
+
+        Collections.shuffle(deck);
+
+    }
 
     public List<Card> getDeck() {
         return deck;
@@ -197,8 +222,9 @@ public class GameState {
 
     public Card fishingCard(){
         if(deck.size()>0){
-
-            return deck.remove(0);
+            Card card = deck.get(0);
+            deck.remove(0);
+            return card;
 
         }
 
@@ -213,10 +239,11 @@ public class GameState {
         for(Card cardIter : cards){
             deck.add(cardIter);
         }
-        //shuffle method to implement
+       Collections.shuffle(deck);
 
 
     }
+
 
     //---------------------OTHER METHOD--------------------------------
 
@@ -236,8 +263,7 @@ public class GameState {
         this.moveFrom = moveFrom;
     }
 
-
-   public void initContinent(){
+    public void initContinent(){
        continents = new ArrayList<>();
        ArrayList<Territory> territories =new ArrayList<>();
        for(int i=0;i<6;i++){
@@ -252,6 +278,37 @@ public class GameState {
            continents.add(new Continent(i, territories));
 
        }
-   }
+    }
+
+    public void initMission(){
+
+        List<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
+        for(Integer key : missionkey){
+            missions.add(new Mission(key,GameResources.MISSION_CONTINENT.get(key)));
+        }
+        missionkey.clear();
+        missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT_CHOICE.keySet());
+        for(Integer key : missionkey){
+            missions.add(new Mission(key,GameResources.MISSION_CONTINENT_CHOICE.get(key)));
+        }
+        missionkey.clear();
+        missionkey = new ArrayList<>(GameResources.MISSION_DESTROY.keySet());
+        for(Integer key : missionkey){
+            missions.add(new Mission(key, GameResources.MISSION_DESTROY.get(key)));
+        }
+        missionkey.clear();
+        missionkey = new ArrayList<>(GameResources.MISSION_TERRITORY.keySet());
+        for(Integer key : missionkey){
+            missions.add(new Mission(key,(int)GameResources.MISSION_TERRITORY.get(key)));
+        }
+
+        Collections.shuffle(missions);
+
+    }
+
+
+
+
+
 
 }

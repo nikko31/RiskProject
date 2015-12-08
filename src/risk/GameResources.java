@@ -1,17 +1,48 @@
 package risk;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
-    public class GameResources {
-        public final static String TAKE_TROUPS_PHASE = "Take Troups";
-        public final static String FORTIFY_PHASE = "Fortify";
-        public final static String ATTACK_PHASE = "Attack";
-        public final static String OCCUPY_PHASE = "Occupy";
-        public final static String MOVE_PHASE = "Move";
-        public final static String END_TURN_PHASE = "End Turn";
-        public final static String START_GAME_PHASE="Start Game";
+
+public class GameResources {
+
         public enum Type { INFANTRY, CAVALRY, ARTILLERY, WILDCARD };
-        public enum COLOR {YELLOW, GREEN, VIOLET, BROWN}
+
+
+
+        public static final Map<Integer,Color> MISSION_DESTROY = new HashMap<Integer, Color>();
+        static{
+            MISSION_DESTROY.put(0,Color.RED);
+            MISSION_DESTROY.put(1,Color.cyan);
+            MISSION_DESTROY.put(2,Color.decode("#FF33FF"));
+            MISSION_DESTROY.put(3,Color.decode("#00FF00"));
+            MISSION_DESTROY.put(4,Color.decode("#0000FF"));
+            MISSION_DESTROY.put(5,Color.yellow);
+        }
+
+        public static final Map<Integer,ArrayList<Integer>> MISSION_CONTINENT = new HashMap<Integer,ArrayList<Integer>>();
+        static{
+        MISSION_CONTINENT.put(6, new ArrayList<Integer>(Arrays.asList(4,1)));
+        MISSION_CONTINENT.put(7, new ArrayList<Integer>(Arrays.asList(0,5)));
+        MISSION_CONTINENT.put(8, new ArrayList<Integer>(Arrays.asList(4,3)));
+        MISSION_CONTINENT.put(9, new ArrayList<Integer>(Arrays.asList(0,3)));
+
+        }
+
+        public static final Map<Integer,ArrayList<Integer>> MISSION_CONTINENT_CHOICE = new HashMap<Integer,ArrayList<Integer>>();
+        static{
+        MISSION_CONTINENT_CHOICE.put(10, new ArrayList<Integer>(Arrays.asList(2,1)));
+        MISSION_CONTINENT_CHOICE.put(11, new ArrayList<Integer>(Arrays.asList(2,5)));
+        }
+
+        public static final Map<Integer,Integer> MISSION_TERRITORY = new HashMap<Integer,Integer>();
+        static{
+        MISSION_TERRITORY.put(12,18);
+        MISSION_TERRITORY.put(13,24);
+        }
+
+
 
         public static final Map<Integer, String> CARD_ID_STRING = new HashMap<Integer, String>();
 
