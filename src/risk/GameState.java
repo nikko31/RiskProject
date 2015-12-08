@@ -1,6 +1,7 @@
 package risk;
 
 import risk.board.Card;
+import risk.board.Continent;
 import risk.board.Territory;
 import risk.operations.*;
 import risk.operations.Error;
@@ -17,6 +18,7 @@ public class GameState {
     Phases lastphase;
     LinkedList<Card> deck;
     Map<Territory, Player> territoriesPlayersMap;
+    List<Continent> continents;
     private Territory attackFrom;
     private Territory moveFrom;
     public boolean initialflag;
@@ -82,7 +84,7 @@ public class GameState {
             deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
         }
 
-
+        initContinent();
         currentPlayerTurn = players.get(0);
         lastphase = Phases.INITIAL;
         initialflag = true;
@@ -234,5 +236,22 @@ public class GameState {
         this.moveFrom = moveFrom;
     }
 
+
+   public void initContinent(){
+       continents = new ArrayList<>();
+       ArrayList<Territory> territories =new ArrayList<>();
+       for(int i=0;i<6;i++){
+           territories.clear();
+           for(Territory territory : territoriesPlayersMap.keySet()){
+               if(territory.getContinentId(territory.getTerritoryID()) == i){
+                   territories.add(territory);
+
+               }
+           }
+
+           continents.add(new Continent(i, territories));
+
+       }
+   }
 
 }

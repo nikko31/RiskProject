@@ -1,5 +1,6 @@
 package risk;
 
+import risk.board.Continent;
 import risk.operations.*;
 import risk.board.Territory;
 import risk.operations.Error;
@@ -164,7 +165,9 @@ public class RiskLogic {
         }
         if(gameState.getPhase() == Phases.BONUS){
             int units;
-            units = territoriesBonus();
+            units =0;
+            units += territoriesBonus();
+            units += continetsBonus();
             gameState.nextPhase();
             operations.add(new UnitsBonus(units));
             operations.add(new NewPhase(Phases.FORTIFY));
@@ -266,13 +269,14 @@ public class RiskLogic {
         int attackdice, defencedice,removeatt,removedefe;
         attackdice = GameResources.getMaxDiceRollsForAttacker(from.getCurrentUnits());
         defencedice = GameResources.getMaxDiceRollsForDefender(to.getCurrentUnits());
+
         ArrayList<Integer> attackdices = this.rollDice(attackdice);
         ArrayList<Integer> defecedices = this.rollDice(defencedice);
         //use the dices to save the number of victory
         removeatt = 0;
         removedefe = 0;
 
-        for (int i = 0; i < defecedices.size(); i++) {
+        for (int i = 0; i < Math.min(attackdice,defencedice); i++) {
             System.out.println(attackdices.get(i) + " " +defecedices.get(i));
             if(attackdices.get(i)>defecedices.get(i)){
                 removedefe++;
@@ -293,7 +297,7 @@ public class RiskLogic {
             if(isPlayerOut(player)){
                 gameState.elimiatePlayer(player);
             }
-            occupyTerritory(attacker,from,to,attackdice-removedefe);
+            occupyTerritory(attacker,from,to,attackdice-removeatt);
             return true;
 
 
@@ -365,7 +369,7 @@ public class RiskLogic {
         from.setCurrentUnits(from.getCurrentUnits()-units);
         gameState.setPlayerTer(to, current_player);
         to.setCurrentUnits(units);
-        System.out.println(current_player.getPlayerName() + " "+ to.getTerritoryName() +" " +to.getCurrentUnits());
+        System.out.println(current_player.getPlayerName() + " " + to.getTerritoryName() + " " + to.getCurrentUnits());
 
     }
 
@@ -456,14 +460,131 @@ public class RiskLogic {
 
     }
 
+    public int continetsBonus(){
+        int flag;
+        int unitsBonus = 0;
+        for(Continent conti : gameState.continents){
+            flag = 1;
+            for(Territory territory : conti.getTerritories()){
+                if(gameState.getPlayerTer(territory) != gameState.getCurrentPlayerTurn()){
+                    flag = 0;
+                }
+            }
+            if(flag == 1){
+                unitsBonus += conti.getBonusArmies();
+                System.out.println("you have " + conti.getName() + " recive: " +conti.getBonusArmies());
+            }
+
+        }
+        addBonusUnits(unitsBonus);
+        return unitsBonus;
+
+    }
+    /*alternative WAY TO CALCULATE BONUS WITH NO CONTINENT
+    public int continetsBonus(){
+        int continent[] = {0,0,0,0,0,0};
+        int unitsBonus = 0;
+
+        for(Territory territory : territories ){
+            if(territory.getTerritoryID() < 9){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[0]++;
+                }
+            }
+            if(territory.getTerritoryID() >= 9 && territory.getTerritoryID() < 13){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[1]++;
+                }
+            }
+            if(territory.getTerritoryID() >= 13 && territory.getTerritoryID() < 20){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[2]++;
+                }
+            }
+            if(territory.getTerritoryID() >= 20 && territory.getTerritoryID() < 26){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[3]++;
+                }
+            }
+            if(territory.getTerritoryID() >= 26 && territory.getTerritoryID() < 38){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[4]++;
+                }
+            }
+            if(territory.getTerritoryID() >= 38){
+                if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
+                    continent[5]++;
+                }
+            }
+        }
+
+        for(int i = 0;i < 6 ;i++){
+            if(continent[i] == territoryforContinent(i)){
+                unitsBonus += bonusForContinent(i);
+                System.out.println("you have continent " + i + "with bonus units "+bonusForContinent(i));
+            }
+        }
+
+        addBonusUnits(unitsBonus);
+        return unitsBonus;
+    }
+
+    public int territoryforContinent(int n){
+        switch(n) {
+            case 0: {
+                return 9;
+            }
+            case 1: {
+                return 4;
+            }
+            case 2: {
+                return 7;
+            }
+            case 3: {
+                return 6;
+            }
+            case 4: {
+                return 12;
+            }
+            case 5: {
+                return 4;
+            }
+
+            default: return 0;
+        }
+    }
+
+    public int bonusForContinent(int n) {
+        switch(n) {
+            case 0: {
+                return 5;
+            }
+            case 1: {
+                return 2;
+            }
+            case 2: {
+                return 5;
+            }
+            case 3: {
+                return 3;
+            }
+            case 4: {
+                return 7;
+            }
+            case 5: {
+                return 2;
+            }
+
+            default: return 0;
+        }
+    }
+    */
+
 
     public void addBonusUnits(int units){
         gameState.getCurrentPlayerTurn().setFreeUnits(gameState.getCurrentPlayerTurn().getFreeUnits() + units);
     }
 
-    public void countryBonus(){
-        //to implement
-    }
 
 
     //-----------------------OTHER METHOD---------------------------------------
@@ -475,7 +596,7 @@ public class RiskLogic {
             if(gameState.getPlayerTer(territory)==gameState.getCurrentPlayerTurn()){
                 count++;
             }
-            if(count>22){
+            if(count>25){
                 return true;
             }
         }
