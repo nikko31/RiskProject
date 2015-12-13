@@ -314,7 +314,6 @@ public class ImageWithClickableParts implements EventListener {
     }
 }
 
-
 class ObjectAndProperty<T> {
 
     private T object;
