@@ -40,7 +40,6 @@ public class ImageWithClickableParts implements EventListener {
     private static final String SELECTED_STROKE_WIDTH = "stroke-width:5";
     private static final String DEFAULT_FILL = "fill:#ffffff";
     /*<------------------------------->*/
-    private static final String DEFAULT_STYLE_PROPERTY_VALUE = "";
     private static final String STYLE_PROPERTY = "style";
     private static final String FILL_PROPERTY = "fill";
     private static final String FILL_PROPERTY_HIGHLIGHTED = "rgb(0,0,255)";//blu
@@ -48,9 +47,8 @@ public class ImageWithClickableParts implements EventListener {
     private static final String DEFAULT_TEXT_FOOTER = "_text";
     private List<Element> territoriesUnitsNodes;
     private List<String> territories;
-    private List<String> clicked = new ArrayList<>();
     private JSVGCanvas svgCanvas = new JSVGCanvas();
-    private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<ObjectAndProperty<Element>, String>();
+    private Map<ObjectAndProperty<Element>, String> nodeAndProperty2Value = new HashMap<>();
     private List<SelectedListener> listeners = new ArrayList<>();
     private Map<String, Element> territoryElementMap;
     private Map<String, Element> territoryUnitsMap;
@@ -92,7 +90,6 @@ public class ImageWithClickableParts implements EventListener {
     protected void addListenersToSensitiveZones() {
         List<Node> allSensitiveZones = getAllSensitiveZones();
         this.territoriesUnitsNodes = new ArrayList<>();
-        this.clicked = new ArrayList<>();
         for (Node sensitiveZone : allSensitiveZones) {
             Element elt = (Element) sensitiveZone;
             String elementId = elt.getAttribute("id");
@@ -133,9 +130,6 @@ public class ImageWithClickableParts implements EventListener {
         } else {
             restoreOriginalProperty(fillProperty, objAndPropertyFill, savedFillPropertyValue);
         }
-
-        String zoneKey = zoneAttributes.getNamedItem(SENSITIVE_ZONE_IDENTIFIER).getNodeValue();
-//        notifyListeners(zoneKey, true);
     }
 
 
@@ -155,7 +149,6 @@ public class ImageWithClickableParts implements EventListener {
      * Unexisting attributes but mandatory for us are created, problematic ('style' !) ones are deleted
      */
     protected void cleanAttributes(Element sensitiveZone) {
-        NamedNodeMap zoneAttributes = sensitiveZone.getAttributes();
 
         // remove the style so we are able to override it using full blown attributes instead of concatenated stuffs in the 'style' attribute
         /*if (zoneAttributes.getNamedItem(STYLE_PROPERTY) != null) {
@@ -173,7 +166,7 @@ public class ImageWithClickableParts implements EventListener {
     }
 
     private List<Node> getAllSensitiveZones() {
-        List<Node> oleaNodes = new ArrayList<Node>();
+        List<Node> oleaNodes = new ArrayList<>();
         SVGDocument svgDocument = svgCanvas.getSVGDocument();
         NodeFilter nodeFilter = createSensitiveZonesNodeFilter();
         TreeWalker treeWalker = TraversalSupport.createTreeWalker((AbstractDocument) svgDocument,
@@ -215,11 +208,11 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-        if (type == "click") {
+        if (type.equals("click"))
             listeners.get(0).updateUi(id);
-        } else if (type == "mouseover") {
+        else if (type.equals("mouseover")) {
             this.strokeTerritory(id);
-        } else if (type == "mouseout") {
+        } else if (type.equals("mouseout")) {
             this.unstrokeTerritory(id);
         }
     }
@@ -331,7 +324,4 @@ class ObjectAndProperty<T> {
         return object;
     }
 
-    public void setObject(T object) {
-        this.object = object;
-    }
 }

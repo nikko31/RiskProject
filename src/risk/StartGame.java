@@ -34,14 +34,14 @@ public class StartGame extends JFrame {
     private void initComponents() throws IOException {
 
         ImageIcon iconA = new ImageIcon(RESOURCES + "next.png");
-        menuPnl = new JPanel();
+        JPanel menuPnl = new JPanel();
         JTextField playerName2 = new JTextField();
         JCheckBox bot2 = new JCheckBox();
         JTextField playerName1 = new JTextField();
         JCheckBox bot1 = new JCheckBox();
         JTextField playerName3 = new JTextField();
         JCheckBox bot3 = new JCheckBox();
-        startBtn = new JButton("Start Game", iconA);
+        JButton startBtn = new JButton("Start Game", iconA);
         JLabel namesLbl = new JLabel();
         JTextField playerName4 = new JTextField();
         JCheckBox bot4 = new JCheckBox();
@@ -70,7 +70,7 @@ public class StartGame extends JFrame {
 
         startBtn.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                startBtnMouseClicked(evt);
+                startBtnMouseClicked();
             }
         });
 
@@ -208,7 +208,7 @@ public class StartGame extends JFrame {
         this.bots.add(bot6);
     }
 
-    private void startBtnMouseClicked(MouseEvent evt) {
+    private void startBtnMouseClicked() {
 
         List<String> bot_names = new LinkedList<>();
         List<String> human_names = new LinkedList<>();
@@ -258,9 +258,6 @@ public class StartGame extends JFrame {
         });
     }
 
-    // Variables Menu
-    private JPanel menuPnl;
-    private JButton startBtn;
     private List<JTextField> names;
     private List<JCheckBox> bots;
     // End of variables declaration

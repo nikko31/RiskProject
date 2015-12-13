@@ -4,8 +4,6 @@ import risk.board.Card;
 import risk.board.Continent;
 import risk.board.Mission;
 import risk.board.Territory;
-import risk.operations.*;
-import risk.operations.Error;
 import risk.player.Player;
 
 import java.awt.*;
@@ -37,7 +35,7 @@ public class GameState {
         count = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
-        missions = new ArrayList<Mission>();
+        missions = new ArrayList<>();
         initMission();
         //creo humanPlayers id [0,6)
         for (String hPlayername : humanPlayerNames) {
@@ -184,10 +182,6 @@ public class GameState {
 
     public Player getCurrentPlayerTurn() {
         return currentPlayerTurn;
-    }
-
-    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
-        this.currentPlayerTurn = currentPlayerTurn;
     }
 
     public HashMap<Color, Player> getPlayerEliminated() {

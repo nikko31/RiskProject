@@ -4,9 +4,6 @@ import risk.board.Territory;
 
 import java.awt.*;
 
-/**
- * Created by Federico on 30/11/2015.
- */
 public class AttackConquest implements Operation {
     private Territory from;
     private Territory to;

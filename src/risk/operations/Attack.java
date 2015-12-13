@@ -2,9 +2,6 @@ package risk.operations;
 
 import risk.board.Territory;
 
-/**
- * Created by DarkLinux on 27/11/15.
- */
 public class Attack implements Operation {
     private Territory from;
     private Territory to;

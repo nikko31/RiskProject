@@ -1,20 +1,16 @@
 package risk;
 
 import risk.board.Continent;
-import risk.operations.*;
 import risk.board.Territory;
+import risk.operations.*;
 import risk.operations.Error;
 import risk.player.Player;
-import risk.GameResources;
-import risk.GameState;
 
-import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
-/**
- * Created by Federico on 22/11/2015.
- */
 
 public class RiskLogic {
 
@@ -29,7 +25,7 @@ public class RiskLogic {
         cardFlag = true;
         territory = null;
         this.gameState = gameState;
-        territories = new ArrayList<Territory>(gameState.getTerritoriesPlayersMap().keySet());
+        territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
     }
 
 
@@ -62,7 +58,7 @@ public class RiskLogic {
 
                 if (checkAttackFrom(gameState.getCurrentPlayerTurn(), territory)) {
 
-                    if (checkAttackFromUnits(gameState.getCurrentPlayerTurn(), territory)) {
+                    if (checkAttackFromUnits(territory)) {
                         gameState.setAttackFrom(territory);
                         return new TerritorySelected(territory);
                     } else {
@@ -153,7 +149,7 @@ public class RiskLogic {
 
     public List<Operation> nextPhase() {
         gameState.setLastphase(gameState.getPhase());
-        List<Operation> operations = new ArrayList<Operation>();
+        List<Operation> operations = new ArrayList<>();
 
         if (gameState.getPhase() == Phases.INITIAL) {
             gameState.nextPhase();
@@ -273,7 +269,7 @@ public class RiskLogic {
 
 
         if (checkIsConquered(to, removedefe)) {
-            Player player = null;
+            Player player;
             player = gameState.getPlayerTer(to);
             occupyTerritory(attacker, from, to, attackdice - removeatt);
             if (isPlayerOut(player)) {
@@ -292,7 +288,7 @@ public class RiskLogic {
     }
 
 
-    public boolean checkAttackFromUnits(Player attacker, Territory from) {
+    public boolean checkAttackFromUnits(Territory from) {
         //check if in to have enough units to attack
 
         return from.getCurrentUnits() > 1;
@@ -348,7 +344,7 @@ public class RiskLogic {
 
     // roll an array of n dice and sort it
     public ArrayList<Integer> rollDice(int n) {
-        ArrayList<Integer> dice = new ArrayList<Integer>();
+        ArrayList<Integer> dice = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             dice.add((new Random().nextInt(5)) + 1);
         }
@@ -398,7 +394,6 @@ public class RiskLogic {
 
     public int territoriesBonus() {
         int territoryCount = 0;
-        int count = 0;
         for (Territory territory : territories) {
             if (gameState.getPlayerTer(territory) == gameState.getCurrentPlayerTurn()) {
                 territoryCount++;

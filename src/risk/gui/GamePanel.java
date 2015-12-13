@@ -1,8 +1,5 @@
 package risk.gui;
 
-import org.w3c.dom.events.*;
-import org.w3c.dom.events.Event;
-import risk.GameResources;
 import risk.GameState;
 import risk.Phases;
 import risk.RiskLogic;
@@ -13,10 +10,10 @@ import risk.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -33,17 +30,15 @@ public class GamePanel extends JPanel implements SelectedListener {
 
     /**
      * This method is called from within the constructor to initialize the form.
-     *
-     * @param default_map
      */
 
     private void initComponents(String default_map) {
 
-        gamePnl = new JPanel();
-        nextBtn = new JButton();
+        JPanel gamePnl = new JPanel();
+        JButton nextBtn = new JButton();
         phaseLbl = new JLabel();
         playerLbl = new JLabel();
-        jLabel1 = new JLabel();
+        JLabel jLabel1 = new JLabel();
         troupsLbl = new JLabel();
 
         setLayout(new BorderLayout());
@@ -51,7 +46,7 @@ public class GamePanel extends JPanel implements SelectedListener {
         nextBtn.setText("Next Phase");
         nextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nextBtnMouseClicked(evt);
+                nextBtnMouseClicked();
             }
         });
         phaseLbl.setForeground(Color.black);
@@ -122,10 +117,10 @@ public class GamePanel extends JPanel implements SelectedListener {
         add(svgImage, BorderLayout.CENTER);
     }
 
-    private void nextBtnMouseClicked(MouseEvent evt) {
+    private void nextBtnMouseClicked() {
         /*@TODO riskLogic.nextPhase();*/
 
-        List<Operation> operationsPhase = null;
+        List<Operation> operationsPhase;
         operationsPhase = riskLogic.nextPhase();
         for (Operation operation : operationsPhase) {
 
@@ -210,10 +205,6 @@ public class GamePanel extends JPanel implements SelectedListener {
     }
 
 
-    // Variables declaration - do not modify                     
-    private JPanel gamePnl;
-    private JLabel jLabel1;
-    private JButton nextBtn;
     private JLabel phaseLbl;
     private JLabel playerLbl;
     private JLabel troupsLbl;
@@ -304,7 +295,6 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
                     app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
                     operation = riskLogic.makeMove(territory);
-                    phase = riskLogic.getGameState().getPhase();
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(

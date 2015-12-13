@@ -10,7 +10,7 @@ public class GameResources {
     public enum Type {INFANTRY, CAVALRY, ARTILLERY, WILDCARD}
 
 
-    public static final Map<Integer, Color> MISSION_DESTROY = new HashMap<Integer, Color>();
+    public static final Map<Integer, Color> MISSION_DESTROY = new HashMap<>();
         static{
             MISSION_DESTROY.put(0,Color.RED);
             MISSION_DESTROY.put(1,Color.cyan);
@@ -20,30 +20,29 @@ public class GameResources {
             MISSION_DESTROY.put(5,Color.yellow);
         }
 
-        public static final Map<Integer,ArrayList<Integer>> MISSION_CONTINENT = new HashMap<Integer,ArrayList<Integer>>();
+    public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT = new HashMap<>();
         static{
-        MISSION_CONTINENT.put(6, new ArrayList<Integer>(Arrays.asList(4,1)));
-        MISSION_CONTINENT.put(7, new ArrayList<Integer>(Arrays.asList(0,5)));
-        MISSION_CONTINENT.put(8, new ArrayList<Integer>(Arrays.asList(4,3)));
-        MISSION_CONTINENT.put(9, new ArrayList<Integer>(Arrays.asList(0,3)));
+            MISSION_CONTINENT.put(6, new ArrayList<>(Arrays.asList(4, 1)));
+            MISSION_CONTINENT.put(7, new ArrayList<>(Arrays.asList(0, 5)));
+            MISSION_CONTINENT.put(8, new ArrayList<>(Arrays.asList(4, 3)));
+            MISSION_CONTINENT.put(9, new ArrayList<>(Arrays.asList(0, 3)));
 
         }
 
-        public static final Map<Integer,ArrayList<Integer>> MISSION_CONTINENT_CHOICE = new HashMap<Integer,ArrayList<Integer>>();
+    public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT_CHOICE = new HashMap<>();
         static{
-        MISSION_CONTINENT_CHOICE.put(10, new ArrayList<Integer>(Arrays.asList(2,1)));
-        MISSION_CONTINENT_CHOICE.put(11, new ArrayList<Integer>(Arrays.asList(2,5)));
+            MISSION_CONTINENT_CHOICE.put(10, new ArrayList<>(Arrays.asList(2, 1)));
+            MISSION_CONTINENT_CHOICE.put(11, new ArrayList<>(Arrays.asList(2, 5)));
         }
 
-        public static final Map<Integer,Integer> MISSION_TERRITORY = new HashMap<Integer,Integer>();
+    public static final Map<Integer, Integer> MISSION_TERRITORY = new HashMap<>();
         static{
         MISSION_TERRITORY.put(12,18);
         MISSION_TERRITORY.put(13,24);
         }
 
 
-
-        public static final Map<Integer, String> CARD_ID_STRING = new HashMap<Integer, String>();
+    public static final Map<Integer, String> CARD_ID_STRING = new HashMap<>();
 
         static{
 
@@ -94,7 +93,7 @@ public class GameResources {
             CARD_ID_STRING.put(44,"W");
         }
 
-        public static final Map<Integer, String> TERRITORY_NAME = new HashMap<Integer, String>();
+    public static final Map<Integer, String> TERRITORY_NAME = new HashMap<>();
 
         static {
             TERRITORY_NAME.put(0, "Alaska");
@@ -141,7 +140,7 @@ public class GameResources {
             TERRITORY_NAME.put(41, "Eastern Australia");
         }
 
-        public static final Map<String, Integer> SVG_ID_MAP = new HashMap<String, Integer>();
+    public static final Map<String, Integer> SVG_ID_MAP = new HashMap<>();
 
         static {
             SVG_ID_MAP.put("alaska", 0);
@@ -188,7 +187,7 @@ public class GameResources {
             SVG_ID_MAP.put("eastern_australia", 41);
         }
 
-        public static final Map<Integer, String> SVG_NAME_MAP = new HashMap<Integer, String>();
+    public static final Map<Integer, String> SVG_NAME_MAP = new HashMap<>();
 
         static {
             SVG_NAME_MAP.put(0, "alaska");
@@ -235,51 +234,51 @@ public class GameResources {
             SVG_NAME_MAP.put(41, "eastern_australia");
         }
 
-        public static final Map<Integer, List<Integer>> CONNECTIONS = new HashMap<Integer, List<Integer>>();
+    public static final Map<Integer, List<Integer>> CONNECTIONS = new HashMap<>();
 
         static {
-            CONNECTIONS.put(0, new ArrayList<Integer>(Arrays.asList(1, 2, 37)));
-            CONNECTIONS.put(1, new ArrayList<Integer>(Arrays.asList(0, 2, 6, 5)));
-            CONNECTIONS.put(2, new ArrayList<Integer>(Arrays.asList(0, 1, 6, 3)));
-            CONNECTIONS.put(3, new ArrayList<Integer>(Arrays.asList(2, 6, 4, 8)));
-            CONNECTIONS.put(4, new ArrayList<Integer>(Arrays.asList(3, 8, 9)));
-            CONNECTIONS.put(5, new ArrayList<Integer>(Arrays.asList(1, 6, 7, 13)));
-            CONNECTIONS.put(6, new ArrayList<Integer>(Arrays.asList(1, 2, 3, 5, 7, 8)));
-            CONNECTIONS.put(7, new ArrayList<Integer>(Arrays.asList(5, 6, 8)));
-            CONNECTIONS.put(8, new ArrayList<Integer>(Arrays.asList(3, 4, 6, 7)));
-            CONNECTIONS.put(9, new ArrayList<Integer>(Arrays.asList(4, 10, 11)));
-            CONNECTIONS.put(10, new ArrayList<Integer>(Arrays.asList(9, 11, 12)));
-            CONNECTIONS.put(11, new ArrayList<Integer>(Arrays.asList(9, 10, 12, 20)));
-            CONNECTIONS.put(12, new ArrayList<Integer>(Arrays.asList(10, 11)));
-            CONNECTIONS.put(13, new ArrayList<Integer>(Arrays.asList(5, 16, 14)));
-            CONNECTIONS.put(14, new ArrayList<Integer>(Arrays.asList(15, 17, 13, 16)));
-            CONNECTIONS.put(15, new ArrayList<Integer>(Arrays.asList(14, 27, 29, 30, 17, 19)));
-            CONNECTIONS.put(16, new ArrayList<Integer>(Arrays.asList(13, 17, 18, 14)));
-            CONNECTIONS.put(17, new ArrayList<Integer>(Arrays.asList(14, 15, 16, 18, 19)));
-            CONNECTIONS.put(18, new ArrayList<Integer>(Arrays.asList(16, 17, 19, 20)));
-            CONNECTIONS.put(19, new ArrayList<Integer>(Arrays.asList(15, 17, 18, 20, 21, 30)));
-            CONNECTIONS.put(20, new ArrayList<Integer>(Arrays.asList(11, 18, 19, 21, 22, 23)));
-            CONNECTIONS.put(21, new ArrayList<Integer>(Arrays.asList(19, 20, 23, 30)));
-            CONNECTIONS.put(22, new ArrayList<Integer>(Arrays.asList(20, 23, 24)));
-            CONNECTIONS.put(23, new ArrayList<Integer>(Arrays.asList(20, 21, 22, 24, 25, 30)));
-            CONNECTIONS.put(24, new ArrayList<Integer>(Arrays.asList(22, 23, 25)));
-            CONNECTIONS.put(25, new ArrayList<Integer>(Arrays.asList(23, 24)));
-            CONNECTIONS.put(26, new ArrayList<Integer>(Arrays.asList(27, 28, 33, 34, 35)));
-            CONNECTIONS.put(27, new ArrayList<Integer>(Arrays.asList(15, 26, 28, 29)));
-            CONNECTIONS.put(28, new ArrayList<Integer>(Arrays.asList(26, 27, 29, 31, 32, 35)));
-            CONNECTIONS.put(29, new ArrayList<Integer>(Arrays.asList(15, 27, 28, 30, 31)));
-            CONNECTIONS.put(30, new ArrayList<Integer>(Arrays.asList(15, 21, 29, 31, 19, 23)));
-            CONNECTIONS.put(31, new ArrayList<Integer>(Arrays.asList(28, 29, 30, 32)));
-            CONNECTIONS.put(32, new ArrayList<Integer>(Arrays.asList(28, 31, 38)));
-            CONNECTIONS.put(33, new ArrayList<Integer>(Arrays.asList(26, 34, 37)));
-            CONNECTIONS.put(34, new ArrayList<Integer>(Arrays.asList(26, 33, 35, 37)));
-            CONNECTIONS.put(35, new ArrayList<Integer>(Arrays.asList(28, 34, 36, 37, 26)));
-            CONNECTIONS.put(36, new ArrayList<Integer>(Arrays.asList(35, 37)));
-            CONNECTIONS.put(37, new ArrayList<Integer>(Arrays.asList(0, 33, 34, 35, 36)));
-            CONNECTIONS.put(38, new ArrayList<Integer>(Arrays.asList(32, 40, 39)));
-            CONNECTIONS.put(39, new ArrayList<Integer>(Arrays.asList(38, 40, 41)));
-            CONNECTIONS.put(40, new ArrayList<Integer>(Arrays.asList(38, 39, 41)));
-            CONNECTIONS.put(41, new ArrayList<Integer>(Arrays.asList(39, 40)));
+            CONNECTIONS.put(0, new ArrayList<>(Arrays.asList(1, 2, 37)));
+            CONNECTIONS.put(1, new ArrayList<>(Arrays.asList(0, 2, 6, 5)));
+            CONNECTIONS.put(2, new ArrayList<>(Arrays.asList(0, 1, 6, 3)));
+            CONNECTIONS.put(3, new ArrayList<>(Arrays.asList(2, 6, 4, 8)));
+            CONNECTIONS.put(4, new ArrayList<>(Arrays.asList(3, 8, 9)));
+            CONNECTIONS.put(5, new ArrayList<>(Arrays.asList(1, 6, 7, 13)));
+            CONNECTIONS.put(6, new ArrayList<>(Arrays.asList(1, 2, 3, 5, 7, 8)));
+            CONNECTIONS.put(7, new ArrayList<>(Arrays.asList(5, 6, 8)));
+            CONNECTIONS.put(8, new ArrayList<>(Arrays.asList(3, 4, 6, 7)));
+            CONNECTIONS.put(9, new ArrayList<>(Arrays.asList(4, 10, 11)));
+            CONNECTIONS.put(10, new ArrayList<>(Arrays.asList(9, 11, 12)));
+            CONNECTIONS.put(11, new ArrayList<>(Arrays.asList(9, 10, 12, 20)));
+            CONNECTIONS.put(12, new ArrayList<>(Arrays.asList(10, 11)));
+            CONNECTIONS.put(13, new ArrayList<>(Arrays.asList(5, 16, 14)));
+            CONNECTIONS.put(14, new ArrayList<>(Arrays.asList(15, 17, 13, 16)));
+            CONNECTIONS.put(15, new ArrayList<>(Arrays.asList(14, 27, 29, 30, 17, 19)));
+            CONNECTIONS.put(16, new ArrayList<>(Arrays.asList(13, 17, 18, 14)));
+            CONNECTIONS.put(17, new ArrayList<>(Arrays.asList(14, 15, 16, 18, 19)));
+            CONNECTIONS.put(18, new ArrayList<>(Arrays.asList(16, 17, 19, 20)));
+            CONNECTIONS.put(19, new ArrayList<>(Arrays.asList(15, 17, 18, 20, 21, 30)));
+            CONNECTIONS.put(20, new ArrayList<>(Arrays.asList(11, 18, 19, 21, 22, 23)));
+            CONNECTIONS.put(21, new ArrayList<>(Arrays.asList(19, 20, 23, 30)));
+            CONNECTIONS.put(22, new ArrayList<>(Arrays.asList(20, 23, 24)));
+            CONNECTIONS.put(23, new ArrayList<>(Arrays.asList(20, 21, 22, 24, 25, 30)));
+            CONNECTIONS.put(24, new ArrayList<>(Arrays.asList(22, 23, 25)));
+            CONNECTIONS.put(25, new ArrayList<>(Arrays.asList(23, 24)));
+            CONNECTIONS.put(26, new ArrayList<>(Arrays.asList(27, 28, 33, 34, 35)));
+            CONNECTIONS.put(27, new ArrayList<>(Arrays.asList(15, 26, 28, 29)));
+            CONNECTIONS.put(28, new ArrayList<>(Arrays.asList(26, 27, 29, 31, 32, 35)));
+            CONNECTIONS.put(29, new ArrayList<>(Arrays.asList(15, 27, 28, 30, 31)));
+            CONNECTIONS.put(30, new ArrayList<>(Arrays.asList(15, 21, 29, 31, 19, 23)));
+            CONNECTIONS.put(31, new ArrayList<>(Arrays.asList(28, 29, 30, 32)));
+            CONNECTIONS.put(32, new ArrayList<>(Arrays.asList(28, 31, 38)));
+            CONNECTIONS.put(33, new ArrayList<>(Arrays.asList(26, 34, 37)));
+            CONNECTIONS.put(34, new ArrayList<>(Arrays.asList(26, 33, 35, 37)));
+            CONNECTIONS.put(35, new ArrayList<>(Arrays.asList(28, 34, 36, 37, 26)));
+            CONNECTIONS.put(36, new ArrayList<>(Arrays.asList(35, 37)));
+            CONNECTIONS.put(37, new ArrayList<>(Arrays.asList(0, 33, 34, 35, 36)));
+            CONNECTIONS.put(38, new ArrayList<>(Arrays.asList(32, 40, 39)));
+            CONNECTIONS.put(39, new ArrayList<>(Arrays.asList(38, 40, 41)));
+            CONNECTIONS.put(40, new ArrayList<>(Arrays.asList(38, 39, 41)));
+            CONNECTIONS.put(41, new ArrayList<>(Arrays.asList(39, 40)));
         }
 
         public static int getMaxDiceRollsForAttacker(int units) {
