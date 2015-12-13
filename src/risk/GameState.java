@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GameState {
     ArrayList<Player> players;
-    HashMap<Color,Player> playerEliminated;
+    HashMap<Color, Player> playerEliminated;
     Player currentPlayerTurn;
     Phases phase;
     Phases lastphase;
@@ -30,7 +30,7 @@ public class GameState {
 
     public GameState(List<Color> playerColors, List<String> humanPlayerNames, List<String> aiPlayerNames) {
         this.players = new ArrayList<>();
-        phase=Phases.INITIAL;
+        phase = Phases.INITIAL;
         territoriesPlayersMap = new HashMap<>();
         deck = new LinkedList<>();
         int countId = 0;
@@ -112,7 +112,7 @@ public class GameState {
     }
 
 
-    public void nextPhase(){
+    public void nextPhase() {
         switch (phase) {
             case INITIAL:
                 this.setPhase(Phases.END_TURN);
@@ -136,7 +136,6 @@ public class GameState {
         }
 
         System.out.println("avanza di fase");
-
     }
 
     public Phases getLastphase() {
@@ -157,7 +156,7 @@ public class GameState {
         return players;
     }
 
-    public void elimiatePlayer(Player player){
+    public void elimiatePlayer(Player player) {
         players.remove(player);
         players.trimToSize();
         playerEliminated.put(player.getPlayerColor(), currentPlayerTurn);
@@ -166,12 +165,12 @@ public class GameState {
     }
 
 
-    public void nextPlayer(){
+    public void nextPlayer() {
         count++;
-        if(count >= players.size()){
-            count=0;
+        if (count >= players.size()) {
+            count = 0;
         }
-        currentPlayerTurn=players.get(count%players.size());
+        currentPlayerTurn = players.get(count % players.size());
     }
 
     public Player getPlayerTer(Territory territory) {
@@ -180,7 +179,7 @@ public class GameState {
 
     //change the owner of a territory
     public void setPlayerTer(Territory territory, Player player) {
-        territoriesPlayersMap.replace(territory,player);
+        territoriesPlayersMap.replace(territory, player);
     }
 
     public Player getCurrentPlayerTurn() {
@@ -201,11 +200,11 @@ public class GameState {
 
     //--------------------------------DECK------------------------------------------
 
-    public void initDeck(){
+    public void initDeck() {
         List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
-        for(Integer cardId : cardKeys){
+        for (Integer cardId : cardKeys) {
 
-            deck.add(new Card(cardId,GameResources.CARD_ID_STRING.get(cardId)));
+            deck.add(new Card(cardId, GameResources.CARD_ID_STRING.get(cardId)));
         }
 
         Collections.shuffle(deck);
@@ -220,26 +219,23 @@ public class GameState {
         this.deck = deck;
     }
 
-    public Card fishingCard(){
-        if(deck.size()>0){
+    public Card fishingCard() {
+        if (deck.size() > 0) {
             Card card = deck.get(0);
             deck.remove(0);
             return card;
 
-        }
-
-
-        else{
+        } else {
             return null;
         }
     }
 
-    public void restoreCards(List<Card> cards){
+    public void restoreCards(List<Card> cards) {
 
-        for(Card cardIter : cards){
+        for (Card cardIter : cards) {
             deck.add(cardIter);
         }
-       Collections.shuffle(deck);
+        Collections.shuffle(deck);
 
 
     }
@@ -263,52 +259,45 @@ public class GameState {
         this.moveFrom = moveFrom;
     }
 
-    public void initContinent(){
-       continents = new ArrayList<>();
-       ArrayList<Territory> territories =new ArrayList<>();
-       for(int i=0;i<6;i++){
-           territories.clear();
-           for(Territory territory : territoriesPlayersMap.keySet()){
-               if(territory.getContinentId(territory.getTerritoryID()) == i){
-                   territories.add(territory);
+    public void initContinent() {
+        continents = new ArrayList<>();
+        ArrayList<Territory> territories = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            territories.clear();
+            for (Territory territory : territoriesPlayersMap.keySet()) {
+                if (Territory.getContinentId(territory.getTerritoryID()) == i) {
+                    territories.add(territory);
 
-               }
-           }
+                }
+            }
 
-           continents.add(new Continent(i, territories));
+            continents.add(new Continent(i, territories));
 
-       }
+        }
     }
 
-    public void initMission(){
+    public void initMission() {
 
         List<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
-        for(Integer key : missionkey){
-            missions.add(new Mission(key,GameResources.MISSION_CONTINENT.get(key)));
+        for (Integer key : missionkey) {
+            missions.add(new Mission(key, GameResources.MISSION_CONTINENT.get(key)));
         }
         missionkey.clear();
         missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT_CHOICE.keySet());
-        for(Integer key : missionkey){
-            missions.add(new Mission(key,GameResources.MISSION_CONTINENT_CHOICE.get(key)));
+        for (Integer key : missionkey) {
+            missions.add(new Mission(key, GameResources.MISSION_CONTINENT_CHOICE.get(key)));
         }
         missionkey.clear();
         missionkey = new ArrayList<>(GameResources.MISSION_DESTROY.keySet());
-        for(Integer key : missionkey){
+        for (Integer key : missionkey) {
             missions.add(new Mission(key, GameResources.MISSION_DESTROY.get(key)));
         }
         missionkey.clear();
         missionkey = new ArrayList<>(GameResources.MISSION_TERRITORY.keySet());
-        for(Integer key : missionkey){
-            missions.add(new Mission(key,(int)GameResources.MISSION_TERRITORY.get(key)));
+        for (Integer key : missionkey) {
+            missions.add(new Mission(key, GameResources.MISSION_TERRITORY.get(key)));
         }
 
         Collections.shuffle(missions);
-
     }
-
-
-
-
-
-
 }

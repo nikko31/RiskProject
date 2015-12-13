@@ -7,11 +7,10 @@ import java.util.List;
 
 public class GameResources {
 
-        public enum Type { INFANTRY, CAVALRY, ARTILLERY, WILDCARD };
+    public enum Type {INFANTRY, CAVALRY, ARTILLERY, WILDCARD}
 
 
-
-        public static final Map<Integer,Color> MISSION_DESTROY = new HashMap<Integer, Color>();
+    public static final Map<Integer, Color> MISSION_DESTROY = new HashMap<Integer, Color>();
         static{
             MISSION_DESTROY.put(0,Color.RED);
             MISSION_DESTROY.put(1,Color.cyan);

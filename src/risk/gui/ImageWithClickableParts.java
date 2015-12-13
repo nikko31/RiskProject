@@ -224,9 +224,6 @@ public class ImageWithClickableParts implements EventListener {
         }
     }
 
-
-/*    */
-
     /**
      * @return an object describing the current state of the selected parts
      *//*

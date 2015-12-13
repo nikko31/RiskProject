@@ -228,16 +228,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     public void updateUi(String territory) {
 
         System.out.println("Click on " + territory);
-        /*app.setTerritoryColor(territory, Color.green);
-        app.incrementUnits(territory);
-        if (this.selectedTerritories.contains(territory)) {
-            app.deselectTerritory(territory);
-            this.selectedTerritories.remove(territory);
-            app.resetTerritoryColor(territory);
-        } else {
-            app.selectTerritory(territory);
-            this.selectedTerritories.add(territory);
-        }*/
+
         Operation operation = riskLogic.makeMove(territory);
         Phases phase = riskLogic.getGameState().getPhase();
         switch (phase) {
@@ -312,7 +303,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((Move) operation).getFromName());
                     app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
                     app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
-
+                    operation = riskLogic.makeMove(territory);
+                    phase = riskLogic.getGameState().getPhase();
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
