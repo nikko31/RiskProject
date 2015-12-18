@@ -20,25 +20,29 @@ public class GameResources {
             MISSION_DESTROY.put(5,Color.yellow);
         }
 
-    public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT = new HashMap<>();
+    public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT =  new HashMap<>();
         static{
-            MISSION_CONTINENT.put(6, new ArrayList<>(Arrays.asList(4, 1)));
-            MISSION_CONTINENT.put(7, new ArrayList<>(Arrays.asList(0, 5)));
-            MISSION_CONTINENT.put(8, new ArrayList<>(Arrays.asList(4, 3)));
-            MISSION_CONTINENT.put(9, new ArrayList<>(Arrays.asList(0, 3)));
-
+            MISSION_CONTINENT.put(0,new ArrayList<>(Arrays.asList(4, 1)));
+            MISSION_CONTINENT.put(1,new ArrayList<>(Arrays.asList(0, 5)));
+            MISSION_CONTINENT.put(2,new ArrayList<>(Arrays.asList(4, 3)));
+            MISSION_CONTINENT.put(3,new ArrayList<>(Arrays.asList(0, 3)));
+            MISSION_CONTINENT.put(4,new ArrayList<>(Arrays.asList(2, 1)));
+            MISSION_CONTINENT.put(5,new ArrayList<>(Arrays.asList(2, 5)));
         }
+
+    /*
 
     public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT_CHOICE = new HashMap<>();
         static{
-            MISSION_CONTINENT_CHOICE.put(10, new ArrayList<>(Arrays.asList(2, 1)));
-            MISSION_CONTINENT_CHOICE.put(11, new ArrayList<>(Arrays.asList(2, 5)));
+            MISSION_CONTINENT_CHOICE.put(10, new ArrayList<>(Arrays.asList(2, 1,10)));
+            MISSION_CONTINENT_CHOICE.put(11, new ArrayList<>(Arrays.asList(2, 5,10)));
         }
+        */
 
     public static final Map<Integer, Integer> MISSION_TERRITORY = new HashMap<>();
         static{
-        MISSION_TERRITORY.put(12,18);
-        MISSION_TERRITORY.put(13,24);
+        MISSION_TERRITORY.put(18,2);
+        MISSION_TERRITORY.put(24,1);
         }
 
 

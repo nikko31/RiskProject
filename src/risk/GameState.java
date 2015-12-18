@@ -17,7 +17,7 @@ public class GameState {
     Phases phase;
     Phases lastphase;
     LinkedList<Card> deck;
-    ArrayList<Mission> missions;
+    ArrayList<risk.mission.Mission> missions;
     Map<Territory, Player> territoriesPlayersMap;
     List<Continent> continents;
     private Territory attackFrom;
@@ -237,6 +237,15 @@ public class GameState {
 
     //---------------------OTHER METHOD--------------------------------
 
+
+    public List<Continent> getContinents() {
+        return continents;
+    }
+
+    public void setContinents(List<Continent> continents) {
+        this.continents = continents;
+    }
+
     public Territory getAttackFrom() {
         return attackFrom;
     }
@@ -272,6 +281,26 @@ public class GameState {
 
     public void initMission() {
 
+
+        ArrayList<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
+        for (Integer key : missionkey) {
+            missions.add(new risk.mission.MissionContinent(key,GameResources.MISSION_CONTINENT.get(key)));
+        }
+        missionkey.clear();
+        missionkey = new ArrayList<>(GameResources.MISSION_TERRITORY.keySet());
+
+        for (Integer key : missionkey) {
+            missions.add(new risk.mission.MissionTerritory(key, GameResources.MISSION_TERRITORY.get(key)));
+        }
+
+        Collections.shuffle(missions);
+    }
+
+
+
+    /*
+    public void initMission() {
+
         List<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
         for (Integer key : missionkey) {
             missions.add(new Mission(key, GameResources.MISSION_CONTINENT.get(key)));
@@ -294,4 +323,5 @@ public class GameState {
 
         Collections.shuffle(missions);
     }
+    */
 }

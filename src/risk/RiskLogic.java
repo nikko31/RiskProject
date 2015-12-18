@@ -159,6 +159,7 @@ public class RiskLogic {
 
         }
         if (gameState.getPhase() == Phases.BONUS) {
+            System.out.println(gameState.getCurrentPlayerTurn().getMission().toString());
             int units;
             units = 0;
             units += territoriesBonus();
@@ -196,7 +197,7 @@ public class RiskLogic {
         } else if (gameState.getPhase() == Phases.END_TURN) {
 
 
-            if (checkVictory()) {
+            if (gameState.getCurrentPlayerTurn().getMission().checkHitMission(gameState,gameState.getCurrentPlayerTurn())) {
                 operations.add(new Victory(gameState.getCurrentPlayerTurn()));
                 return operations;
             } else if (firstTurn >= gameState.getPlayers().size()) {
@@ -532,6 +533,7 @@ public class RiskLogic {
 
 
     //-----------------------OTHER METHOD---------------------------------------
+    /*
     public boolean checkMssion() {
         List<Territory> territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
         int counter = 0;
@@ -664,7 +666,7 @@ public class RiskLogic {
         }
     }
 
-
+    */
     public boolean checkVictory() {
         List<Territory> territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
         int count = 0;

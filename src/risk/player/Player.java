@@ -3,7 +3,7 @@ package risk.player;
 
 import risk.board.Card;
 import risk.board.Mission;
-
+import risk.mission.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -14,8 +14,8 @@ public class Player {
     private int freeUnits;
     private Color playerColor;
     private List<Card> cards;
-    private Mission mission;
-    public Player(int playerID, String playerName, int freeUnits,Mission mission, Color color) {
+    private risk.mission.Mission mission;
+    public Player(int playerID, String playerName, int freeUnits,risk.mission.Mission mission, Color color) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.playerColor = color;
@@ -64,11 +64,11 @@ public class Player {
         this.cards = cards;
     }
 
-    public Mission getMission() {
+    public risk.mission.Mission getMission() {
         return mission;
     }
 
-    public void setMission(Mission mission) {
+    public void setMission(risk.mission.Mission mission) {
         this.mission = mission;
     }
 }
