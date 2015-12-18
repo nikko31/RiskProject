@@ -2,9 +2,9 @@ package risk;
 
 import risk.board.Card;
 import risk.board.Continent;
-import risk.board.Mission;
 import risk.board.Territory;
 import risk.player.Player;
+import risk.mission.*;
 
 import java.awt.*;
 import java.util.*;
@@ -284,13 +284,20 @@ public class GameState {
 
         ArrayList<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
         for (Integer key : missionkey) {
-            missions.add(new risk.mission.MissionContinent(key,GameResources.MISSION_CONTINENT.get(key)));
+            missions.add(new MissionContinent(key,GameResources.MISSION_CONTINENT.get(key)));
         }
+
+
         missionkey.clear();
         missionkey = new ArrayList<>(GameResources.MISSION_TERRITORY.keySet());
-
         for (Integer key : missionkey) {
-            missions.add(new risk.mission.MissionTerritory(key, GameResources.MISSION_TERRITORY.get(key)));
+            missions.add(new MissionTerritory(key, GameResources.MISSION_TERRITORY.get(key)));
+        }
+
+        missionkey.clear();
+        missionkey = new ArrayList<>(GameResources.MISSION_DESTROY.keySet());
+        for (Integer key : missionkey) {
+            missions.add(new MissionDefeatPlayer(GameResources.MISSION_DESTROY.get(key)));
         }
 
         Collections.shuffle(missions);

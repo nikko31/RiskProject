@@ -68,7 +68,7 @@ public class MissionContinent implements Mission {
     @Override
     public String toString() {
         String string = "you have to conquer: " + convNumberContinet(this.contiToCon.get(0)) + " and " +convNumberContinet(this.contiToCon.get(1));
-        if(this.contiToCon.size() == 2){
+        if(kind <=3){
             return string;
         }
         else{
