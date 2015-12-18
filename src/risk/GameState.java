@@ -37,7 +37,7 @@ public class GameState {
         ListIterator<Color> playerColorsListIterator = playerColors.listIterator();
         missions = new ArrayList<>();
         initMission();
-        //creo humanPlayers id [0,6)
+
         for (String hPlayername : humanPlayerNames) {
             players.add(new Player(
                     countId,

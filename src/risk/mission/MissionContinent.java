@@ -21,7 +21,7 @@ public class MissionContinent implements Mission {
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState,Player player) {
+    public boolean checkHitMission(GameState gameState) {
         boolean flag0, flag1, flag2;
         flag0 = true;
         flag1 = true;
@@ -104,4 +104,6 @@ public class MissionContinent implements Mission {
     public void setContiToCon(ArrayList<Integer> contiToCon) {
         this.contiToCon = contiToCon;
     }
+
+
 }

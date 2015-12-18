@@ -20,7 +20,7 @@ public class MissionDefeatPlayer implements Mission {
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState, Player playerCurrent) {
+    public boolean checkHitMission(GameState gameState) {
         System.out.println("checkDefeatMission");
         int counter = 0;
 
@@ -106,8 +106,6 @@ public class MissionDefeatPlayer implements Mission {
 
 
     }
-
-
 
     @Override
     public String toString() {

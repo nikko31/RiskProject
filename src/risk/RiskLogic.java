@@ -197,7 +197,7 @@ public class RiskLogic {
         } else if (gameState.getPhase() == Phases.END_TURN) {
 
 
-            if (gameState.getCurrentPlayerTurn().getMission().checkHitMission(gameState,gameState.getCurrentPlayerTurn())) {
+            if (gameState.getCurrentPlayerTurn().getMission().checkHitMission(gameState)) {
                 operations.add(new Victory(gameState.getCurrentPlayerTurn()));
                 return operations;
             } else if (firstTurn >= gameState.getPlayers().size()) {
@@ -220,6 +220,11 @@ public class RiskLogic {
             return operations;
 
         }
+    }
+
+
+    public Operation missionBtn(){
+        return new Mission(gameState.getCurrentPlayerTurn().getMission().toString());
     }
 
     //-------------------------------------FORTIFY METHOD-------------------------------------------
@@ -533,154 +538,7 @@ public class RiskLogic {
 
 
     //-----------------------OTHER METHOD---------------------------------------
-    /*
-    public boolean checkMssion() {
-        List<Territory> territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
-        int counter = 0;
-        switch (gameState.getCurrentPlayerTurn().getMission().getKind()) {
 
-            case 0: {
-
-                //self destroy
-                for (Player player : gameState.getPlayers()) {
-                    if (player.getPlayerColor().equals(gameState.getCurrentPlayerTurn().getMission().getPlayerToDef())
-                            && !gameState.getCurrentPlayerTurn().getPlayerColor().equals(gameState.getCurrentPlayerTurn().getMission().getPlayerToDef())) {
-                        if (gameState.getPlayerEliminated().get(gameState.getCurrentPlayerTurn().getMission().getPlayerToDef()).equals(gameState.getCurrentPlayerTurn())) {
-                            return true;
-                        } else {
-                            for (Territory territory : territories) {
-                                if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn())) {
-                                    counter++;
-                                }
-                            }
-                            return counter >= 24;
-                        }
-
-
-                    }
-
-                }
-
-
-                if (getGameState().getCurrentPlayerTurn().getMission().getPlayerToDef().equals(gameState.getCurrentPlayerTurn().getPlayerColor())) {
-                    for (Territory territory : territories) {
-                        if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn())) {
-                            counter++;
-                        }
-                    }
-                    if (counter >= 24) {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-
-
-            }
-            case 1: {
-                boolean flag0, flag1, flag2;
-                flag0 = true;
-                flag1 = true;
-                flag2 = true;
-
-                if (gameState.getCurrentPlayerTurn().getMission().getMissionId() >= 6 && gameState.getCurrentPlayerTurn().getMission().getMissionId() <= 9) {
-
-                    for (Continent continent : gameState.continents) {
-                        if (continent.getContinentId() == gameState.getCurrentPlayerTurn().getMission().getContiToCon().get(0)) {
-                            for (Territory territory : continent.getTerritories()) {
-                                if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
-                                    flag0 = false;
-                                }
-                            }
-                        }
-                        if (continent.getContinentId() == gameState.getCurrentPlayerTurn().getMission().getContiToCon().get(1)) {
-                            for (Territory territory : continent.getTerritories()) {
-                                if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
-                                    flag1 = false;
-                                }
-                            }
-                        }
-                    }
-                    return flag0 && flag1;
-
-                }
-                if (gameState.getCurrentPlayerTurn().getMission().getMissionId() == 10 || gameState.getCurrentPlayerTurn().getMission().getMissionId() == 11) {
-
-                    for (Continent continent : gameState.continents) {
-                        if (continent.getContinentId() == gameState.getCurrentPlayerTurn().getMission().getContiToCon().get(0)) {
-                            for (Territory territory : continent.getTerritories()) {
-                                if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
-                                    flag0 = false;
-                                }
-                            }
-                        }
-                        if (continent.getContinentId() == gameState.getCurrentPlayerTurn().getMission().getContiToCon().get(1)) {
-                            for (Territory territory : continent.getTerritories()) {
-                                if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
-                                    flag1 = false;
-                                }
-                            }
-                        } else {
-                            for (Territory territory : continent.getTerritories()) {
-                                if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
-                                    flag2 = false;
-                                }
-                            }
-
-                        }
-                    }
-                    return flag0 && flag1 && flag2;
-
-                } else {
-                    return false;
-                }
-
-
-            }
-            //conquer only territory
-            case 2: {
-                if (gameState.getCurrentPlayerTurn().getMission().getMissionId() == 12) {
-                    for (Territory territory : territories) {
-                        if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn()) && territory.getCurrentUnits() >= 2) {
-                            counter++;
-                        }
-                    }
-                    return counter >= 18;
-
-                }
-                if (gameState.getCurrentPlayerTurn().getMission().getMissionId() == 13) {
-                    for (Territory territory : territories) {
-                        if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn())) {
-                            counter++;
-                        }
-                    }
-                    return counter >= 24;
-                } else {
-                    return false;
-                }
-
-
-            }
-            default:
-                return false;
-        }
-    }
-
-    */
-    public boolean checkVictory() {
-        List<Territory> territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
-        int count = 0;
-        for (Territory territory : territories) {
-            if (gameState.getPlayerTer(territory) == gameState.getCurrentPlayerTurn()) {
-                count++;
-            }
-            if (count > 25) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public Territory stringToTerritory(String string) {
         for (Territory territory : territories) {

@@ -12,13 +12,14 @@ public class MissionTerritory implements Mission {
     private int terrTocon;
     private int numbTroopsForTerr;
 
+
     public MissionTerritory(int terrTocon,int numbTroopsForTerr){
         this.terrTocon = terrTocon;
         this.numbTroopsForTerr = numbTroopsForTerr;
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState, Player player) {
+    public boolean checkHitMission(GameState gameState) {
         int count = 0;
 
         for(Territory territory : gameState.getTerritoriesPlayersMap().keySet()){
@@ -39,4 +40,6 @@ public class MissionTerritory implements Mission {
     public String toString() {
         return "you have to conquer: " + " " + this.terrTocon + " territories with " + this.numbTroopsForTerr + " troops";
     }
+
+
 }
