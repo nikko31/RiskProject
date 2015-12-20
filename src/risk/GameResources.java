@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GameResources {
 
-    public enum Type {INFANTRY, CAVALRY, ARTILLERY, WILDCARD}
+    public enum cardType {INFANTRY, CAVALRY, ARTILLERY, WILDCARD}
 
 
     public static final Map<Integer, Color> MISSION_DESTROY = new HashMap<>();
@@ -51,47 +51,47 @@ public class GameResources {
         static{
 
             CARD_ID_STRING.put(0,"I");
-            CARD_ID_STRING.put(1,"I");
-            CARD_ID_STRING.put(2,"I");
+            CARD_ID_STRING.put(1,"C");
+            CARD_ID_STRING.put(2,"A");
             CARD_ID_STRING.put(3,"I");
-            CARD_ID_STRING.put(4,"I");
-            CARD_ID_STRING.put(5,"I");
+            CARD_ID_STRING.put(4,"C");
+            CARD_ID_STRING.put(5,"A");
             CARD_ID_STRING.put(6,"I");
-            CARD_ID_STRING.put(7,"I");
-            CARD_ID_STRING.put(8,"I");
+            CARD_ID_STRING.put(7,"C");
+            CARD_ID_STRING.put(8,"A");
             CARD_ID_STRING.put(9,"I");
-            CARD_ID_STRING.put(10,"I");
-            CARD_ID_STRING.put(11,"I");
+            CARD_ID_STRING.put(10,"C");
+            CARD_ID_STRING.put(11,"A");
             CARD_ID_STRING.put(12,"I");
-            CARD_ID_STRING.put(13,"I");
-            CARD_ID_STRING.put(14,"I");
+            CARD_ID_STRING.put(13,"C");
+            CARD_ID_STRING.put(14,"A");
             CARD_ID_STRING.put(15,"I");
-            CARD_ID_STRING.put(16,"I");
-            CARD_ID_STRING.put(17,"I");
+            CARD_ID_STRING.put(16,"C");
+            CARD_ID_STRING.put(17,"A");
             CARD_ID_STRING.put(18,"I");
-            CARD_ID_STRING.put(19,"I");
-            CARD_ID_STRING.put(20,"I");
+            CARD_ID_STRING.put(19,"C");
+            CARD_ID_STRING.put(20,"A");
             CARD_ID_STRING.put(21,"I");
-            CARD_ID_STRING.put(22,"I");
-            CARD_ID_STRING.put(23,"I");
+            CARD_ID_STRING.put(22,"C");
+            CARD_ID_STRING.put(23,"A");
             CARD_ID_STRING.put(24,"I");
-            CARD_ID_STRING.put(25,"I");
-            CARD_ID_STRING.put(26,"I");
+            CARD_ID_STRING.put(25,"C");
+            CARD_ID_STRING.put(26,"A");
             CARD_ID_STRING.put(27,"I");
-            CARD_ID_STRING.put(28,"I");
-            CARD_ID_STRING.put(29,"I");
+            CARD_ID_STRING.put(28,"C");
+            CARD_ID_STRING.put(29,"A");
             CARD_ID_STRING.put(30,"I");
-            CARD_ID_STRING.put(31,"I");
-            CARD_ID_STRING.put(32,"I");
+            CARD_ID_STRING.put(31,"C");
+            CARD_ID_STRING.put(32,"A");
             CARD_ID_STRING.put(33,"I");
-            CARD_ID_STRING.put(34,"I");
-            CARD_ID_STRING.put(35,"I");
+            CARD_ID_STRING.put(34,"C");
+            CARD_ID_STRING.put(35,"A");
             CARD_ID_STRING.put(36,"I");
-            CARD_ID_STRING.put(37,"I");
-            CARD_ID_STRING.put(38,"I");
+            CARD_ID_STRING.put(37,"C");
+            CARD_ID_STRING.put(38,"A");
             CARD_ID_STRING.put(39,"I");
-            CARD_ID_STRING.put(40,"I");
-            CARD_ID_STRING.put(41,"I");
+            CARD_ID_STRING.put(40,"C");
+            CARD_ID_STRING.put(41,"A");
             CARD_ID_STRING.put(42,"I");
             CARD_ID_STRING.put(43,"W");
             CARD_ID_STRING.put(44,"W");

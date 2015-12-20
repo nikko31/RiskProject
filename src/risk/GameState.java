@@ -2,6 +2,7 @@ package risk;
 
 import risk.board.Card;
 import risk.board.Continent;
+import risk.board.Deck;
 import risk.board.Territory;
 import risk.player.Player;
 import risk.mission.*;
@@ -16,7 +17,7 @@ public class GameState {
     Player currentPlayerTurn;
     Phases phase;
     Phases lastphase;
-    LinkedList<Card> deck;
+    Deck deck;
     ArrayList<risk.mission.Mission> missions;
     Map<Territory, Player> territoriesPlayersMap;
     List<Continent> continents;
@@ -30,7 +31,7 @@ public class GameState {
         this.players = new ArrayList<>();
         phase = Phases.INITIAL;
         territoriesPlayersMap = new HashMap<>();
-        deck = new LinkedList<>();
+        deck = new Deck();
         int countId = 0;
         count = 0;
         int numberOfPlayers = humanPlayerNames.size() + aiPlayerNames.size();
@@ -85,8 +86,7 @@ public class GameState {
             players.get(countId % numberOfPlayers).setFreeUnits(players.get(countId % numberOfPlayers).getFreeUnits() - 1);
         }
 
-        //inizializzo le carte/
-        initDeck();
+
         initContinent();
         this.playerEliminated = new HashMap<>();
         this.currentPlayerTurn = players.get(0);
@@ -162,7 +162,6 @@ public class GameState {
 
     }
 
-
     public void nextPlayer() {
         count++;
         if (count >= players.size()) {
@@ -193,7 +192,7 @@ public class GameState {
     }
 
     //--------------------------------DECK------------------------------------------
-
+    /*
     public void initDeck() {
         List<Integer> cardKeys = new ArrayList<>(GameResources.CARD_ID_STRING.keySet());
         for (Integer cardId : cardKeys) {
@@ -205,6 +204,7 @@ public class GameState {
 
     }
 
+
     public List<Card> getDeck() {
         return deck;
     }
@@ -212,25 +212,14 @@ public class GameState {
     public void setDeck(LinkedList<Card> deck) {
         this.deck = deck;
     }
+    */
 
-    public Card fishingCard() {
-        if (deck.size() > 0) {
-            Card card = deck.get(0);
-            deck.remove(0);
-            return card;
-
-        } else {
-            return null;
-        }
+    public Card takeCard() {
+         return deck.takeCard();
     }
 
     public void restoreCards(List<Card> cards) {
-
-        for (Card cardIter : cards) {
-            deck.add(cardIter);
-        }
-        Collections.shuffle(deck);
-
+        deck.restoreCards(cards);
 
     }
 
@@ -304,31 +293,4 @@ public class GameState {
     }
 
 
-
-    /*
-    public void initMission() {
-
-        List<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
-        for (Integer key : missionkey) {
-            missions.add(new Mission(key, GameResources.MISSION_CONTINENT.get(key)));
-        }
-        missionkey.clear();
-        missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT_CHOICE.keySet());
-        for (Integer key : missionkey) {
-            missions.add(new Mission(key, GameResources.MISSION_CONTINENT_CHOICE.get(key)));
-        }
-        missionkey.clear();
-        missionkey = new ArrayList<>(GameResources.MISSION_DESTROY.keySet());
-        for (Integer key : missionkey) {
-            missions.add(new Mission(key, GameResources.MISSION_DESTROY.get(key)));
-        }
-        missionkey.clear();
-        missionkey = new ArrayList<>(GameResources.MISSION_TERRITORY.keySet());
-        for (Integer key : missionkey) {
-            missions.add(new Mission(key, GameResources.MISSION_TERRITORY.get(key)));
-        }
-
-        Collections.shuffle(missions);
-    }
-    */
 }

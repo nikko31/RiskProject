@@ -1,6 +1,7 @@
 package risk.player;
 
 
+import risk.GameState;
 import risk.board.Card;
 
 import java.awt.*;
@@ -55,6 +56,7 @@ public class Player {
         }
     }
 
+
     public List<Card> getCards() {
         return cards;
     }
@@ -69,5 +71,9 @@ public class Player {
 
     public void setMission(risk.mission.Mission mission) {
         this.mission = mission;
+    }
+
+    public boolean checkMyMission(GameState gameState){
+        return mission.checkHitMission(this.playerID,this.playerColor,gameState);
     }
 }

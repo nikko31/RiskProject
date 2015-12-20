@@ -20,14 +20,14 @@ public class MissionDefeatPlayer implements Mission {
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState) {
+    public boolean checkHitMission(int playerId,Color playerColor, GameState gameState) {
         System.out.println("checkDefeatMission");
         int counter = 0;
 
         if(firstcheck){
             for(Player player : gameState.getPlayers()){
                 if (player.getPlayerColor().equals(playerToDef)
-                        && !gameState.getCurrentPlayerTurn().getPlayerColor().equals(playerToDef)){
+                        && !playerColor.equals(playerToDef)){
                     System.out.println("there is one player with the request color");
                     choiche = false;
                     return false;
@@ -41,7 +41,7 @@ public class MissionDefeatPlayer implements Mission {
         if(choiche){
             System.out.println("you can't self destroy: conquest 24 territories ");
             for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
-                if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn())) {
+                if (gameState.getPlayerTer(territory).getPlayerID() == playerId) {
                     counter++;
                 }
             }
@@ -54,14 +54,14 @@ public class MissionDefeatPlayer implements Mission {
         else{
             if(gameState.getPlayerEliminated().get(playerToDef) != null){
                 System.out.println("there is a player with the color you search");
-                if(gameState.getPlayerEliminated().get(playerToDef).equals(gameState.getCurrentPlayerTurn())){
+                if(gameState.getPlayerEliminated().get(playerToDef).getPlayerID() == playerId){
                     System.out.println("i eliminate the player");
                     return true;
                 }
                 else{
                     System.out.println("someone eliminate my objective");
                     for (Territory territory : gameState.getTerritoriesPlayersMap().keySet()) {
-                        if (gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn())) {
+                        if (gameState.getPlayerTer(territory).getPlayerID() == playerId) {
                             counter++;
                         }
                     }

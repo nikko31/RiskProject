@@ -1,5 +1,6 @@
 package risk;
 
+import risk.board.Card;
 import risk.board.Continent;
 import risk.board.Territory;
 import risk.operations.*;
@@ -85,7 +86,7 @@ public class RiskLogic {
                         if (attack(gameState.currentPlayerTurn, attackFrom, territory)) {
                             if (cardFlag) {
                                 cardFlag = false;
-                                gameState.getCurrentPlayerTurn().addPlayerCard(gameState.fishingCard());
+                                gameState.getCurrentPlayerTurn().addPlayerCard(gameState.takeCard());
                                 System.out.println("player take card");
                             }
                             return new AttackConquest(attackFrom, territory, gameState.getCurrentPlayerTurn().getPlayerColor());
@@ -159,6 +160,10 @@ public class RiskLogic {
 
         }
         if (gameState.getPhase() == Phases.BONUS) {
+            cardFlag = true;
+            for(Card card : gameState.getCurrentPlayerTurn().getCards()){
+                System.out.println(card);
+            }
             System.out.println(gameState.getCurrentPlayerTurn().getMission().toString());
             int units;
             units = 0;
@@ -197,7 +202,7 @@ public class RiskLogic {
         } else if (gameState.getPhase() == Phases.END_TURN) {
 
 
-            if (gameState.getCurrentPlayerTurn().getMission().checkHitMission(gameState)) {
+            if (gameState.getCurrentPlayerTurn().checkMyMission(gameState)) {
                 operations.add(new Victory(gameState.getCurrentPlayerTurn()));
                 return operations;
             } else if (firstTurn >= gameState.getPlayers().size()) {

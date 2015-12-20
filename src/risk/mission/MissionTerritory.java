@@ -4,6 +4,8 @@ import risk.GameState;
 import risk.board.Territory;
 import risk.player.Player;
 
+import java.awt.*;
+
 
 /**
  * Created by Federico on 17/12/2015.
@@ -19,11 +21,11 @@ public class MissionTerritory implements Mission {
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState) {
+    public boolean checkHitMission(int playerId,Color playerColor, GameState gameState) {
         int count = 0;
 
         for(Territory territory : gameState.getTerritoriesPlayersMap().keySet()){
-            if(gameState.getPlayerTer(territory).equals(gameState.getCurrentPlayerTurn()) && territory.getCurrentUnits() >= this.numbTroopsForTerr){
+            if(gameState.getPlayerTer(territory).getPlayerID() == playerId && territory.getCurrentUnits() >= this.numbTroopsForTerr){
                 count ++;
             }
         }

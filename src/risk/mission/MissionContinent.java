@@ -5,6 +5,7 @@ import risk.board.Continent;
 import risk.board.Territory;
 import risk.player.Player;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 public class MissionContinent implements Mission {
     private ArrayList<Integer> contiToCon;
     private int kind;
+    private Color playerColor;
+    private int playerId;
 
 
     public MissionContinent(int kind,ArrayList<Integer> contiToCon){
@@ -21,7 +24,7 @@ public class MissionContinent implements Mission {
     }
 
     @Override
-    public boolean checkHitMission(GameState gameState) {
+    public boolean checkHitMission(int playerId,Color playerColor, GameState gameState) {
         boolean flag0, flag1, flag2;
         flag0 = true;
         flag1 = true;
@@ -29,14 +32,14 @@ public class MissionContinent implements Mission {
         for (Continent continent : gameState.getContinents()) {
             if (continent.getContinentId() == this.getContiToCon().get(0)) {
                 for (Territory territory : continent.getTerritories()) {
-                    if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
+                    if (gameState.getPlayerTer(territory).getPlayerID() != playerId) {
                         flag0 = false;
                     }
                 }
             }
             if (continent.getContinentId() == this.getContiToCon().get(1)) {
                 for (Territory territory : continent.getTerritories()) {
-                    if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
+                    if (gameState.getPlayerTer(territory).getPlayerID() != playerId) {
                         flag1 = false;
                     }
                 }
@@ -46,7 +49,7 @@ public class MissionContinent implements Mission {
             for (Continent continent : gameState.getContinents()){
                 if (continent.getContinentId() != this.getContiToCon().get(0) && continent.getContinentId() != this.getContiToCon().get(1)) {
                     for (Territory territory : continent.getTerritories()) {
-                        if (gameState.getPlayerTer(territory).getPlayerID() != gameState.getCurrentPlayerTurn().getPlayerID()) {
+                        if (gameState.getPlayerTer(territory).getPlayerID() != playerId) {
                             flag2 = false;
                         }
                     }
