@@ -2,6 +2,7 @@ package risk;
 
 import risk.board.Card;
 import risk.board.Continent;
+import risk.board.Deck;
 import risk.board.Territory;
 import risk.operations.*;
 import risk.operations.Error;
@@ -227,7 +228,14 @@ public class RiskLogic {
         }
     }
 
+    public int changeCard(List<Card> cards){
+        int bonus = Deck.chekCardCombination(cards);
+        if(bonus != 0){
+            gameState.restoreCards(cards);
+        }
 
+        return bonus;
+    }
     public Operation missionBtn(){
         return new Mission(gameState.getCurrentPlayerTurn().getMission().toString());
     }
@@ -377,6 +385,7 @@ public class RiskLogic {
     //-----------------------------MOVE METHOD------------------------------
 
     //move units in territories from a to
+
     public void move(Player current_player, Territory from, Territory to) {
         from.setCurrentUnits(from.getCurrentUnits() - 1);
         to.setCurrentUnits(to.getCurrentUnits() + 1);

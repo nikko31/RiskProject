@@ -76,4 +76,8 @@ public class Player {
     public boolean checkMyMission(GameState gameState){
         return mission.checkHitMission(this.playerID,this.playerColor,gameState);
     }
+
+    public void removeCards(List<Card> cards){
+        this.cards.removeAll(cards);
+    }
 }

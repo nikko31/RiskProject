@@ -219,6 +219,7 @@ public class GameState {
     }
 
     public void restoreCards(List<Card> cards) {
+        currentPlayerTurn.removeCards(cards);
         deck.restoreCards(cards);
 
     }
