@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements SelectedListener {
 
         JPanel gamePnl = new JPanel();
         JButton nextBtn = new JButton();
+        JButton missionBtn = new JButton();
         phaseLbl = new JLabel();
         playerLbl = new JLabel();
         JLabel jLabel1 = new JLabel();
@@ -51,6 +52,14 @@ public class GamePanel extends JPanel implements SelectedListener {
         });
         phaseLbl.setForeground(Color.black);
         phaseLbl.setText("Start");
+        missionBtn.setText("MISSION");
+        missionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                missionBtnClicked();
+            }
+        });
+
+
 
         playerLbl.setForeground(new Color(171, 10, 10));
         playerLbl.setText("Player");
@@ -117,6 +126,13 @@ public class GamePanel extends JPanel implements SelectedListener {
         add(svgImage, BorderLayout.CENTER);
     }
 
+    private void missionBtnClicked(){
+        Operation operation = riskLogic.missionBtn();
+        JOptionPane.showMessageDialog(
+                this.gameFrame, ((Mission) operation).operationString(), "MISSION", JOptionPane.INFORMATION_MESSAGE
+        );
+
+    }
     private void nextBtnMouseClicked() {
         /*@TODO riskLogic.nextPhase();*/
 

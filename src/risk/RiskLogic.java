@@ -111,7 +111,7 @@ public class RiskLogic {
             if (gameState.getMoveFrom() == null) {
 
                 if (checkMoveFrom(gameState.getCurrentPlayerTurn(), territory)) {
-                    if (checkMoveFromUnits(gameState.getCurrentPlayerTurn(), territory)) {
+                    if (checkMoveFromUnits(territory)) {
                         gameState.setMoveFrom(territory);
                         return new TerritorySelected(territory);
                     } else {
@@ -227,7 +227,7 @@ public class RiskLogic {
 
         }
     }
-
+    //controlla a modo cosa farne
     public int changeCard(List<Card> cards){
         int bonus = Deck.chekCardCombination(cards);
         if(bonus != 0){
@@ -235,6 +235,10 @@ public class RiskLogic {
         }
 
         return bonus;
+    }
+
+    public Operation getPlayerCard(){
+        return new Cards(gameState.getCurrentPlayerTurn().getCards());
     }
     public Operation missionBtn(){
         return new Mission(gameState.getCurrentPlayerTurn().getMission().toString());
@@ -392,7 +396,7 @@ public class RiskLogic {
     }
 
     //check to have enough units
-    public boolean checkMoveFromUnits(Player current_player, Territory from) {
+    public boolean checkMoveFromUnits(Territory from) {
         return from.getCurrentUnits() > 1;
 
     }
@@ -408,6 +412,15 @@ public class RiskLogic {
     public boolean checkMoveTo(Player current_player, Territory to) {
         return current_player.getPlayerID() == gameState.getPlayerTer(to).getPlayerID();
 
+    }
+
+    public boolean checkMoveToNeigh(Territory from, Territory to){
+        if(from.isNeighbour(to.getTerritoryID())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //-----------------------BONUS METHOD----------------------------------------

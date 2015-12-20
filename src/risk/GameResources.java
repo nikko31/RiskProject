@@ -30,14 +30,6 @@ public class GameResources {
             MISSION_CONTINENT.put(5,new ArrayList<>(Arrays.asList(2, 5)));
         }
 
-    /*
-
-    public static final Map<Integer, ArrayList<Integer>> MISSION_CONTINENT_CHOICE = new HashMap<>();
-        static{
-            MISSION_CONTINENT_CHOICE.put(10, new ArrayList<>(Arrays.asList(2, 1,10)));
-            MISSION_CONTINENT_CHOICE.put(11, new ArrayList<>(Arrays.asList(2, 5,10)));
-        }
-        */
 
     public static final Map<Integer, Integer> MISSION_TERRITORY = new HashMap<>();
         static{

@@ -3,6 +3,7 @@ package risk.player;
 
 import risk.GameState;
 import risk.board.Card;
+import risk.mission.Mission;
 
 import java.awt.*;
 import java.util.*;
@@ -13,7 +14,7 @@ public class Player {
     private String playerName;
     private int freeUnits;
     private Color playerColor;
-    private List<Card> cards;
+    private LinkedList<Card> cards;
     private risk.mission.Mission mission;
     public Player(int playerID, String playerName, int freeUnits,risk.mission.Mission mission, Color color) {
         this.playerID = playerID;
@@ -57,15 +58,15 @@ public class Player {
     }
 
 
-    public List<Card> getCards() {
+    public LinkedList<Card> getCards() {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
+    public void setCards(LinkedList<Card> cards) {
         this.cards = cards;
     }
 
-    public risk.mission.Mission getMission() {
+    public Mission getMission() {
         return mission;
     }
 
