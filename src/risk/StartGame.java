@@ -190,7 +190,7 @@ public class StartGame extends JFrame {
                                 .addGap(0, 228, Short.MAX_VALUE)
                                 .addComponent(menuPnl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
-
+        this.setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         this.names = new LinkedList<>();
         this.names.add(playerName1);

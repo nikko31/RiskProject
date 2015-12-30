@@ -100,10 +100,10 @@ public class ImageWithClickableParts implements EventListener {
                     else {
                         //aggiungo i listener ai territori
                         this.territoryElementMap.put(territory, elt);
-                        EventTarget t = (EventTarget) elt;
-                        t.addEventListener("click", this, false);
-                        t.addEventListener("mouseover", this, false);
-                        t.addEventListener("mouseout", this, false);
+                        EventTarget target = (EventTarget) elt;
+                        target.addEventListener("click", this, false);
+                        target.addEventListener("mouseover", this, false);
+                        target.addEventListener("mouseout", this, false);
                     }
                     break;
                 }
@@ -208,12 +208,16 @@ public class ImageWithClickableParts implements EventListener {
         String type = evt.getType();
         Element sensitiveZone = (Element) evt.getTarget();
         id = sensitiveZone.getAttribute("id");
-        if (type.equals("click"))
+        if (type.equals("click")) {
             listeners.get(0).updateUi(id);
+        }
         else if (type.equals("mouseover")) {
             this.strokeTerritory(id);
+            listeners.get(0).printSvgState(id);
         } else if (type.equals("mouseout")) {
             this.unstrokeTerritory(id);
+            listeners.get(0).printSvgState("null");
+
         }
     }
 

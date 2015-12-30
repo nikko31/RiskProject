@@ -9,4 +9,6 @@ public interface SelectedListener {
     void updateUi(String territory);
 
     void initializeSVG();
+
+    void printSvgState(String territory);
 }

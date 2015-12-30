@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +36,14 @@ public class GamePanel extends JPanel implements SelectedListener {
     private void initComponents(String default_map) {
 
         JPanel gamePnl = new JPanel();
+        JPanel selTerritoriesPnl = new JPanel();
         JButton nextBtn = new JButton();
         JButton missionBtn = new JButton();
         phaseLbl = new JLabel();
         playerLbl = new JLabel();
-        JLabel jLabel1 = new JLabel();
+        JLabel freeUnitsLbl = new JLabel();
+        JLabel territory1Lbl = new JLabel("Territory 1: ");
+        JLabel territory2Lbl = new JLabel("Territory 2: ");
         troupsLbl = new JLabel();
 
         setLayout(new BorderLayout());
@@ -60,11 +64,10 @@ public class GamePanel extends JPanel implements SelectedListener {
         });
 
 
-
         playerLbl.setForeground(new Color(171, 10, 10));
         playerLbl.setText("Player");
 
-        jLabel1.setText("Free Troups: ");
+        freeUnitsLbl.setText("Free Troups: ");
 
         troupsLbl.setForeground(Color.black);
         troupsLbl.setText("45");
@@ -78,7 +81,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                                 .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(playerLbl)
                                         .addGroup(gamePnlLayout.createSequentialGroup()
-                                                .addComponent(jLabel1)
+                                                .addComponent(freeUnitsLbl)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(troupsLbl)))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
@@ -101,10 +104,11 @@ public class GamePanel extends JPanel implements SelectedListener {
                                         .addGroup(gamePnlLayout.createSequentialGroup()
                                                 .addGap(9, 9, 9)
                                                 .addGroup(gamePnlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel1)
+                                                        .addComponent(freeUnitsLbl)
                                                         .addComponent(troupsLbl))))
                                 .addContainerGap())
         );
+
 
         this.riskLogic = new RiskLogic(gameState);
         File svgFile = new File(default_map);
@@ -121,18 +125,41 @@ public class GamePanel extends JPanel implements SelectedListener {
         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
         this.playerLbl.setText(gameState.getCurrentPlayerTurn().getPlayerName());
         this.phaseLbl.setText(gameState.getPhase().toString());
+        stateImage1=new StateImage(new File(NULL_SVG));
+        SvgState1 = stateImage1.getAsComponent();
+        stateImage2=new StateImage(new File(NULL_SVG));
+        SvgState2 = stateImage2.getAsComponent();
+        SvgState1.setBackground(Color.gray);
+        SvgState2.setBackground(Color.gray);
+        selTerritoriesPnl.setLayout(new BoxLayout(selTerritoriesPnl,BoxLayout.Y_AXIS));
 
+        selTerritoriesPnl.add(territory1Lbl);
+        selTerritoriesPnl.add(SvgState1);
+        selTerritoriesPnl.add(territory2Lbl);
+        selTerritoriesPnl.add(SvgState2);
+
+        selTerritoriesPnl.setBackground(Color.gray);
+        /*ImageWithClickableParts app2 = new ImageWithClickableParts(
+                new File("/home/DarkLinux/IdeaProjects/RiskProject/src/resources/states/alaska.svg"),
+                Arrays.asList("alaska"));
+        app.registerEventHeader(this);
+        Component svgImage2 = app2.getAsComponent();
+        svgImage2.setBackground(Color.darkGray);
+
+        add(svgImage2, BorderLayout.WEST);*/
+        add(selTerritoriesPnl, BorderLayout.WEST);
         add(gamePnl, BorderLayout.SOUTH);
         add(svgImage, BorderLayout.CENTER);
     }
 
-    private void missionBtnClicked(){
+    private void missionBtnClicked() {
         Operation operation = riskLogic.missionBtn();
         JOptionPane.showMessageDialog(
                 this.gameFrame, ((Mission) operation).operationString(), "MISSION", JOptionPane.INFORMATION_MESSAGE
         );
 
     }
+
     private void nextBtnMouseClicked() {
         /*@TODO riskLogic.nextPhase();*/
 
@@ -228,8 +255,14 @@ public class GamePanel extends JPanel implements SelectedListener {
     // End of variables declaration
     private GameState gameState;
     private ImageWithClickableParts app;
+    private Component SvgState1;
+    private Component SvgState2;
     private RiskLogic riskLogic;
+    private StateImage stateImage1;
+    private StateImage stateImage2;
 
+    private final static String RESOURCES = "src/resources/";
+    private final static String NULL_SVG = "src/resources/states/null.svg";
 
     @Override
     public void updateUi(String territory) {
@@ -266,9 +299,13 @@ public class GamePanel extends JPanel implements SelectedListener {
             case ATTACK:
                 if (operation instanceof TerritorySelected) {
                     app.selectTerritory(((TerritorySelected) operation).getSelectedName());
+                    stateImage1.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
+                    SvgState1=stateImage1.getAsComponent();
                 }
                 if (operation instanceof TerritoryUnselected) {
                     app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
+                    StateImage stateImage=new StateImage(new File(NULL_SVG));
+                    SvgState1=stateImage.getAsComponent();
                 }
                 if (operation instanceof Attack) {
                     app.selectTerritory(((Attack) operation).getToName());
@@ -340,5 +377,21 @@ public class GamePanel extends JPanel implements SelectedListener {
             app.setTerritoryColor(entry.getKey().getTerritoryName(), entry.getValue().getPlayerColor());
             app.setUnits(entry.getKey().getTerritoryName(), 1);
         }
+    }
+
+    @Override
+    public void printSvgState(String territory) {
+
+        if(gameState.getAttackFrom()==null) {
+            stateImage1.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
+            SvgState1 = stateImage1.getAsComponent();
+
+        }
+        else {
+            stateImage2.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
+            SvgState2 = stateImage2.getAsComponent();
+
+        }
+        SvgState1.repaint();SvgState1.repaint();
     }
 }
