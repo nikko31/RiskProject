@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>risk.operations</OriginalElement>
+  <nodes>
+    <node x="373.9999999999999" y="139.0">risk.operations.Cards</node>
+    <node x="1909.0" y="139.0">risk.operations.NewPhase</node>
+    <node x="1040.75" y="0.0">risk.operations.Operation</node>
+    <node x="1228.0" y="139.0">risk.operations.Fortify</node>
+    <node x="1105.0" y="139.0">risk.operations.UnitsBonus</node>
+    <node x="594.9999999999999" y="139.0">risk.operations.Error</node>
+    <node x="1391.0" y="139.0">risk.operations.Mission</node>
+    <node x="1551.0" y="128.5">risk.operations.Move</node>
+    <node x="756.9999999999999" y="118.0">risk.operations.AttackConquest</node>
+    <node x="952.9999999999999" y="139.0">risk.operations.Victory</node>
+    <node x="175.9999999999999" y="139.0">risk.operations.TerritoryUnselected</node>
+    <node x="1727.0" y="139.0">risk.operations.TerritorySelected</node>
+    <node x="0.0" y="128.5">risk.operations.Attack</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="risk.operations.Fortify" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1299.5" y="88.0" />
+      <point x="1099.5" y="88.0" />
+      <point x="11.75" y="14.0" />
+    </edge>
+    <edge source="risk.operations.UnitsBonus" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1156.5" y="98.0" />
+      <point x="1091.6666666666665" y="98.0" />
+      <point x="3.9166666666667425" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Mission" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1461.0" y="78.0" />
+      <point x="1107.333333333333" y="78.0" />
+      <point x="19.583333333333258" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Error" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="665.9999999999999" y="78.0" />
+      <point x="1068.1666666666665" y="78.0" />
+      <point x="-19.583333333333258" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Cards" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="474.4999999999999" y="68.0" />
+      <point x="1060.333333333333" y="68.0" />
+      <point x="-27.416666666666742" y="14.0" />
+    </edge>
+    <edge source="risk.operations.TerritoryUnselected" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="264.9999999999999" y="58.0" />
+      <point x="1052.5" y="58.0" />
+      <point x="-35.25" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Victory" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1018.9999999999999" y="98.0" />
+      <point x="1083.833333333333" y="98.0" />
+      <point x="-3.9166666666667425" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Move" target="risk.operations.Operation">
+      <point x="0.0" y="-35.0" />
+      <point x="1629.0" y="68.0" />
+      <point x="1115.1666666666665" y="68.0" />
+      <point x="27.416666666666742" y="14.0" />
+    </edge>
+    <edge source="risk.operations.AttackConquest" target="risk.operations.Operation">
+      <point x="0.0" y="-45.5" />
+      <point x="844.9999999999999" y="88.0" />
+      <point x="1076.0" y="88.0" />
+      <point x="-11.75" y="14.0" />
+    </edge>
+    <edge source="risk.operations.TerritorySelected" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1808.0" y="58.0" />
+      <point x="1123.0" y="58.0" />
+      <point x="35.25" y="14.0" />
+    </edge>
+    <edge source="risk.operations.NewPhase" target="risk.operations.Operation">
+      <point x="0.0" y="-24.5" />
+      <point x="1979.5" y="48.0" />
+      <point x="1130.833333333333" y="48.0" />
+      <point x="43.08333333333326" y="14.0" />
+    </edge>
+    <edge source="risk.operations.Attack" target="risk.operations.Operation">
+      <point x="0.0" y="-35.0" />
+      <point x="78.0" y="48.0" />
+      <point x="1044.6666666666665" y="48.0" />
+      <point x="-43.08333333333326" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7911439114391144" x="667.5" y="73.0" />
+  <SelectedNodes>
+    <node>risk.operations.Attack</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
