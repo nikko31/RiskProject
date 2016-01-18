@@ -255,6 +255,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     private JLabel troupsLbl;
     private JFrame gameFrame;
     // End of variables declaration
+
     private GameState gameState;
     private ImageWithClickableParts app;
     private Component SvgState1;
