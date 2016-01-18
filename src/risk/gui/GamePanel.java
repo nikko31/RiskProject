@@ -123,15 +123,17 @@ public class GamePanel extends JPanel implements SelectedListener {
 
 
         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
-        this.playerLbl.setText(gameState.getCurrentPlayerTurn().getPlayerName());
+        this.playerLbl.setText("Current Player: " + gameState.getCurrentPlayerTurn().getPlayerName());
+        this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
+
         this.phaseLbl.setText(gameState.getPhase().toString());
-        stateImage1=new StateImage(new File(NULL_SVG));
+        stateImage1 = new StateImage(new File(NULL_SVG));
         SvgState1 = stateImage1.getAsComponent();
-        stateImage2=new StateImage(new File(NULL_SVG));
+        stateImage2 = new StateImage(new File(NULL_SVG));
         SvgState2 = stateImage2.getAsComponent();
         SvgState1.setBackground(Color.gray);
         SvgState2.setBackground(Color.gray);
-        selTerritoriesPnl.setLayout(new BoxLayout(selTerritoriesPnl,BoxLayout.Y_AXIS));
+        selTerritoriesPnl.setLayout(new BoxLayout(selTerritoriesPnl, BoxLayout.Y_AXIS));
 
         selTerritoriesPnl.add(territory1Lbl);
         selTerritoriesPnl.add(SvgState1);
@@ -224,7 +226,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 case END_TURN: {
                     if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
-                        this.playerLbl.setText(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
+                        this.playerLbl.setText("Current Player: " + riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
                         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
@@ -300,12 +302,12 @@ public class GamePanel extends JPanel implements SelectedListener {
                 if (operation instanceof TerritorySelected) {
                     app.selectTerritory(((TerritorySelected) operation).getSelectedName());
                     stateImage1.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
-                    SvgState1=stateImage1.getAsComponent();
+                    SvgState1 = stateImage1.getAsComponent();
                 }
                 if (operation instanceof TerritoryUnselected) {
                     app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
-                    StateImage stateImage=new StateImage(new File(NULL_SVG));
-                    SvgState1=stateImage.getAsComponent();
+                    StateImage stateImage = new StateImage(new File(NULL_SVG));
+                    SvgState1 = stateImage.getAsComponent();
                 }
                 if (operation instanceof Attack) {
                     app.selectTerritory(((Attack) operation).getToName());
@@ -381,17 +383,17 @@ public class GamePanel extends JPanel implements SelectedListener {
 
     @Override
     public void printSvgState(String territory) {
-
-        if(gameState.getAttackFrom()==null) {
+        if (gameState.getAttackFrom() == null && gameState.getMoveFrom() == null) {
             stateImage1.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
             SvgState1 = stateImage1.getAsComponent();
-
-        }
-        else {
+            stateImage2.createComponents(new File(RESOURCES + "/states/" + "null" + ".svg"));
+            SvgState1 = stateImage1.getAsComponent();
+            SvgState2 = stateImage2.getAsComponent();
+        } else {
             stateImage2.createComponents(new File(RESOURCES + "/states/" + territory + ".svg"));
             SvgState2 = stateImage2.getAsComponent();
-
         }
-        SvgState1.repaint();SvgState1.repaint();
+        SvgState1.repaint();
+        SvgState2.repaint();
     }
 }
