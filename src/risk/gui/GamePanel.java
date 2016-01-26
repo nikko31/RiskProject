@@ -8,7 +8,6 @@ import risk.board.Territory;
 import risk.operations.*;
 import risk.operations.Error;
 import risk.player.Player;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
