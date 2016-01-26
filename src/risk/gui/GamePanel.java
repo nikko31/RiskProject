@@ -1,5 +1,6 @@
 package risk.gui;
 
+import resources.Messages;
 import risk.GameState;
 import risk.Phases;
 import risk.RiskLogic;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @author nikko31
  */
 public class GamePanel extends JPanel implements SelectedListener {
-
+    Messages messages;
     public GamePanel(String default_map, GameState gameState, JFrame gameFrame) {
         this.gameState = gameState;
         initComponents(default_map);
@@ -42,21 +43,21 @@ public class GamePanel extends JPanel implements SelectedListener {
         phaseLbl = new JLabel();
         playerLbl = new JLabel();
         JLabel freeUnitsLbl = new JLabel();
-        JLabel territory1Lbl = new JLabel("Territory 1: ");
-        JLabel territory2Lbl = new JLabel("Territory 2: ");
+        JLabel territory1Lbl = new JLabel(messages.TERRITORY_1);
+        JLabel territory2Lbl = new JLabel(messages.TERRITORY_2);
         troupsLbl = new JLabel();
 
         setLayout(new BorderLayout());
 
-        nextBtn.setText("Next Phase");
+        nextBtn.setText(messages.NEXT_PHASE);
         nextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nextBtnMouseClicked();
             }
         });
         phaseLbl.setForeground(Color.black);
-        phaseLbl.setText("Start");
-        missionBtn.setText("MISSION");
+        phaseLbl.setText(messages.START);
+        missionBtn.setText(messages.MISSION);
         missionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 missionBtnClicked();
@@ -65,9 +66,9 @@ public class GamePanel extends JPanel implements SelectedListener {
 
 
         playerLbl.setForeground(new Color(171, 10, 10));
-        playerLbl.setText("Player");
+        playerLbl.setText(messages.PLAYER);
 
-        freeUnitsLbl.setText("Free Troups: ");
+        freeUnitsLbl.setText(messages.FREE_TROUPS);
 
         troupsLbl.setForeground(Color.black);
         troupsLbl.setText("45");
@@ -123,7 +124,7 @@ public class GamePanel extends JPanel implements SelectedListener {
 
 
         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
-        this.playerLbl.setText("Current Player: " + gameState.getCurrentPlayerTurn().getPlayerName());
+        this.playerLbl.setText(messages.CUR_PLAYER + gameState.getCurrentPlayerTurn().getPlayerName());
         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
 
         this.phaseLbl.setText(gameState.getPhase().toString());
@@ -157,7 +158,7 @@ public class GamePanel extends JPanel implements SelectedListener {
     private void missionBtnClicked() {
         Operation operation = riskLogic.missionBtn();
         JOptionPane.showMessageDialog(
-                this.gameFrame, ((Mission) operation).operationString(), "MISSION", JOptionPane.INFORMATION_MESSAGE
+                this.gameFrame, ((Mission) operation).operationString(), messages.MISSION, JOptionPane.INFORMATION_MESSAGE
         );
 
     }
@@ -226,13 +227,13 @@ public class GamePanel extends JPanel implements SelectedListener {
                 case END_TURN: {
                     if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
-                        this.playerLbl.setText("Current Player: " + riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
+                        this.playerLbl.setText(messages.CUR_PLAYER + riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
                         this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
                     }
                     if (operation instanceof Victory) {
                         JOptionPane.showMessageDialog(
-                                this.gameFrame, (((Victory) operation).getPlayer().getPlayerName()), "WINNER", JOptionPane.WARNING_MESSAGE
+                                this.gameFrame, (((Victory) operation).getPlayer().getPlayerName()), messages.WINNER, JOptionPane.WARNING_MESSAGE
                         );
 
                     }
@@ -243,7 +244,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
 
                 default:
-                    throw new IllegalArgumentException("Invalid card!");
+                    throw new IllegalArgumentException(messages.INVALID_CARD);
             }
         }
 
@@ -282,7 +283,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
-                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                            this.gameFrame, ((Error) operation).getErrorStr(), messages.ERROR, JOptionPane.ERROR_MESSAGE
                     );
                 }
                 break;
@@ -295,7 +296,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
-                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                            this.gameFrame, ((Error) operation).getErrorStr(), messages.ERROR, JOptionPane.ERROR_MESSAGE
                     );
                 }
                 break;
@@ -332,7 +333,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
-                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                            this.gameFrame, ((Error) operation).getErrorStr(), messages.ERROR, JOptionPane.ERROR_MESSAGE
                     );
                 }
                 break;
@@ -354,7 +355,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
-                            this.gameFrame, ((Error) operation).getErrorStr(), "ERROR", JOptionPane.ERROR_MESSAGE
+                            this.gameFrame, ((Error) operation).getErrorStr(), messages.ERROR, JOptionPane.ERROR_MESSAGE
                     );
                 }
 
@@ -366,7 +367,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((Move) operation).getFromName());
                     app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
                     app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
-                    this.phaseLbl.setText("END TURN");
+                    this.phaseLbl.setText(messages.END_TURN);
 
                 }
                 break;

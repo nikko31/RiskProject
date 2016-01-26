@@ -4,6 +4,7 @@ import org.apache.batik.bridge.UpdateManager;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import resources.Messages;
 
 import java.awt.*;
 import java.io.File;
@@ -33,7 +34,7 @@ public class StateImage {
             svgCanvas.setURI(svgFile.toURI().toURL().toString());
 
         } catch (MalformedURLException e) {
-            System.out.println("Error loading svg file " + e);
+            System.out.println(Messages.ERROR_LOADING_SVG + e);
         }
 
     }

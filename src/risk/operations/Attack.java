@@ -1,5 +1,6 @@
 package risk.operations;
 
+import resources.Messages;
 import risk.board.Territory;
 
 public class Attack implements Operation {
@@ -37,6 +38,6 @@ public class Attack implements Operation {
 
     @Override
     public String operationString() {
-        return "ATTACK: " + this.from.getTerritoryName() + " to " + this.to.getTerritoryName();
+        return Messages.ATTACK + this.from.getTerritoryName() + " to " + this.to.getTerritoryName();
     }
 }

@@ -15,6 +15,7 @@ import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.svg.SVGDocument;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.TreeWalker;
+import resources.Messages;
 
 import java.awt.*;
 import java.io.File;
@@ -82,7 +83,7 @@ public class ImageWithClickableParts implements EventListener {
                 }
             });
         } catch (MalformedURLException e) {
-            System.out.println("Error loading svg file " + e);
+            System.out.println(Messages.ERROR_LOADING_SVG + e);
         }
 
     }

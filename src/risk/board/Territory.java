@@ -1,5 +1,6 @@
 package risk.board;
 
+import resources.Messages;
 import risk.GameResources;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Territory {
         } else if (territoryId >= 38 && territoryId <= 41) {
             return 5;
         } else {
-            throw new IllegalArgumentException("Invalide territory Id");
+            throw new IllegalArgumentException(Messages.ERROR_INVALID_TERRITORY_ID);
         }
     }
 
