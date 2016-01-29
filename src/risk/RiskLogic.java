@@ -239,11 +239,20 @@ public class RiskLogic {
     }
 
     //controlla a modo cosa farne
-    public int changeCard(List<Card> cards) {
-        int bonus = Deck.chekCardCombination(cards);
-        if (bonus != 0) {
-            gameState.restoreCards(cards);
+    public int changeCard(List<String> cards) {
+        ArrayList<Card> combocards = new ArrayList<Card>();
+        for (String carta : cards) {
+            System.out.println(Integer.parseInt(carta.substring(0,carta.indexOf(" "))));
+            System.out.println(carta.substring(carta.indexOf(" ") + 1));
+            combocards.add(new Card(Integer.parseInt(carta.substring(0, carta.indexOf(" "))), carta.substring(carta.indexOf(" ")+1)));
         }
+        int bonus = Deck.chekCardCombination(combocards);
+        if (bonus != 0) {
+            gameState.restoreCards(combocards);
+            System.out.println("bonus cards"+ bonus);
+            addBonusUnits(bonus);
+        }
+
 
         return bonus;
     }

@@ -53,7 +53,13 @@ public class Player {
 
     public void removePlayerCard(List<Card> cardsToRemove ){
         for(Card carditer : cardsToRemove){
-            cards.remove(carditer);
+            for(Card cardlist : cards){
+                if(cardlist.getCardId() == carditer.getCardId()){
+                    cards.remove(cardlist);
+                    break;
+                }
+
+            }
         }
     }
 

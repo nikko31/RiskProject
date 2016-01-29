@@ -180,12 +180,13 @@ public class GamePanel extends JPanel implements SelectedListener {
     }
 
     private void cardsBtnClicked() {
-        if(gameState.getPhase()==Phases.BONUS) {
+        List<String> stringChangeCards = new ArrayList<>();
+        if(riskLogic.getGameState().getPhase()==Phases.BONUS) {
             ArrayList<JCheckBox> cards = new ArrayList<>();
             JCheckBox cardSelected;
             final ArrayList<JCheckBox> cardStrings = new ArrayList<>();
             for (Card card : riskLogic.getPlayerCard()) {
-                cardSelected = new JCheckBox(card.toString());
+                cardSelected = new JCheckBox(new Integer(card.getCardId()).toString()+" "+ card.toString() );
                 cardSelected.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -202,7 +203,10 @@ public class GamePanel extends JPanel implements SelectedListener {
             JDialog dialog = optionPane.createDialog(Messages.SELECT_COMBINATION);
             dialog.setVisible(true);
             dialog.dispose();
+
             for (JCheckBox carta : cardStrings) {
+
+                stringChangeCards.add(carta.getText());
                 System.out.println(carta.getText());
             }
         }
@@ -217,6 +221,7 @@ public class GamePanel extends JPanel implements SelectedListener {
             dialog.setVisible(true);
             dialog.dispose();
         }
+        riskLogic.changeCard(stringChangeCards);
     }
 
     private void nextBtnMouseClicked() {
