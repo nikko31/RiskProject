@@ -142,12 +142,15 @@ public class RiskLogic {
                     if (territory == gameState.getMoveFrom()) {
                         gameState.setMoveFrom(null);
                         return new TerritoryUnselected(territory);
-                    } else {
+                    } else if(checkMoveToNeigh(gameState.getMoveFrom(),territory)) {
                         Territory moveFrom = gameState.getMoveFrom();
                         gameState.setMoveTo(territory);
 
                         return new Move(moveFrom, territory);
 
+                    }
+                    else{
+                        return new Error(territory.getTerritoryName() + " you can move only in neighbour ");
                     }
 
                 } else {
