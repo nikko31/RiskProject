@@ -13,7 +13,7 @@
    viewBox="0 0 750 520"
    preserveAspectRatio="xMidYMid meet"
    version="1.2"
-   sodipodi:docname="greenland.svg"
+   sodipodi:docname="alberta.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kris/worldmap.png"
    inkscape:export-xdpi="90"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -65,10 +65,24 @@
        id="feGaussianBlur12873" />
   </filter>
   <path
-     style="fill:yellow;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.32165003;stroke-opacity:0.58527132;stroke-dasharray:none;stroke-dashoffset:0;display:inline;filter:url(#filter12871)"
+     style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.32165003;stroke-opacity:0.58527132;stroke-dasharray:none;stroke-dashoffset:0;display:inline;filter:url(#filter12871)"
      d="m 253.37151,214.74788 c 0,0 0.125,0.125 0.625,1.625 0.5,1.5 0.875,2.5 2,4.5 1.125,2 0.125,8 0.125,8 l 2,2.75 c 0,0 1.625,0.75 2.25,0.875 0.625,0.125 0.375,3.25 0.25,4.5 -0.125,1.25 -1.625,0.625 -2.5,0.875 -0.875,0.25 -1.125,2.375 -1.25,3.625 -0.125,1.25 -2.37151,0.75212 -2.37151,0.75212 0.625,1.25 1.875,1.375 2.375,3.625 0.5,2.25 0.25,1.5 0.875,2.375 0.625,0.875 1.75,1 2,3 0.25,2 0.25,0.875 1.625,3.5 1.375,2.625 0.125,3.75 0.375,6.125 0.25,2.375 1.5,1.5 2.375,2.75 l 0.37151,1.37288 48,-0.125 4,-48.375 c 0,0 -62.875,-1.75 -63.125,-1.75 z"
      id="alaska"
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
-     transform="matrix(6.1527078,0,0,6.9178632,-1542.6058,-1466.9845)" />
+     transform="matrix(6.1527078,0,0,6.9178632,-1542.6058,-1469.1879)" />
+  <text
+     xml:space="preserve"
+     style="font-size:107.87071991px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold"
+     x="40.32494"
+     y="440.29465"
+     id="alberta_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="alberta"
+     transform="scale(0.94301946,1.0604235)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-23"
+       x="40.32494"
+       y="440.29465"
+       style="font-size:107.87071991px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold">ALBERTA</tspan></text>
 </svg>

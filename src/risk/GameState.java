@@ -23,6 +23,16 @@ public class GameState {
     List<Continent> continents;
     private Territory attackFrom;
     private Territory moveFrom;
+    private Territory moveTo;
+
+    public Territory getMoveTo() {
+        return moveTo;
+    }
+
+    public void setMoveTo(Territory moveTo) {
+        this.moveTo = moveTo;
+    }
+
     public boolean initialflag;
     int count;
 
@@ -215,7 +225,7 @@ public class GameState {
     */
 
     public Card takeCard() {
-         return deck.takeCard();
+        return deck.takeCard();
     }
 
     public void restoreCards(List<Card> cards) {
@@ -274,7 +284,7 @@ public class GameState {
 
         ArrayList<Integer> missionkey = new ArrayList<>(GameResources.MISSION_CONTINENT.keySet());
         for (Integer key : missionkey) {
-            missions.add(new MissionContinent(key,GameResources.MISSION_CONTINENT.get(key)));
+            missions.add(new MissionContinent(key, GameResources.MISSION_CONTINENT.get(key)));
         }
 
 

@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,4 +71,18 @@
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
      transform="matrix(5.6265687,0,0,4.3859527,-4665.7102,-2159.9351)" />
+  <text
+     xml:space="preserve"
+     style="font-size:94.60574341px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold"
+     x="6.7550926"
+     y="426.24231"
+     id="alberta_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="alberta"
+     transform="scale(0.82705535,1.2091089)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-23"
+       x="6.7550926"
+       y="426.24231"
+       style="font-size:94.60574341px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold">EASERN AUSTRALIA</tspan></text>
 </svg>

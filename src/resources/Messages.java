@@ -10,6 +10,7 @@ public class Messages {
     public final static String WINNER = "WINNER";
     public final static String CUR_PLAYER = "Current Player: ";
     public final static String MISSION = "MISSION";
+    public final static String CARDS = "CARDS";
     public final static String FREE_TROUPS = "Free Troups: ";
     public final static String PLAYER = "PLAYER";
     public final static String NEXT_PHASE = "Next Phase";
@@ -19,4 +20,7 @@ public class Messages {
     public final static String ERROR_LOADING_SVG = "Error loading svg file ";
     public final static String ERROR_INVALID_TERRITORY_ID = "Invalide territory Id";
     public final static String ATTACK = "ATTACK: ";
+    public final static String SELECT_TROUPS = "select number of troups";
+    public final static String SELECT_COMBINATION = "Select a combination of three cards from your deck";
+    public final static String PLAYER_TAKE_CARD = "player take card";
 }

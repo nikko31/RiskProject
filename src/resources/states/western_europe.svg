@@ -13,7 +13,7 @@
    viewBox="0 0 750 520"
    preserveAspectRatio="xMidYMid meet"
    version="1.2"
-   sodipodi:docname="northern_europe.svg"
+   sodipodi:docname="western_europe.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kris/worldmap.png"
    inkscape:export-xdpi="90"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,4 +71,18 @@
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
      transform="matrix(5.3517187,0,0,5.2265066,-2460.2641,-1540.9315)" />
+  <text
+     xml:space="preserve"
+     style="font-size:69.65355682px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold"
+     x="3.1008875"
+     y="503.66315"
+     id="alberta_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="alberta"
+     transform="scale(1.0064273,0.9936137)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-23"
+       x="3.1008875"
+       y="503.66315"
+       style="font-size:69.65355682px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold">WESTERN EUROPE</tspan></text>
 </svg>

@@ -13,7 +13,7 @@
    viewBox="0 0 750 520"
    preserveAspectRatio="xMidYMid meet"
    version="1.2"
-   sodipodi:docname="kamchatka.svg"
+   sodipodi:docname="afghanistan.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kris/worldmap.png"
    inkscape:export-xdpi="90"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,4 +71,18 @@
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
      transform="matrix(4.6619411,0,0,4.0476194,-2911.7507,-1047.5864)" />
+  <text
+     xml:space="preserve"
+     style="font-size:71.60168457px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold"
+     x="30.964371"
+     y="397.24216"
+     id="afghanistan_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="afghanistan"
+     transform="scale(0.9179288,1.0894091)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-323-8-30"
+       x="30.964371"
+       y="397.24216"
+       style="font-size:71.60168457px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold">AFGHANISTAN</tspan></text>
 </svg>

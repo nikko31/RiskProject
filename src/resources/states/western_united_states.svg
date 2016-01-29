@@ -13,7 +13,7 @@
    viewBox="0 0 750 520"
    preserveAspectRatio="xMidYMid meet"
    version="1.2"
-   sodipodi:docname="quebec.svg"
+   sodipodi:docname="western_united_states.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kris/worldmap.png"
    inkscape:export-xdpi="90"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,4 +71,43 @@
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
      transform="matrix(4.7361533,0,0,6.0569955,-1203.6543,-1566.7815)" />
-</svg>
+  <text
+     xml:space="preserve"
+     style="font-size:61.3342247px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono"
+     x="5.607224"
+     y="430.14639"
+     id="alberta_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="alberta"
+     transform="scale(0.9851625,1.015061)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-23"
+       x="5.607224"
+       y="430.14639"
+       style="font-size:61.3342247px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono">WESTERN </tspan><tspan
+       sodipodi:role="line"
+       x="5.607224"
+       y="506.81415"
+       style="font-size:61.3342247px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono"
+       id="tspan3081">UNITED STATES</tspan></text>
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot3087"
+     style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:eufm10;font-style:normal;font-weight:normal;font-size:48px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:eufm10;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr"><flowRegion
+       id="flowRegion3089"><rect
+         id="rect3091"
+         width="0"
+         height="72.711861"
+         x="220.33899"
+         y="436.27118" /></flowRegion><flowPara
+       id="flowPara3093" /></flowRoot>  <flowRoot
+     xml:space="preserve"
+     id="flowRoot3095"
+     style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:eufm10;font-style:normal;font-weight:normal;font-size:48px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:eufm10;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr"><flowRegion
+       id="flowRegion3097"><rect
+         id="rect3099"
+         width="13.220339"
+         height="79.322037"
+         x="301.86441"
+         y="425.25424" /></flowRegion><flowPara
+       id="flowPara3101" /></flowRoot></svg>

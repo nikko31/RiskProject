@@ -13,7 +13,7 @@
    viewBox="0 0 750 520"
    preserveAspectRatio="xMidYMid meet"
    version="1.2"
-   sodipodi:docname="south_africa.svg"
+   sodipodi:docname="madagascar.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/kris/worldmap.png"
    inkscape:export-xdpi="90"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,4 +71,18 @@
      sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssscsssssssssssssssscsssssssssscssccsscssccssccssssc"
      inkscape:connector-curvature="0"
      transform="matrix(6.5107569,0,0,6.7144237,-4052.3561,-3498.4298)" />
+  <text
+     xml:space="preserve"
+     style="font-size:103.77487183px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800000;fill-opacity:1;stroke:none;display:inline;enable-background:new;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold"
+     x="5.6273289"
+     y="467.55344"
+     id="alberta_text"
+     sodipodi:linespacing="125%"
+     inkscape:label="alberta"
+     transform="scale(0.90721303,1.1022769)"><tspan
+       sodipodi:role="line"
+       id="tspan7513-9-23"
+       x="5.6273289"
+       y="467.55344"
+       style="font-size:103.77487183px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#800000;font-family:Latin Modern Mono;-inkscape-font-specification:Latin Modern Mono Bold">MADAGASCAR</tspan></text>
 </svg>

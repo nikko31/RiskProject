@@ -35,6 +35,8 @@ public class StateImage {
 
         } catch (MalformedURLException e) {
             System.out.println(Messages.ERROR_LOADING_SVG + e);
+        } catch (NullPointerException e) {
+            System.out.println("WARNING: Troppo veloce per rilevare lo stato");
         }
 
     }

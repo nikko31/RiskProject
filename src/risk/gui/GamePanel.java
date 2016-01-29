@@ -4,12 +4,20 @@ import resources.Messages;
 import risk.GameState;
 import risk.Phases;
 import risk.RiskLogic;
+import risk.board.Card;
 import risk.board.Territory;
 import risk.operations.*;
 import risk.operations.Error;
 import risk.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +40,11 @@ public class GamePanel extends JPanel implements SelectedListener {
      */
 
     private void initComponents(String default_map) {
-
         JPanel gamePnl = new JPanel();
         JPanel selTerritoriesPnl = new JPanel();
         JButton nextBtn = new JButton();
         JButton missionBtn = new JButton();
+        final JButton cardsBtn = new JButton();
         phaseLbl = new JLabel();
         playerLbl = new JLabel();
         JLabel freeUnitsLbl = new JLabel();
@@ -55,9 +63,16 @@ public class GamePanel extends JPanel implements SelectedListener {
         phaseLbl.setForeground(Color.black);
         phaseLbl.setText(Messages.START);
         missionBtn.setText(Messages.MISSION);
-        missionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        cardsBtn.setText(Messages.CARDS);
+        missionBtn.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 missionBtnClicked();
+            }
+        });
+        cardsBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cardsBtnClicked();
             }
         });
 
@@ -137,6 +152,8 @@ public class GamePanel extends JPanel implements SelectedListener {
         selTerritoriesPnl.add(SvgState1);
         selTerritoriesPnl.add(territory2Lbl);
         selTerritoriesPnl.add(SvgState2);
+        selTerritoriesPnl.add(missionBtn);
+        selTerritoriesPnl.add(cardsBtn);
 
         selTerritoriesPnl.setBackground(Color.gray);
         /*ImageWithClickableParts app2 = new ImageWithClickableParts(
@@ -155,9 +172,51 @@ public class GamePanel extends JPanel implements SelectedListener {
     private void missionBtnClicked() {
         Operation operation = riskLogic.missionBtn();
         JOptionPane.showMessageDialog(
-                this.gameFrame, operation.operationString(), Messages.MISSION, JOptionPane.INFORMATION_MESSAGE
+                this.gameFrame,
+                operation.operationString(),
+                Messages.MISSION,
+                JOptionPane.INFORMATION_MESSAGE
         );
+    }
 
+    private void cardsBtnClicked() {
+        if(gameState.getPhase()==Phases.BONUS) {
+            ArrayList<JCheckBox> cards = new ArrayList<>();
+            JCheckBox cardSelected;
+            final ArrayList<JCheckBox> cardStrings = new ArrayList<>();
+            for (Card card : riskLogic.getPlayerCard()) {
+                cardSelected = new JCheckBox(card.toString());
+                cardSelected.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (((JCheckBox) e.getSource()).isSelected())
+                            cardStrings.add((JCheckBox) e.getSource());
+                        else
+                            cardStrings.remove(e.getSource());
+                    }
+                });
+                cards.add(cardSelected);
+            }
+            Object[] cardsObj = cards.toArray(new Object[cards.size()]);
+            JOptionPane optionPane = new JOptionPane(cardsObj, JOptionPane.QUESTION_MESSAGE);
+            JDialog dialog = optionPane.createDialog(Messages.SELECT_COMBINATION);
+            dialog.setVisible(true);
+            dialog.dispose();
+            for (JCheckBox carta : cardStrings) {
+                System.out.println(carta.getText());
+            }
+        }
+        else {
+            ArrayList<JLabel>cards=new ArrayList<>();
+            for (Card card : riskLogic.getPlayerCard()) {
+                cards.add(new JLabel(card.toString()));
+            }
+            Object[] cardsObj = cards.toArray(new Object[cards.size()]);
+            JOptionPane optionPane = new JOptionPane(cardsObj, JOptionPane.QUESTION_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Your Cards");
+            dialog.setVisible(true);
+            dialog.dispose();
+        }
     }
 
     private void nextBtnMouseClicked() {
@@ -208,6 +267,22 @@ public class GamePanel extends JPanel implements SelectedListener {
                     break;
                 }
                 case MOVE: {
+                    if (operation instanceof Move) {
+                        Integer choices[] = new Integer[50];
+                        for (int i = 1; i < ((Move) operation).getFrom().getCurrentUnits(); i++)
+                            choices[i - 1] = i;
+                        //show dialog (select troups)
+                        Integer choice = (Integer) JOptionPane.showInputDialog(
+                                this.gameFrame,
+                                Messages.SELECT_TROUPS,
+                                "MOVE",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                choices,
+                                choices[1]
+                        );
+                        riskLogic.makeMove(choice);
+                    }
                     if (operation instanceof NewPhase) {
                         this.phaseLbl.setText(operation.operationString());
                     }
@@ -340,13 +415,36 @@ public class GamePanel extends JPanel implements SelectedListener {
                     app.deselectTerritory(((TerritoryUnselected) operation).getUnselectedName());
                 }
 
+
                 if (operation instanceof Move) {
                     app.selectTerritory(((Move) operation).getToName());
-                    app.deselectTerritory(((Move) operation).getToName());
-                    app.deselectTerritory(((Move) operation).getFromName());
-                    app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
-                    app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
-                    operation = riskLogic.makeMove(territory);
+                    app.selectTerritory(((Move) operation).getFromName());
+                    Integer choices[] = new Integer[50];
+                    for (int i = 1; i < ((Move) operation).getFrom().getCurrentUnits(); i++)
+                        choices[i - 1] = i;
+                    //show dialog (select troups)
+                    Integer choice = (Integer) JOptionPane.showInputDialog(
+                            this.gameFrame,
+                            "select number of troups",
+                            "MOVE",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            choices,
+                            choices[0]
+                    );
+                    if (choice != null) {
+                        operation = riskLogic.makeMove(choice);
+                        app.setUnits(((MoveNumber) operation).getFromName(), ((MoveNumber) operation).getFromUnits());
+                        app.setUnits(((MoveNumber) operation).getToName(), ((MoveNumber) operation).getToUnits());
+                        app.selectTerritory(((MoveNumber) operation).getToName());
+                        app.deselectTerritory(((MoveNumber) operation).getToName());
+                        app.deselectTerritory(((MoveNumber) operation).getFromName());
+                        this.phaseLbl.setText(Messages.END_TURN);
+                    } else {
+                        app.selectTerritory(((Move) operation).getToName());
+                        app.deselectTerritory(((Move) operation).getToName());
+                    }
+
                 }
                 if (operation instanceof Error) {
                     JOptionPane.showMessageDialog(
@@ -356,12 +454,13 @@ public class GamePanel extends JPanel implements SelectedListener {
 
                 break;
             case END_TURN:
-                if (operation instanceof Move) {
-                    app.selectTerritory(((Move) operation).getToName());
-                    app.deselectTerritory(((Move) operation).getToName());
-                    app.deselectTerritory(((Move) operation).getFromName());
-                    app.setUnits(((Move) operation).getFromName(), ((Move) operation).getFromUnits());
-                    app.setUnits(((Move) operation).getToName(), ((Move) operation).getToUnits());
+
+                if (operation instanceof MoveNumber) {
+                    app.selectTerritory(((MoveNumber) operation).getToName());
+                    app.deselectTerritory(((MoveNumber) operation).getToName());
+                    app.deselectTerritory(((MoveNumber) operation).getFromName());
+                    app.setUnits(((MoveNumber) operation).getFromName(), ((MoveNumber) operation).getFromUnits());
+                    app.setUnits(((MoveNumber) operation).getToName(), ((MoveNumber) operation).getToUnits());
                     this.phaseLbl.setText(Messages.END_TURN);
 
                 }

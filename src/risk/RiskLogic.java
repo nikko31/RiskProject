@@ -1,5 +1,6 @@
 package risk;
 
+import resources.Messages;
 import risk.board.Card;
 import risk.board.Continent;
 import risk.board.Deck;
@@ -8,10 +9,7 @@ import risk.operations.*;
 import risk.operations.Error;
 import risk.player.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class RiskLogic {
@@ -30,6 +28,19 @@ public class RiskLogic {
         territories = new ArrayList<>(gameState.getTerritoriesPlayersMap().keySet());
     }
 
+    public Operation makeMove(Integer number) {
+        if (gameState.getPhase() == Phases.MOVE) {
+
+            move(gameState.getCurrentPlayerTurn(), gameState.getMoveFrom(), gameState.getMoveTo(), number);
+            Territory from = gameState.getMoveFrom(), to = gameState.getMoveTo();
+            gameState.setMoveFrom(null);
+            gameState.setMoveTo(null);
+            gameState.nextPhase();
+            return new MoveNumber(from, to, number);
+        } else {
+            return new Error("Invalid Operation");
+        }
+    }
 
     public Operation makeMove(String string) {
         territory = stringToTerritory(string);
@@ -88,13 +99,13 @@ public class RiskLogic {
                             if (cardFlag) {
                                 cardFlag = false;
                                 gameState.getCurrentPlayerTurn().addPlayerCard(gameState.takeCard());
-                                System.out.println("player take card");
+                                System.out.println(Messages.PLAYER_TAKE_CARD);
                             }
                             return new AttackConquest(attackFrom, territory, gameState.getCurrentPlayerTurn().getPlayerColor());
                         }
                         return new Attack(attackFrom, territory);
                     } else {
-                        return new Error(territory.getTerritoryName() + " not in neighbours");
+                        return new Error(territory.getTerritoryName() + " is not a neighbour");
                     }
 
                 }
@@ -133,9 +144,8 @@ public class RiskLogic {
                         return new TerritoryUnselected(territory);
                     } else {
                         Territory moveFrom = gameState.getMoveFrom();
-                        gameState.setMoveFrom(null);
-                        move(gameState.getCurrentPlayerTurn(), moveFrom, territory);
-                        gameState.nextPhase();
+                        gameState.setMoveTo(territory);
+
                         return new Move(moveFrom, territory);
 
                     }
@@ -162,7 +172,7 @@ public class RiskLogic {
         }
         if (gameState.getPhase() == Phases.BONUS) {
             cardFlag = true;
-            for(Card card : gameState.getCurrentPlayerTurn().getCards()){
+            for (Card card : gameState.getCurrentPlayerTurn().getCards()) {
                 System.out.println(card);
             }
             System.out.println(gameState.getCurrentPlayerTurn().getMission().toString());
@@ -227,20 +237,22 @@ public class RiskLogic {
 
         }
     }
+
     //controlla a modo cosa farne
-    public int changeCard(List<Card> cards){
+    public int changeCard(List<Card> cards) {
         int bonus = Deck.chekCardCombination(cards);
-        if(bonus != 0){
+        if (bonus != 0) {
             gameState.restoreCards(cards);
         }
 
         return bonus;
     }
 
-    public Operation getPlayerCard(){
-        return new Cards(gameState.getCurrentPlayerTurn().getCards());
+    public LinkedList<Card> getPlayerCard() {
+        return gameState.getCurrentPlayerTurn().getCards();
     }
-    public Operation missionBtn(){
+
+    public Operation missionBtn() {
         return new Mission(gameState.getCurrentPlayerTurn().getMission().toString());
     }
 
@@ -390,9 +402,9 @@ public class RiskLogic {
 
     //move units in territories from a to
 
-    public void move(Player current_player, Territory from, Territory to) {
-        from.setCurrentUnits(from.getCurrentUnits() - 1);
-        to.setCurrentUnits(to.getCurrentUnits() + 1);
+    public void move(Player current_player, Territory from, Territory to, int number) {
+        from.setCurrentUnits(from.getCurrentUnits() - number);
+        to.setCurrentUnits(to.getCurrentUnits() + number);
     }
 
     //check to have enough units
@@ -414,11 +426,10 @@ public class RiskLogic {
 
     }
 
-    public boolean checkMoveToNeigh(Territory from, Territory to){
-        if(from.isNeighbour(to.getTerritoryID())){
+    public boolean checkMoveToNeigh(Territory from, Territory to) {
+        if (from.isNeighbour(to.getTerritoryID())) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -579,9 +590,5 @@ public class RiskLogic {
 
     public GameState getGameState() {
         return gameState;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
     }
 }
