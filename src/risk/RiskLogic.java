@@ -324,7 +324,7 @@ public class RiskLogic {
             player = gameState.getPlayerTer(to);
             occupyTerritory(attacker, from, to, attackdice - removeatt);
             if (isPlayerOut(player)) {
-                gameState.elimiatePlayer(player);
+                gameState.eliminatePlayer(player);
             }
             return true;
 

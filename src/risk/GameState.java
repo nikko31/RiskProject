@@ -164,9 +164,12 @@ public class GameState {
         return players;
     }
 
-    public void elimiatePlayer(Player player) {
+    public void eliminatePlayer(Player player) {
         players.remove(player);
         players.trimToSize();
+        for(Card card :player.getCards()){
+            currentPlayerTurn.addPlayerCard(card);
+        }
         playerEliminated.put(player.getPlayerColor(), currentPlayerTurn);
         System.out.println(player.getPlayerName() + " is eliminated");
 
