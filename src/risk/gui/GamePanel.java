@@ -216,7 +216,8 @@ public class GamePanel extends JPanel implements SelectedListener {
                 cards.add(new JLabel(card.toString()));
             }
             Object[] cardsObj = cards.toArray(new Object[cards.size()]);
-            JOptionPane optionPane = new JOptionPane(cardsObj, JOptionPane.QUESTION_MESSAGE);
+            JOptionPane optionPane = new JOptionPane(cardsObj, JOptionPane.INFORMATION_MESSAGE);
+
             JDialog dialog = optionPane.createDialog("Your Cards");
             dialog.setVisible(true);
             dialog.dispose();
