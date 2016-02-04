@@ -10,7 +10,7 @@ public class Messages {
     public final static String WINNER = "WINNER";
     public final static String CUR_PLAYER = "Current Player: ";
     public final static String MISSION = "MISSION";
-    public final static String CARDS = "CARDS";
+    public final static String CARDS = " CARDS  ";
     public final static String FREE_TROUPS = "Free Troups: ";
     public final static String PLAYER = "PLAYER";
     public final static String NEXT_PHASE = "Next Phase";

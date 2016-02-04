@@ -154,7 +154,6 @@ public class GamePanel extends JPanel implements SelectedListener {
         selTerritoriesPnl.add(SvgState2);
         selTerritoriesPnl.add(missionBtn);
         selTerritoriesPnl.add(cardsBtn);
-
         selTerritoriesPnl.setBackground(Color.gray);
         /*ImageWithClickableParts app2 = new ImageWithClickableParts(
                 new File("/home/DarkLinux/IdeaProjects/RiskProject/src/resources/states/alaska.svg"),

@@ -109,7 +109,7 @@ public class MissionDefeatPlayer implements Mission {
 
     @Override
     public String toString() {
-        return "you have to defeat: " + this.playerToDef.toString() + " "+ colorToString(playerToDef) + " player, if is your color or someone defeat him," +
+        return "you have to defeat: "/* + this.playerToDef.toString() + " "*/+ colorToString(playerToDef) + " player, if is your color or someone defeat him," +
                 " you have to conquer 24 territories ";
     }
 
