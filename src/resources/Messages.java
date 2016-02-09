@@ -23,4 +23,5 @@ public class Messages {
     public final static String SELECT_TROUPS = "select number of troups";
     public final static String SELECT_COMBINATION = "Select a combination of three cards from your deck";
     public final static String PLAYER_TAKE_CARD = "player take card";
+
 }
