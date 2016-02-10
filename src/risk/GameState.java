@@ -12,15 +12,15 @@ import java.util.*;
 import java.util.List;
 
 public class GameState {
-    ArrayList<Player> players;
-    HashMap<Color, Player> playerEliminated;
-    Player currentPlayerTurn;
-    Phases phase;
-    Phases lastphase;
-    Deck deck;
-    ArrayList<risk.mission.Mission> missions;
-    Map<Territory, Player> territoriesPlayersMap;
-    List<Continent> continents;
+    private ArrayList<Player> players;
+    private HashMap<Color, Player> playerEliminated;
+    private Player currentPlayerTurn;
+    private Phases phase;
+    private Phases lastphase;
+    private Deck deck;
+    private ArrayList<risk.mission.Mission> missions;
+    private Map<Territory, Player> territoriesPlayersMap;
+    private List<Continent> continents;
     private Territory attackFrom;
     private Territory moveFrom;
     private Territory moveTo;

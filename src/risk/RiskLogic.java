@@ -14,11 +14,11 @@ import java.util.*;
 
 public class RiskLogic {
 
-    int firstTurn;
-    Boolean cardFlag;
-    GameState gameState;
-    List<Territory> territories;
-    Territory territory;
+    private int firstTurn;
+    private Boolean cardFlag;
+    private GameState gameState;
+    private List<Territory> territories;
+    private Territory territory;
 
     public RiskLogic(GameState gameState) {
         firstTurn = 0;
@@ -57,7 +57,8 @@ public class RiskLogic {
                 }
             } else {
                 //error not enough units
-                return new Error(territory.getTerritoryName() + "don't have free units");
+                //return new Error(territory.getTerritoryName() + "don't have free units");
+                return new Error("don't have free units");
             }
 
 
@@ -92,10 +93,10 @@ public class RiskLogic {
                     return new TerritoryUnselected(territory);
                 } else {
 
-                    if (checkAttackTo(gameState.currentPlayerTurn, gameState.getAttackFrom(), territory)) {
+                    if (checkAttackTo(gameState.getCurrentPlayerTurn(), gameState.getAttackFrom(), territory)) {
                         Territory attackFrom = gameState.getAttackFrom();
                         gameState.setAttackFrom(null);
-                        if (attack(gameState.currentPlayerTurn, attackFrom, territory)) {
+                        if (attack(gameState.getCurrentPlayerTurn(), attackFrom, territory)) {
                             if (cardFlag) {
                                 cardFlag = false;
                                 gameState.getCurrentPlayerTurn().addPlayerCard(gameState.takeCard());
@@ -105,7 +106,7 @@ public class RiskLogic {
                         }
                         return new Attack(attackFrom, territory);
                     } else {
-                        return new Error(territory.getTerritoryName() + " is not a neighbour");
+                        return new Error(territory.getTerritoryName() + " can't be attacked");
                     }
 
                 }
@@ -127,11 +128,11 @@ public class RiskLogic {
                         return new TerritorySelected(territory);
                     } else {
                         //not enough units in move from
-                        return new Error(territory.getTerritoryName() + " movefrom not enough units");
+                        return new Error(territory.getTerritoryName() + " not enough units");
                     }
                 } else {
                     // move from not in your territories
-                    return new Error(territory.getTerritoryName() + " movefrom not in your territories");
+                    return new Error(territory.getTerritoryName() + " not in your territories");
                 }
 
 
@@ -154,7 +155,7 @@ public class RiskLogic {
                     }
 
                 } else {
-                    return new Error(territory.getTerritoryName() + " moveto not in your territories ");
+                    return new Error(territory.getTerritoryName() + " not in your territories ");
                 }
             }
         }
@@ -468,7 +469,7 @@ public class RiskLogic {
     public int continetsBonus() {
         int flag;
         int unitsBonus = 0;
-        for (Continent conti : gameState.continents) {
+        for (Continent conti : gameState.getContinents()) {
             flag = 1;
             for (Territory territory : conti.getTerritories()) {
                 if (gameState.getPlayerTer(territory) != gameState.getCurrentPlayerTurn()) {

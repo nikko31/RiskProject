@@ -304,7 +304,7 @@ public class GamePanel extends JPanel implements SelectedListener {
                         this.phaseLbl.setText(operation.operationString());
                         this.playerLbl.setText(Messages.CUR_PLAYER + riskLogic.getGameState().getCurrentPlayerTurn().getPlayerName());
                         this.playerLbl.setForeground(riskLogic.getGameState().getCurrentPlayerTurn().getPlayerColor());
-                        this.troupsLbl.setText(Integer.toString(gameState.getCurrentPlayerTurn().getFreeUnits()));
+                        this.troupsLbl.setText(Integer.toString(riskLogic.getGameState().getCurrentPlayerTurn().getFreeUnits()));
                     }
                     if (operation instanceof Victory) {
                         JOptionPane.showMessageDialog(
