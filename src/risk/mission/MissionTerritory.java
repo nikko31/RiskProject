@@ -7,9 +7,6 @@ import risk.player.Player;
 import java.awt.*;
 
 
-/**
- * Created by Federico on 17/12/2015.
- */
 public class MissionTerritory implements Mission {
     private int terrTocon;
     private int numbTroopsForTerr;

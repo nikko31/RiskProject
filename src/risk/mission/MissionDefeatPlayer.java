@@ -5,9 +5,6 @@ import risk.board.Territory;
 import risk.player.Player;
 import java.awt.*;
 
-/**
- * Created by Federico on 17/12/2015.
- */
 public class MissionDefeatPlayer implements Mission {
     private Color playerToDef;
     private boolean firstcheck;

@@ -3,14 +3,10 @@ package risk.mission;
 import risk.GameState;
 import risk.board.Continent;
 import risk.board.Territory;
-import risk.player.Player;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * Created by Federico on 17/12/2015.
- */
+
 public class MissionContinent implements Mission {
     private ArrayList<Integer> contiToCon;
     private int kind;

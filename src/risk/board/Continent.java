@@ -8,8 +8,8 @@ import java.util.List;
  */
 public class Continent {
     private String name;
-    int continentId;
-    List<Territory> territories;
+    private int continentId;
+    private List<Territory> territories;
     private int bonus_armies;
 
     public Continent(int continentId,ArrayList<Territory> territories) {
